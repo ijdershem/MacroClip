@@ -54,3 +54,15 @@
 .game-icon:hover{
     background-color: #b84444;
 }
+
+a { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
