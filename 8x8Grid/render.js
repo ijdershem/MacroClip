@@ -10,7 +10,7 @@ let winningGame = {
 
 $(document).ready( function () {
     $('.tile').val("0");
-    $('.tile').append("<p>Hey</p>");
+    $('.tile').append("<p>Here's a tile</p>");
     $('.tile').click(function(event) {
         alert(this.id);
     });
