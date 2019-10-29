@@ -1,0 +1,10 @@
+div.row {
+    display: flex;
+    flex-direction: row;
+}
+
+div.tile {
+    height: 5%;
+    width: 5%;
+}
+
