@@ -4,16 +4,54 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="stylesheet.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
     </head>
     <body>
         <div id="title-bar">
-            <text>Miniclip.com</text>
+            <div id="menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <text id="title">Miniclip</text>
         </div>
         <div id="game-catalog">
-            <div class="game-icon"></div>
-            <div class="game-icon"></div>
-            <div class="game-icon"></div>
-            <div class="game-icon"></div>
+            <div class="game-icon">
+                <text>Chess</text>
+            </div>
+            <div class="game-icon">
+                <text>Snake</text>
+            </div>
+            <div class="game-icon">
+                <text>2048</text>
+            </div>
+            <div class="game-icon">
+                <text>...</text>
+            </div>
         </div>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+        
+        <!--Set configuration and intialize Firebase-->
+        <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",
+            authDomain: "final-1c393.firebaseapp.com",
+            databaseURL: "https://final-1c393.firebaseio.com",
+            projectId: "final-1c393",
+            storageBucket: "final-1c393.appspot.com",
+            messagingSenderId: "957024138512",
+            appId: "1:957024138512:web:78fcd128830fc176042195",
+            measurementId: "G-3VL4NZZ0RF"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        </script>
     </body>
 </html>

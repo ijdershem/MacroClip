@@ -1,18 +1,56 @@
 #title-bar {
+    font-family: 'Staatliches';
     display: flex;
-    align-content: center;
     justify-content: center;
     font-size: 25pt;
 }
 
+#title {
+    align-self: center;
+    justify-self: center;
+    margin-left: 10px;
+}
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#menu div {
+    width: 20px;
+    height: 5px;
+    margin-bottom: 2px;
+    background-color: #cf4848;
+    border-radius: 2px;
+}
+
+#menu:hover div {
+    background-color: #b84444;
+}
+/* Flex grid layout */
 #game-catalog {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 5% 20% 0 20%
+}
+
+.game-icon { 
+    border-radius: 5px;
+    font-family: 'Staatliches';
+    color: #ffffff;
+    margin-top: 13px;
+    margin-right: 13px;
+    width: 300px;
+    height: 200px;
+    background-color: #cf4848;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-.game-icon {
-    width: 200px;
-    height: 200px;
-    background-color: #cf4848;
+.game-icon:hover{
+    background-color: #b84444;
 }
