@@ -12,7 +12,21 @@ $(document).ready( function () {
     $('.tile').val("0");
     $('.tile').text("");
     $('.tile').click(function(event) {
-        alert(this.id);
+        let index = this.id.toString();
+        let i = index[0];
+        let j = index[1];
+        console.log(i+j);
+
+        let tile = gs.board.get
+
+        // switch(event):
+        //     case:
+        //         break;
+        //     case:
+        //         break;
+        //     case:
+        //         break;
+
     });
 
     for (let i=0; i<8; i++) {
@@ -26,7 +40,7 @@ $(document).ready( function () {
                 $(id).css("border-right", "solid");
             }
             $(id).css("border-color", "#474747");
-            $(id).css("border-width", "4px");
+            $(id).css("border-width", ".5vh");
         }
     }
 });

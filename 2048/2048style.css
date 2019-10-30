@@ -1,0 +1,108 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(218, 170, 218)
+}
+
+div.main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+div.header {
+  display: flex;
+  flex-direction: row;
+}
+
+div.title {
+  width: 50%;
+  display: flex;
+  justify-content: left;
+}
+
+div.score {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+div.board {
+  display:flex;
+  flex-direction: column;
+  border-style: solid;
+  border-color: rgb(80, 80, 80);
+  border-width: 5px;
+  border-radius: 55px;
+  align-self: center;
+  align-items: center;
+  background-color: rgb(80, 80, 80);
+}
+
+div.row {
+  display: flex;
+  flex-direction: row;
+}
+
+div.winScreen {
+  align-self: center;
+  display: none;
+}
+
+div.loseScreen {
+  align-self: center;
+  display: none;
+}
+
+#tile {
+  border-style: solid;
+  border-width: 5px;
+  border-color: rgb(102, 102, 102);
+  border-radius: 55px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background-color: rgb(102, 102, 102);
+}
+
+h2.title {
+  color: white;
+  margin: 5%;
+}
+
+h4 {
+  color: white;
+  align-self: center;
+}
+
+#score {
+  color: white;
+  text-align: right;
+  margin: 5%;
+}
+
+h1 {
+  color: white;
+}
+
+h1.tile {
+  color: rgb(255, 255, 255);
+}
+
+p.tile {
+  padding: 10px;
+  text-align: center;
+}
+
+hr {
+  width: 90%;
+}
+
+form {align-self: center;}
+
+a.resetButton {align-self: center;}

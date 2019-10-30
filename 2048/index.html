@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>2048</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="2048style.css" />
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="title">
+                    <h2 class="title">2048</h2> 
+                </div>
+                <div class="score">
+                    <h2 id="score">Score: 0</h3>
+                </div>
+            </div>
+
+            <hr>
+            <h4>Combine the tiles to get 2048!</h4>
+            <div class="winScreen">
+                <h1>You Win!</h1>
+            </div>
+            <div class="loseScreen">
+                    <h1>You Lose!</h1>
+                </div>
+            <div class ="board">
+                <div id="root"></div>
+            </div>
+
+            <form class="reset" onsubmit="return false">
+                <button class="resetButton">New Game</a>
+            </form>
+        </div>
+
+        <script src="render.js" type="module"></script>
+    </body>
+</html>

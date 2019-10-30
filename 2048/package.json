@@ -1,0 +1,17 @@
+{
+  "name": "a07",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "console": "node -r esm run_in_console.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.26.7",
+    "esm": "^3.2.25",
+    "keypress": "^0.2.1"
+  },
+  "devDependencies": {},
+  "description": ""
+}
