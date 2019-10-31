@@ -8,11 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-<<<<<<< HEAD
   "dependencies": {
     "browser-sync": "^2.26.7"
-  }
-=======
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ijdershem/A426.git"
@@ -21,5 +19,4 @@
     "url": "https://github.com/ijdershem/A426/issues"
   },
   "homepage": "https://github.com/ijdershem/A426#readme"
->>>>>>> b153a98f1db1c1002d4c519056c3867acc31630f
 }
