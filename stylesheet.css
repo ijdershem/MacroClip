@@ -1,26 +1,42 @@
 #title-bar {
-    font-family: 'Staatliches';
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    font-size: 25pt;
-}
-
-#title {
-    align-self: center;
-    justify-self: center;
-    margin-left: 10px;
+    position: relative;
+    align-items: center;
+    font-family: 'Staatliches';
+    font-size: 40pt;
 }
 
 #menu {
+    position: absolute;
+    left: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-self: center;
+    margin-left: 10px;
+}
+
+#account-mgmt {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    font-size: 20pt;
+}
+
+#account-mgmt a {
+    color: #383737;
+    text-decoration: none;
+}
+
+#account-mgmt a:hover {
+    color: #b84444;
 }
 
 #menu div {
-    width: 20px;
-    height: 5px;
+    width: 40px;
+    height: 10px;
     margin-bottom: 2px;
     background-color: #cf4848;
     border-radius: 2px;
@@ -34,7 +50,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    padding: 5% 20% 0 20%
+    padding: 10px 20% 0 20%
 }
 
 .game-icon { 
@@ -55,7 +71,7 @@
     background-color: #b84444;
 }
 
-a { 
+.game-link { 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,4 +81,42 @@ a {
     height: 100%;
     width: 100%;
     text-align: center;
+}
+
+#login-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Staatliches';
+    color: #383737;
+    margin: 100px auto;
+    width: 20%;
+    font-size: 20pt;
+}
+
+#login-div input {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+    outline: none;
+    border-radius: 5px;
+    border: solid;
+    border-color: #838282;
+}
+
+#login-div button {
+    font-family: 'Staatliches';
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid;
+    height: 30px;
+    border-color: #ffffff;
+    background-color: #cf4848;
+    outline: none;
+}
+
+#login-div button:hover {
+    background-color:  #b84444;
 }
