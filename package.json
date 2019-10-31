@@ -1,11 +1,19 @@
 {
   "name": "comp426-final",
   "version": "1.0.0",
-  "description": "",
+  "description": "��#\u0000 \u0000A\u00004\u00002\u00006\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ijdershem/A426.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ijdershem/A426/issues"
+  },
+  "homepage": "https://github.com/ijdershem/A426#readme"
 }
