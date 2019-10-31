@@ -199,9 +199,15 @@ export default class Othello{
         this.showMovesCallback.append(callback);
     }
 
-    callShowMovesCallbacks(moves){
+    createShowedMovesAndCallback(){
+        let moveVals = []
+        this.playersMoves.forEach(move =>{
+            moveVals.append({X:move.x,Y:move.y,type:'attack'});
+        });
+        
         this.showMovesCallback.forEach(callback =>{
             callback(this.gameState, moves);
         });
     }
+
 }
