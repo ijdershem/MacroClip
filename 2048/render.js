@@ -18,7 +18,7 @@ $(document).ready( function () {
     gs = game.getGameState();
     game.onMove(function() {});
     game.onLose(function() {
-      $(".loseScreen").css("display", "flex");
+      $(".overlay").css("display", "flex");
       $(".winScreen").css("display", "none");
       $("form").append
     });
@@ -75,7 +75,7 @@ $(document).ready( function () {
         }
       }
       $(".winScreen").css("display", "none");
-      $(".loseScreen").css("display", "none");
+      $(".overlay").css("display", "none");
       $("#score").text("Score: "+game.getGameState().score.toString());
     });
   
