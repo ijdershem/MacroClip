@@ -24,7 +24,6 @@ $(document).ready( function () {
     });
     game.onWin(function() {
       $(".winScreen").css("display", "flex");
-      $("form").append
     });
 
     let root = $("#root");

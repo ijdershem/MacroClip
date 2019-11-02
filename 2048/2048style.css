@@ -71,7 +71,7 @@ div.description {
   align-items: center;
   justify-content: center;
   background-color: rgb(177, 104, 161);
-  margin: 3vw 2vw;
+  margin: 3vh 2vh;
   border-radius: 1vw;;
 }
 
@@ -80,8 +80,8 @@ div.board {
   flex-direction: column;
   border-style: solid;
   border-color: rgb(80, 80, 80);
-  border-width: 5px;
-  border-radius: 55px;
+  border-width: 1vh;
+  border-radius: 6vh;
   align-self: center;
   align-items: center;
   background-color: rgb(80, 80, 80);
@@ -98,11 +98,6 @@ div.winScreen {
   display: none;
 }
 
-div.loseScreen {
-  align-self: center;
-  display: none;
-}
-
 div.overlay{
   display: none;
   flex-direction: column;
@@ -110,10 +105,10 @@ div.overlay{
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 24vh;
-  width: 490px;
-  height: 500px;
-  border-radius: 55px;
+  top: 25vh;
+  width: 45.2vh;
+  height: 35vh;
+  border-radius: 6vh;
   background: rgb(0, 0, 0, .5);
   opacity: 1;
   z-index: 1;
@@ -126,32 +121,34 @@ div.overlay{
 
 #tile {
   border-style: solid;
-  border-width: 5px;
   border-color: rgb(102, 102, 102);
-  border-radius: 55px;
-  margin: 5px;
+  border-radius: 55vh;
+  margin: .4vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
+  width: 11vh;
+  height: 11vh;
   background-color: rgb(102, 102, 102);
 }
 
 h2.title {
   color: white;
   margin: 5%;
+  font-size: 3.5vh;
 }
 
 h4.description {
   color: white;
   align-self: center;
+  font-size: 1.5vh;
 }
 
 #score {
   color: white;
   text-align: right;
   margin: 4vh;
+  font-size: 3.5vh;
 }
 
 h1 {
@@ -160,6 +157,7 @@ h1 {
 
 h1.tile {
   color: rgb(255, 255, 255);
+  font-size: 3vh;
 }
 
 p.tile {
@@ -171,9 +169,9 @@ form {align-self: center;}
 
 button {
   display: inline-block;
-  padding: 15px 25px;
+  padding: 1.5vh 2.5vh;
   margin: 3vh;
-  font-size: 24px;
+  font-size: 2vh;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -207,6 +205,7 @@ a.back {
   width: 8vh;
   height: 8vh;
   background-color: rgb(80, 80, 80);
+  font-size: 3vh;
 }
 
 a.back:hover {
