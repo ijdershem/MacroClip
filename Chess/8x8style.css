@@ -36,7 +36,7 @@ div.back {
 div.headerFill {
     height: 8vh;
     width: 24.6vh;
-    background-color: #523f0e;
+    background-color: #3f310d;
 }
   
 div.title {
@@ -45,7 +45,7 @@ div.title {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #523f0e;
+    background-color: #3f310d;
   
 }
   
@@ -54,7 +54,7 @@ div.score {
     height: 8vh;
     display: flex;
     flex-direction: column;
-    background-color: #523f0e;
+    background-color: #3f310d;
     border-radius: 0 2vh 2vh 0;
     justify-content: center;
 }
@@ -75,7 +75,7 @@ div.board {
     width: 60vh;
     height: 60vh;
     border-style: solid;
-    border-color: #5f4a10;
+    border-color: #3f310d;
     border-radius: 1%;
     border-width: 1vh;
     padding: 0px;
@@ -140,7 +140,7 @@ button {
     font-size: 100%;
     outline: none;
     color: #ffead0;
-    background-color: #523f0e;
+    background-color: #3f310d;
     border: none;
     border-radius: 15px;
     box-shadow: 0 .8vh #81661a;
@@ -165,7 +165,7 @@ button {
     align-items: center;
     width: 8vh;
     height: 8vh;
-    background-color: #523f0e;
+    background-color: #3f310d;
     font-size: 3vh;
   }
   
