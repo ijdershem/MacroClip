@@ -20,17 +20,14 @@ $(document).ready( function () {
             if (i%2 != 0) {
                 if (j%2 == 0) {
                     let id = "#"+i.toString()+j.toString();
-                    $(id).css("background-color", "#3d2f0a");
+                    $(id).css("background-color", "#171717");
                     $(id).css("color", "white");
-                    $(id).css("opacity", ".7");
                 }
             } else {
                 if (j%2 != 0) {
                     let id = "#"+i.toString()+j.toString();
-                    $(id).css("background-color", "#3d2f0a");
+                    $(id).css("background-color", "#171717");
                     $(id).css("color", "white");
-                    $(id).css("border-color", "black");
-                    $(id).css("opacity", ".7");
                 }
             }
         }

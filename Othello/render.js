@@ -39,6 +39,7 @@ $(document).ready( function () {
             if (j != 7) {
                 $(id).css("border-right", "solid");
             }
+
             $(id).css("border-color", "#474747");
             $(id).css("border-width", ".5vh");
         }

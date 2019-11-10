@@ -18,13 +18,12 @@ $(document).ready( function () {
     gs = game.getGameState();
     game.onMove(function() {});
     game.onLose(function() {
-      $(".loseScreen").css("display", "flex");
+      $(".overlay").css("display", "flex");
       $(".winScreen").css("display", "none");
       $("form").append
     });
     game.onWin(function() {
       $(".winScreen").css("display", "flex");
-      $("form").append
     });
 
     let root = $("#root");
@@ -75,7 +74,7 @@ $(document).ready( function () {
         }
       }
       $(".winScreen").css("display", "none");
-      $(".loseScreen").css("display", "none");
+      $(".overlay").css("display", "none");
       $("#score").text("Score: "+game.getGameState().score.toString());
     });
   
@@ -96,15 +95,16 @@ $(document).ready( function () {
 $(document).keydown( function(event) {
   let key = (event.keyCode ? event.keyCode : event.which);
 
-  if (key == 38) {
+  if (key == 38 || key == 87) {
       game.move("up");
-  } else if (key == 40) {
+  } else if (key == 40 || key == 83) {
       game.move("down");
-  } else if (key == 37) {
+  } else if (key == 37 || key == 65) {
       game.move("left");
-  } else if (key == 39) {
+  } else if (key == 39 || key == 68) {
     game.move("right");
-  }
+    // 65left 87up 68right 63down
+  } 
 
   for (let i=0; i<size; i++) {
     for (let j=0; j<size; j++) {

@@ -1,6 +1,8 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(218, 170, 218)
+  background-color: rgb(221, 131, 201);
+  padding: 0;
+  margin: 0;
 }
 
 div.main {
@@ -15,18 +17,62 @@ div.main {
 div.header {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  height: 8vh;
+  width: 98vh;
+  margin-top: 1vh;
+  margin-right: 3vh;
+  margin-left: 3vh;
+  display: flex;
+  flex-direction: row;
+  border-radius: 2vh;
+  box-shadow: 0 7px #999;
+}
+
+div.back {
+  background-color: transparent;
+  height: 8vh;
+  width: 8vh;
+}
+
+div.headerFill {
+  height: 8vh;
+  width: 24.6vh;
+  background-color: rgb(80, 80, 80);
 }
 
 div.title {
-  width: 50%;
+  width: 32.6vh;
+  height: 8vh;
   display: flex;
-  justify-content: left;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(80, 80, 80);
+
 }
 
 div.score {
-  width: 50%;
+  width: 32.6vh;
+  height: 8vh;
   display: flex;
   flex-direction: column;
+  background-color: rgb(80, 80, 80);
+  border-radius: 0 2vh 2vh 0;
+  justify-content: center;
+}
+
+div.description {
+  display: flex;
+  flex-direction: row;
+  width: 50vh;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(177, 104, 161);
+  margin: 3vh 2vh;
+  border-radius: 1vw;;
 }
 
 div.board {
@@ -34,11 +80,12 @@ div.board {
   flex-direction: column;
   border-style: solid;
   border-color: rgb(80, 80, 80);
-  border-width: 5px;
-  border-radius: 55px;
+  border-width: 1vh;
+  border-radius: 6vh;
   align-self: center;
   align-items: center;
   background-color: rgb(80, 80, 80);
+  box-shadow: 0 8px #999;
 }
 
 div.row {
@@ -51,39 +98,57 @@ div.winScreen {
   display: none;
 }
 
-div.loseScreen {
-  align-self: center;
+div.overlay{
   display: none;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 25vh;
+  width: 45.2vh;
+  height: 35vh;
+  border-radius: 6vh;
+  background: rgb(0, 0, 0, .5);
+  opacity: 1;
+  z-index: 1;
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
 }
 
 #tile {
   border-style: solid;
-  border-width: 5px;
   border-color: rgb(102, 102, 102);
-  border-radius: 55px;
-  margin: 5px;
+  border-radius: 55vh;
+  margin: .4vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
+  width: 11vh;
+  height: 11vh;
   background-color: rgb(102, 102, 102);
 }
 
 h2.title {
   color: white;
   margin: 5%;
+  font-size: 3.5vh;
 }
 
-h4 {
+h4.description {
   color: white;
   align-self: center;
+  font-size: 1.5vh;
 }
 
 #score {
   color: white;
   text-align: right;
-  margin: 5%;
+  margin: 4vh;
+  font-size: 3.5vh;
 }
 
 h1 {
@@ -92,6 +157,7 @@ h1 {
 
 h1.tile {
   color: rgb(255, 255, 255);
+  font-size: 3vh;
 }
 
 p.tile {
@@ -99,10 +165,53 @@ p.tile {
   text-align: center;
 }
 
-hr {
-  width: 90%;
-}
-
 form {align-self: center;}
 
-a.resetButton {align-self: center;}
+button {
+  display: inline-block;
+  padding: 1.5vh 2.5vh;
+  margin: 3vh;
+  font-size: 2vh;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 100%;
+  outline: none;
+  color: #ffffff;
+  background-color: rgb(80, 80, 80);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px #999;
+}
+
+button:hover {background-color: rgb(102, 102, 102)}
+
+button:active {
+  background-color: rgb(102, 102, 102);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+a.back {
+  border-radius: 2vh 0 0 2vh;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 8vh;
+  height: 8vh;
+  background-color: rgb(80, 80, 80);
+  font-size: 3vh;
+}
+
+a.back:hover {
+  background-color: rgb(102, 102, 102);
+}
+
+a.back:active {
+  transform: translateY(4px);
+}

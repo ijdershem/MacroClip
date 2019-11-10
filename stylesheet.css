@@ -92,6 +92,7 @@
     color: #383737;
     margin: 100px auto;
     width: 20%;
+    min-width: 275px;
     font-size: 20pt;
 }
 
