@@ -1,6 +1,5 @@
-
-import Piece from "./pieces";
-import nullPiece from "./pieces";
+import Piece from "./Piece";
+import NullPiece from "./NullPiece";
 
 export default class Othello{
     constructor(){
@@ -9,13 +8,13 @@ export default class Othello{
             board: [],
             winner: 'none',
         }
-        resetBoard();
         this.onmoveCallback=[];
         this.removeShowMovesCallback=[];
         this.showMovesCallback=[];
         this.onWinCallback=[];
         this.pieceCallbackArr=[];
         this.playersMoves=[];
+        this.resetBoard();
     }
 
     /**Main input for playing the game. Will process if the move is valid 
@@ -25,16 +24,18 @@ export default class Othello{
      * @param {number} y 
      */
     processInput(x,y){
+        console.log(`input: X:${x}, Y:${y} ... turn: ${this.gameState.turn}`);
+        [x,y]=[y,x];
         let validInput = false;
-        for(element in playerMoves)
+        for(let i=0; i<this.playerMoves.length; i++){
+            let element=this.playerMoves[i];
             if(element.X == x && element.Y==y){
                 validInput = true;
                 break;
             }
+        }
 
-        if(validInput){
-            this.gameState.board[x][y] = new Piece(this.gameState.turn,{X:x,Y:y},this);
-
+        if(validInput){            
             if(this.gameState.board[x][y].hasMoveRight())
                 this.processPieceFlip(x,y,1,0);
             if(this.gameState.board[x][y].hasMoveLeft())
@@ -52,6 +53,7 @@ export default class Othello{
             if(this.gameState.board[x][y].hasMoveUpLeft())
                 this.processPieceFlip(x,y,-1,1);
                 
+            this.gameState.board[x][y] = new Piece(this.gameState.turn,{X:x,Y:y},this);
             this.endTurn();
         }
     }
@@ -65,11 +67,12 @@ export default class Othello{
      */
     processPieceFlip(x,y,xDir, yDir){
         x+=xDir; y+=yDir;
+       
         while((x>=0&&x<8)&&(y>=0&&y<8)){
-            if(this.board[x][y] instanceof nullPiece || this.board[x][y].getColor()==this.gameState.turn)
+            if(this.gameState.board[x][y] instanceof NullPiece || this.gameState.board[x][y].getColor()==this.gameState.turn)
                 break;                
             
-            this.board[x][y].flip();
+            this.gameState.board[x][y].flip();
             x+=xDir; y+=yDir;
         }
     }
@@ -83,24 +86,12 @@ export default class Othello{
         this.gameState.turn = this.gameState.turn=='white'?'black':'white';
         this.callBasicCallbacks(this.pieceCallbackArr);  
         this.callBasicCallbacks(this.onmoveCallback);  
-        this.playerMoves = [];
-        this.gameState.board.forEach(row=>{
-            row.forEach(piece=>{
-                if(piece instanceof nullPiece && piece.hasMove())
-                    this.playersMoves.append(piece.getMove());
-            })
-        });
+        this.findPlayerMoves();
 
         if(this.playerMoves.length==0){
             this.gameState.turn = this.gameState.turn=='white'?'black':'white';
             this.callBasicCallbacks(this.pieceCallbackArr);
-            this.playerMoves = [];
-            this.gameState.board.forEach(row=>{
-                row.forEach(piece=>{
-                    if(piece instanceof nullPiece && piece.hasMove())
-                        this.playersMoves.append(piece.getMove());
-                })
-            });
+            this.findPlayerMoves();
             if(this.playerMoves.length==0){
                 this.onGameOver();
             }
@@ -115,6 +106,7 @@ export default class Othello{
         let whitePieces=0;
         for(let y=0;y<8;y++)
             for(let x=0;x<8;x++)
+                if(!(this.gameState.board[x][y] instanceof NullPiece))
                 if(this.gameState.board[x][y].getColor()=='white')
                     whitePieces++;
                 else
@@ -137,16 +129,22 @@ export default class Othello{
      */
     resetBoard(){
         let resetBoard = new Array();
-        for(let y=0;y<8;y++) 
-            for(let x=0;x<8;x++){
-                if((x==3&&y==3)||(x==4&&y==4))
-                    resetBoard.append(new Piece('white',{X:x,Y:y}, this));
-                else if((x==3&&y==4)||(x==4&&y==3))
-                    resetBoard.append(new Piece('black',{X:x,Y:y}, this));
+        for(let x=0;x<8;x++) {
+            let row = []
+            for(let y=0;y<8;y++){
+                if((y==3&&x==3)||(x==4&&y==4))
+                    row.push(new Piece('white',{X:x,Y:y}, this));
+                else if((y==3&&x==4)||(y==4&&x==3))
+                    row.push(new Piece('black',{X:x,Y:y}, this));
                 else
-                    resetBoard.append(new nullPiece({X:x,Y:y}, this));
+                    row.push(new NullPiece({X:x,Y:y}, this));
             }
-        gameState.board = resetBoard;
+            resetBoard.push(row)
+        }    
+        this.gameState.board = resetBoard;
+
+        this.callBasicCallbacks(this.pieceCallbackArr)
+        this.findPlayerMoves();
     }
 
     resetGame(){
@@ -160,33 +158,50 @@ export default class Othello{
     }
 
     toString(){
-        let result = "";
-        gameState.board.forEach(row => {
+        let result = [':) 0  1  2  3  4  5  6  7'];
+        for(let i = 0; i<this.gameState.board.length;i++){
+            let row = this.gameState.board[i];
+            let rowResult = `${i} `;
             row.forEach(piece=>{
-                result = result.append(`[${piece.toString}]`);
+                rowResult = rowResult.concat(`[${piece.toString()}]`);
             });
-        });
+            result.push(rowResult);
+        }
         return result;
     }
+
+    /**
+     * Searches NullPieces for potential player moves
+     */
+    findPlayerMoves(){
+        this.playerMoves = [];
+        this.gameState.board.forEach(row=>{
+            row.forEach(piece=>{
+                if(piece instanceof NullPiece && piece.hasMove())
+                    this.playerMoves.push(piece.getPos());
+            })
+        });
+    }
+
 
     /**
     *   Callback options with associated call process functions 
     *   Same for all game Implementations
     */
     onWin(callback){
-        this.onWinCallback.append(callback);
+        this.onWinCallback.push(callback);
     }
 
     pieceCallback(callback){
-        this.pieceCallbackArr.append(callback);
+        this.pieceCallbackArr.push(callback);
     }
 
     onMove(callback){
-        this.onmoveCallback.append(callback);
+        this.onmoveCallback.push(callback);
     }
 
     removeShowMoves(callback){
-        this.removeShowMovesCallback.append(callback);
+        this.removeShowMovesCallback.push(callback);
     }
 
     callBasicCallbacks(arr){
@@ -196,13 +211,13 @@ export default class Othello{
     }
 
     showMoves(callback){
-        this.showMovesCallback.append(callback);
+        this.showMovesCallback.push(callback);
     }
 
     createShowedMovesAndCallback(){
         let moveVals = []
         this.playersMoves.forEach(move =>{
-            moveVals.append({X:move.x,Y:move.y,type:'attack'});
+            moveVals.push({X:move.x,Y:move.y,type:'attack'});
         });
         
         this.showMovesCallback.forEach(callback =>{
