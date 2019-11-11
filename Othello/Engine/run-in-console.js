@@ -4,7 +4,7 @@ import Othello from "./Othello";
 keypress(process.stdin);
 
 
-let game = new Othello();
+let game = new Othello(true);
 console.log(game.toString());
 
 game.onMove(gameState => {

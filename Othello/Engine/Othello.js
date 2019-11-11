@@ -1,8 +1,9 @@
 import Piece from "./Piece";
 import NullPiece from "./NullPiece";
+import AI from "./AI";
 
 export default class Othello{
-    constructor(){
+    constructor(hasAI){
         this.gameState = {
             turn: 'white',
             board: [],
@@ -15,6 +16,7 @@ export default class Othello{
         this.pieceCallbackArr=[];
         this.playersMoves=[];
         this.resetBoard();
+        this.AI = hasAI?new AI(this):null;
     }
 
     /**Main input for playing the game. Will process if the move is valid 
@@ -24,7 +26,6 @@ export default class Othello{
      * @param {number} y 
      */
     processInput(x,y){
-        console.log(`input: X:${x}, Y:${y} ... turn: ${this.gameState.turn}`);
         [x,y]=[y,x];
         let validInput = false;
         for(let i=0; i<this.playerMoves.length; i++){
@@ -87,14 +88,20 @@ export default class Othello{
         this.callBasicCallbacks(this.pieceCallbackArr);  
         this.callBasicCallbacks(this.onmoveCallback);  
         this.findPlayerMoves();
+        
+        if(this.AI!=null)
+            this.AI.makeMove(this.gameState);
 
         if(this.playerMoves.length==0){
             this.gameState.turn = this.gameState.turn=='white'?'black':'white';
             this.callBasicCallbacks(this.pieceCallbackArr);
             this.findPlayerMoves();
-            if(this.playerMoves.length==0){
+
+            if(this.playerMoves.length==0)
                 this.onGameOver();
-            }
+            else if(this.AI!=null)
+                this.AI.makeMove(this.gameState);
+            
         }
     }
 
@@ -168,6 +175,10 @@ export default class Othello{
             result.push(rowResult);
         }
         return result;
+    }
+
+    getPlayerMoves(){
+        return this.playerMoves;
     }
 
     /**
