@@ -1,0 +1,29 @@
+td {
+    width: 25px;
+    height: 25px;
+    border: 1px solid black;
+}
+
+.n {
+    background-color: gray;
+}
+
+.s {
+    background-color: green;
+}
+
+.f {
+    background-color: brown;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+table {
+    align-self: center;
+}
