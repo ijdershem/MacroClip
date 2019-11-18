@@ -1,3 +1,12 @@
+body {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+#home-container {
+    display: flex;
+    flex-direction: row;
+}
 #title-bar {
     display: flex;
     flex-direction: row;
@@ -16,6 +25,16 @@
     justify-content: center;
     align-self: center;
     margin-left: 10px;
+}
+
+#side-bar {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    width: 400px;
+    height: 1000px; /*Make height of whole page*/
+    background-color: #cf4848;
+    display: none;
 }
 
 #account-mgmt {
@@ -96,6 +115,19 @@
     font-size: 20pt;
 }
 
+#user-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Staatliches';
+    color: #383737;
+    margin: 100px auto;
+    width: 20%;
+    min-width: 275px;
+    font-size: 20pt;
+}
+
 #login-div input {
     height: 40px;
     width: 100%;
@@ -118,6 +150,45 @@
     outline: none;
 }
 
+#login-div p {
+    border: 0;
+    margin: 0;
+    margin-right: auto;
+    font-size: 12pt;
+}
+
 #login-div button:hover {
     background-color:  #b84444;
+}
+
+#user-div button {
+    font-family: 'Staatliches';
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid;
+    height: 30px;
+    border-color: #ffffff;
+    background-color: #cf4848;
+    outline: none;
+}
+
+#user-div button:hover {
+    background-color:  #b84444;
+}
+
+#home-btn {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #cf4848; 
+}
+
+#home-btn:hover {
+    background-color: #b84444;
 }
