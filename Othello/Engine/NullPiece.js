@@ -1,34 +1,11 @@
 
-
-class Piece{
-    constructor(color, pos, game){
-        this.color = color;
-        this.pos = pos;
-        this.board = game.getBoard();
-        game.onMove((gameState)=>{
-            this.board = getState.board;
-        });
-    }
-
-    toString(){
-        if(this.color='white')
-            return "W";
-        else   
-            return "B";
-    }
-
-    flip(){
-        this.color = this.color=='white'?'black':'white';
-    }
-}
-
-class nullPiece{
+export default class NullPiece{
     constructor(pos, game){
         this.pos = pos;
         this.turn = 'white';
         this.board = game.getBoard();
-        game.onMove((gameState)=>{
-            this.board = getState.board;
+        game.pieceCallback((gameState)=>{
+            this.board = gameState.board;
             this.turn = gameState.turn;
         });
     }
@@ -37,8 +14,8 @@ class nullPiece{
         return " ";
     }
 
-    getMove(){
-        return this.hasMove()?this.pos:null;
+    getPos(){
+        return this.pos;
     }
 
     hasMoveRight(){
@@ -75,12 +52,19 @@ class nullPiece{
 
     processHasMoves(xDir, yDir){
         let x = this.pos.X+xDir;
-        let y = this.post.Y+yDir;
+        let y = this.pos.Y+yDir;
+       
+      //  if(this.pos.X==4&&this.pos.Y==2)
+       //     console.log((x<0||x>=8||y<0||y>=8) || this.board[x][y] instanceof NullPiece);
+
+        if((x<0||x>=8||y<0||y>=8) || this.board[x][y] instanceof NullPiece)
+            return false;
+
         if(this.board[x][y].getColor()==this.turn)
             return false;
         
         while((x>=0&&x<8)&&(y>=0&&y<8)){
-            if(this.board[x][y] instanceof nullPiece){
+            if(this.board[x][y] instanceof NullPiece){
                 return false;
             }
             if(this.board[x][y].getColor()==this.turn){
@@ -93,6 +77,6 @@ class nullPiece{
 
     hasMove(){
         return (this.hasMoveDown()||this.hasMoveLeft()||this.hasMoveRight()||this.hasMoveUp()||
-                this.hasMoveBottomLeft()||this.hasMoveBottomRight()||this,this.hasMoveUpLeft()||this.hasMoveUpRight());
+                this.hasMoveBottomLeft()||this.hasMoveBottomRight()||this.hasMoveUpLeft()||this.hasMoveUpRight());
     }
 }

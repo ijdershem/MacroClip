@@ -1,0 +1,15 @@
+{
+  "name": "engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Othello.js",
+  "scripts": {
+    "console": "node -r esm run-in-console.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "keypress": "^0.2.1"
+  }
+}
