@@ -10,9 +10,15 @@ export default class AI{
             let moves = this.game.getPlayerMoves();
             moves = this.checkForEdge(moves);
             moves = this.checkForCorner(moves);
+            moves = this.checkForInnerSquare(moves);
             let random = Math.floor(Math.random()*moves.length);
             this.game.processInput(moves[random].Y, moves[random].X);
         }
+    }
+
+    checkForInnerSquare(moveList){
+        let reduced = moveList.filter(move=> (move.X <= 5 && move.X >= 2) && (move.Y >= 2 && move.Y<=5));
+        return reduced.length==0?moveList:reduced;
     }
 
     checkForEdge(moveList){
@@ -24,5 +30,4 @@ export default class AI{
         let reduced = moveList.filter(move=>(move.X==0&&move.Y==0)||(move.X==0&&move.Y==7)||(move.X==7&&move.Y==0)||(move.X==7&&move.Y==7));
         return reduced.length==0?moveList:reduced;
     }
-
 }
