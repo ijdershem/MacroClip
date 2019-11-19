@@ -1,32 +1,38 @@
-let game;
-let size = 0;
-let gs;
-let winningGame = {
-    board: [1024,1024,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    score: 4506,
-    won: false,
-    over: false,
-};
+import Othello from "./Engine/Othello.js";
+
+let game = new Othello(true);
+let gs = game.gameState;
+let tiles = gs.board;
 
 $(document).ready( function () {
-    $('.tile').val("0");
-    $('.tile').text("");
+
+    game.onWin(function() {
+        alert("game over");
+        $(".overlay").css("display", "flex");
+        $(".winScreen").css("display", "none");
+    });
+
     $('.tile').click(function(event) {
+        let gs = game.gameState;
         let index = this.id.toString();
         let i = index[0];
         let j = index[1];
-        console.log(i+j);
+        game.processInput(j, i);
+        tiles = game.getBoard();
+        refreshBoard();
+        console.log(game.toString());
+        if (gs.turn == "white") {
+            $("h4.description").replaceWith("<h4 class='description'>White's turn!<h4>");
+        } else {
+            $("h4.description").replaceWith("<h4 class='description'>Black's turn!<h4>");
+        }
+    });
 
-        let tile = gs.board.get
-
-        // switch(event):
-        //     case:
-        //         break;
-        //     case:
-        //         break;
-        //     case:
-        //         break;
-
+    $('button').click(function() {
+        game.resetGame();
+        tiles = game.getBoard();
+        refreshBoard();
+        $("h4.description").replaceWith("<h4 class='description'>White's turn!<h4>");
     });
 
     for (let i=0; i<8; i++) {
@@ -44,4 +50,27 @@ $(document).ready( function () {
             $(id).css("border-width", ".5vh");
         }
     }
+
+    refreshBoard();
+    $("h4.description").replaceWith("<h4 class='description'>White's turn!<h4>");
+
 });
+
+function refreshBoard() {
+    tiles = game.getBoard();
+    for (let i=0; i<tiles.length; i++) {
+        for (let j=0; j<tiles.length; j++) {
+            let did = "#"+i.toString()+j.toString();
+            let pid = "#p"+i.toString()+j.toString();
+            $(did).empty();
+
+            if(tiles[i][j].toString() == "W") {
+                $(did).append('<div id="'+pid+'" class="piece white"></div>');
+            } else if(tiles[i][j].toString() == "B") {
+                $(did).append('<div id="'+pid+'" class="piece black"></div>');
+            } else {
+                $(did).empty();
+            }
+        }
+    }
+}

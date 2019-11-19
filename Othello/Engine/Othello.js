@@ -1,6 +1,6 @@
-import Piece from "./Piece";
-import NullPiece from "./NullPiece";
-import AI from "./AI";
+import Piece from "./Piece.js";
+import NullPiece from "./NullPiece.js";
+import AI from "./AI.js";
 
 export default class Othello{
     constructor(hasAI){
@@ -161,7 +161,7 @@ export default class Othello{
             board: [],
             winner: 'none',
         }
-        resetBoard();
+        this.resetBoard();
     }
 
     toString(){
