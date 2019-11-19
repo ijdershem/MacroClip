@@ -5,14 +5,33 @@
         <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
     </head>
     <body>
+        <a href='index.html'>
+            <div id="home-btn">
+                <img alt='Home icon to return to home page' src='images/home.svg' style='width: 70%'>
+            </div>
+        </a>
         <div id="login-div">
             <h3>Log In or Sign Up</h3>
+            <p>Email: </p>
             <input type="email" placeholder="Email..." id="email-field"/>
+            <p>Password: </p>
             <input type="password" placeholder="Password..." id="password-field"/>
-            <button onclick="login()">Log In</button>
-            <button>Sign Up</button>
+            <button id='log-in-btn' onclick="login()">Log In</button>
+            <button id='sign-up-btn' onclick="displaySignup()">Sign Up</button>
+        </div>
+        <div id="user-div">
+            <h3 id=user-name>Username</h3>
+            <button onclick="signout()">Log Out</button>
         </div>
     </body>
 
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+    
+    <!--Set configuration, intialize Firebase, and load accnt mgmt script-->
     <script src="account_script.js"></script>
 </html>
