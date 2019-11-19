@@ -16,12 +16,12 @@
             <input type="email" placeholder="Email..." id="email-field"/>
             <p>Password: </p>
             <input type="password" placeholder="Password..." id="password-field"/>
-            <button id='log-in-btn' onclick="login()">Log In</button>
-            <button id='sign-up-btn' onclick="displaySignup()">Sign Up</button>
+            <button id='log-in-btn'>Log In</button>
+            <button id='sign-up-btn'>Sign Up</button>
         </div>
         <div id="user-div">
             <h3 id=user-name>Username</h3>
-            <button onclick="signout()">Log Out</button>
+            <button id='sign-out-btn'>Log Out</button>
         </div>
     </body>
 
@@ -33,5 +33,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     
     <!--Set configuration, intialize Firebase, and load accnt mgmt script-->
-    <script src="account_script.js"></script>
+    <script src="account_script.js" type='module'></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </html>
