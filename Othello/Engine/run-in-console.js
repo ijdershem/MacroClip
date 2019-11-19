@@ -4,10 +4,11 @@ import Othello from "./Othello";
 keypress(process.stdin);
 
 
-let game = new Othello(true);
+let game = new Othello(false);
 console.log(game.toString());
 
 game.onMove(gameState => {
+    console.log(`White: ${gameState.whitePieces}  Black: ${gameState.blackPieces}`);
     console.log(game.toString());
     // console.log(game.gameState);
 });

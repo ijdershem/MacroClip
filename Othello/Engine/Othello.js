@@ -8,6 +8,8 @@ export default class Othello{
             turn: 'white',
             board: [],
             winner: 'none',
+            whitePieces: 2,
+            blackPieces: 2
         }
         this.onmoveCallback=[];
         this.removeShowMovesCallback=[];
@@ -55,6 +57,11 @@ export default class Othello{
                 this.processPieceFlip(x,y,-1,1);
                 
             this.gameState.board[x][y] = new Piece(this.gameState.turn,{X:x,Y:y},this);
+            if(this.gameState.turn=='black')
+                this.gameState.blackPieces++;
+            else
+                this.gameState.whitePieces++;
+            
             this.endTurn();
         }
     }
@@ -74,6 +81,13 @@ export default class Othello{
                 break;                
             
             this.gameState.board[x][y].flip();
+            if(this.gameState.turn=='white'){
+                this.gameState.whitePieces++;
+                this.gameState.blackPieces--;
+            }else{
+                this.gameState.whitePieces--;
+                this.gameState.blackPieces++;
+            }
             x+=xDir; y+=yDir;
         }
     }
@@ -109,17 +123,12 @@ export default class Othello{
      * tallies amount of pieces on each side and updates winner
      */
     onGameOver(){
-        let blackPieces=0;
-        let whitePieces=0;
-        for(let y=0;y<8;y++)
-            for(let x=0;x<8;x++)
-                if(!(this.gameState.board[x][y] instanceof NullPiece))
-                if(this.gameState.board[x][y].getColor()=='white')
-                    whitePieces++;
-                else
-                    blackPieces++;
-
-        this.gameState.winner = blackPieces==whitePieces?'draw':blackPieces>whitePieces?'black':'white';
+        if(this.gameState.blackPieces==this.gameState.whitePieces)
+            this.gameState.winner="draw";
+        else if(this.gameState.blackPieces>this.gameState.whitePieces)
+            this.gameState.winner="black";
+        else
+            this.gameState.winner="white";
         this.callBasicCallbacks(this.onWinCallback);            
     }
     
@@ -160,6 +169,8 @@ export default class Othello{
             turn: 'white',
             board: [],
             winner: 'none',
+            whitePieces: 2,
+            blackPieces: 2
         }
         resetBoard();
     }
