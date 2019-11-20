@@ -1,3 +1,5 @@
+import BackEnd from '/backend.js'
+
 var firebaseConfig = {
     apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",
     authDomain: "final-1c393.firebaseapp.com",
@@ -14,7 +16,8 @@ if (!firebase.apps.length) {
 }
 firebase.analytics();
 
-var db = firebase.firestore();
+// var db = firebase.firestore();
+var database = new BackEnd();
 
 firebase.auth().onAuthStateChanged(function(user) {
     let logindiv = document.getElementById("login-div");
@@ -31,6 +34,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         }
 
         userDisplay.style.display = "flex"; 
+        document.getElementById('sign-out-btn').addEventListener('click', signout)
     } else {
         // No user is signed in.
         //TODO: show log in div and hide div displaying users account
@@ -44,8 +48,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         document.getElementById("user-div").style.display = "none";
     }
 });
-
-//firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 function login() {
     let userEmail = document.getElementById("email-field").value;
@@ -101,7 +103,9 @@ function cancelAccountCreation() {
     document.getElementById('cancel-btn').remove();
     document.getElementById('user-field-title').remove();
     document.getElementById('log-in-btn').style.display = 'block';
+    document.getElementById('login-in-btn').addEventListener(login);
     document.getElementById('sign-up-btn').style.display = 'block';
+    document.getElementById('sign-up-btn').addEventListener(displaySignup);
 }
 
 async function createAccount() {
@@ -111,7 +115,7 @@ async function createAccount() {
 
     try {
         let newUser = await firebase.auth().createUserWithEmailAndPassword(userEmail, userPass);
-        db.collection("users").add({
+        database.db.collection("users").add({
             username: userName,
             email: userEmail,
             uid: newUser.user.uid,
@@ -128,14 +132,6 @@ async function createAccount() {
     };
 }
 
-/**
- * TODO: (1) display input divs to create a new user account
- * (2) create a button that accesses the sign up method to create new account 
- * (3) pass in email/username/pass? to create new user account entry in database
- *Fields
- * - displayName:
-*/
-
 function signout() {
     //TODO: implement sign out functionality
     firebase.auth().signOut().then(function() {
@@ -144,3 +140,8 @@ function signout() {
         // An error happened.
       });
 }
+
+$(function(){
+    document.getElementById('sign-up-btn').addEventListener('click', displaySignup);
+    document.getElementById('log-in-btn').addEventListener('click', login);
+})
