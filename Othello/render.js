@@ -17,10 +17,10 @@ $(document).ready( function () {
         let index = this.id.toString();
         let i = index[0];
         let j = index[1];
-        game.processInput(j, i);
+        game.processInput(parseInt(j), parseInt(i));
         tiles = game.getBoard();
         refreshBoard();
-        console.log(game.toString());
+        //console.log(game.toString());
         if (gs.turn == "white") {
             $("h4.description").replaceWith("<h4 class='description'>White's turn!<h4>");
         } else {

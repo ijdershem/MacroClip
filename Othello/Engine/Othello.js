@@ -37,7 +37,7 @@ export default class Othello{
                 break;
             }
         }
-
+        
         if(validInput){            
             if(this.gameState.board[x][y].hasMoveRight())
                 this.processPieceFlip(x,y,1,0);
@@ -55,7 +55,8 @@ export default class Othello{
                 this.processPieceFlip(x,y,-1,-1);
             if(this.gameState.board[x][y].hasMoveUpLeft())
                 this.processPieceFlip(x,y,-1,1);
-                
+            
+           
             this.gameState.board[x][y] = new Piece(this.gameState.turn,{X:x,Y:y},this);
             if(this.gameState.turn=='black')
                 this.gameState.blackPieces++;
@@ -74,8 +75,8 @@ export default class Othello{
      * @param {number} yDir 
      */
     processPieceFlip(x,y,xDir, yDir){
-        x+=xDir; y+=yDir;
-       
+        x+=xDir; 
+        y+=yDir;
         while((x>=0&&x<8)&&(y>=0&&y<8)){
             if(this.gameState.board[x][y] instanceof NullPiece || this.gameState.board[x][y].getColor()==this.gameState.turn)
                 break;                

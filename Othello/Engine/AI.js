@@ -8,11 +8,13 @@ export default class AI{
     makeMove(gameState){
         if(gameState.turn == this.color){
             let moves = this.game.getPlayerMoves();
-            moves = this.checkForEdge(moves);
-            moves = this.checkForCorner(moves);
-            moves = this.checkForInnerSquare(moves);
-            let random = Math.floor(Math.random()*moves.length);
-            this.game.processInput(moves[random].Y, moves[random].X);
+            if(moves.length!=0){
+                moves = this.checkForEdge(moves);
+                moves = this.checkForCorner(moves);
+                moves = this.checkForInnerSquare(moves);
+                let random = Math.floor(Math.random()*moves.length);
+                this.game.processInput(moves[random].Y, moves[random].X);
+            }
         }
     }
 
