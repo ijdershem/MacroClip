@@ -1,5 +1,6 @@
 import BackEnd from '/backend.js'
-
+// TODO: 
+// (1) Set display automatically based on current user status
 var firebaseConfig = {
     apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",
     authDomain: "final-1c393.firebaseapp.com",
@@ -17,7 +18,7 @@ if (!firebase.apps.length) {
 firebase.analytics();
 
 // var db = firebase.firestore();
-var database = new BackEnd();
+const database = new BackEnd();
 
 firebase.auth().onAuthStateChanged(function(user) {
     let logindiv = document.getElementById("login-div");
@@ -115,15 +116,7 @@ async function createAccount() {
 
     try {
         let newUser = await firebase.auth().createUserWithEmailAndPassword(userEmail, userPass);
-        database.db.collection("users").add({
-            username: userName,
-            email: userEmail,
-            uid: newUser.user.uid,
-        }).then(function(docRef) {
-            //console.log("Document written with ID: ", docRef.id);
-        }).catch(function(error) {
-            console.error("Error adding document: " + error);
-        })
+        await database.writeNewUser(userName, newUser.user.uid, userEmail);
     } catch(error) {
         // Handle Errors here.
         let errorCode = error.code;

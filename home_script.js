@@ -19,7 +19,17 @@ firebase.analytics();
 
 let currentUser;
 firebase.auth().onAuthStateChanged(function(user) {
-    currentUser = user;
+    if(user) {
+        let acctManage = document.getElementById('account-mgmt');
+        acctManage.children[0].textContent = "My Account";
+        currentUser = user;
+    } else {
+        let acctManage = document.getElementById('acccount-mgmt');
+        acctManage.children[0].textContent = "Sign Up or Log In";
+        currentUser = null;
+    }
+
+    
 });
 
 function loadHome() {
@@ -35,30 +45,39 @@ function loadHome() {
  * and populate side bar with that data
  * (2) create methods for accessing/updating user data within the backend class
  */
-function toggleSideBar() { //Add animation for side-bar display
-    let user;
-    if(currentUser) {
-        user = database.getUserByUID(currentUser.uid);
-    }
+async function toggleSideBar() { //Add animation for side-bar display
     let sideBar = document.getElementById("side-bar");
     if(sideBar.style.display === "none") {
+        await populateSideBar();
         sideBar.style.display = "flex";
     } else {
+        while (sideBar.firstChild) {
+          sideBar.removeChild(sideBar.firstChild);
+        }
         sideBar.style.display = "none";
     }
 }
 
-function populateSideBar() {
-
+async function populateSideBar() {
+   let userData = await getUserData();
+   if(userData) {
+        let sideBar = document.getElementById('side-bar');
+        let currentUser = document.createElement('h1');
+        currentUser.textContent = userData.username;
+        sideBar.appendChild(currentUser);
+   }
 }
 
 
 async function getUserData() { //may want to encapsulate in a class
     let userDetails;
     if(currentUser) {
-        userDetails = await database.getUserByUID(currentUser.uid);
+        userDetails = await database.getUserDataByUID(currentUser.uid);
     }
+    return userDetails;
 }
 
-loadHome();
-
+$(function(){
+    loadHome();
+    document.getElementById('side-bar').style.display = 'none';
+});

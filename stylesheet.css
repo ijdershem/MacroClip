@@ -3,10 +3,12 @@ body {
     margin: 0;
     border: 0;
 }
+
 #home-container {
     display: flex;
     flex-direction: row;
 }
+
 #title-bar {
     display: flex;
     flex-direction: row;
@@ -31,10 +33,16 @@ body {
     padding: 0;
     margin: 0;
     border: 0;
-    width: 400px;
-    height: 1000px; /*Make height of whole page*/
+    width: 400px; 
+    min-height: 100vh;
     background-color: #cf4848;
     display: none;
+}
+
+#side-bar h1 {
+    font-family: 'Staatliches';
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 #account-mgmt {
@@ -103,7 +111,7 @@ body {
 }
 
 #login-div {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
