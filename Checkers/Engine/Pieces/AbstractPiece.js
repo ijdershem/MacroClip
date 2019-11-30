@@ -1,12 +1,22 @@
 
-class AbstractPiece{
+export default class AbstractPiece{
 
     constructor(position, color, game){
         this.position=position;
         this.color=color;
         this.game=game;
         this.moveList=[];
-       this.game.pieceCallback(this.resetEndOfTurn());
+        this.game.pieceCallback(()=>{this.resetEndOfTurn()});
+        this.killed=false;
+    }
+
+    createSelectablePiece(){
+        if(this.hasMove())
+        this.game.addSelectAblePiece({
+            X: this.position.X,
+            Y: this.position.Y,
+            type: this.hasAttack()?'attack':'move'
+        });
     }
 
     resetEndOfTurn(){
@@ -19,7 +29,8 @@ class AbstractPiece{
         if(!(x>=0&&x<8&&y>=0&&y<8)){
             return undefined;
         }
-        if(board[x][y]==null){
+        
+        if(board[y][x]==null){ 
             return {
                 moveX: x,
                 moveY: y,
@@ -27,9 +38,11 @@ class AbstractPiece{
                 posX: this.position.X,
                 posY: this.position.Y
             }
-        }else if(board[x][y].getColor()==this.color){
+        }
+        if(board[y][x].getColor()==this.color){
             return undefined;
-        }else if((x+xDir>=0&&x+xDir<8&&y+yDir>=0&&y+yDir<8)&&board[x+xDir][y+yDir]==null){
+        }
+        if((x+xDir>=0&&x+xDir<8&&y+yDir>=0&&y+yDir<8)&&board[y+yDir][x+xDir]==null){
             return{
                 moveX: x+xDir,
                 moveY: y+yDir,
@@ -42,22 +55,23 @@ class AbstractPiece{
     }
 
     hasAttack(){
-        if(!this.hasMove()){
+        if(!this.hasMove())
             return false;
-        }
-        this.moveList.forEach(element=>{
-            if(element.type='attack'){
+        for(let i=0;i<this.moveList.length;i++)
+            if(this.moveList[i].type=='attack')
                 return true;
-            }
-        });
         return false;
     }
 
     getMoveList(){
         let list = this.moveList.filter(element=>{
-            element.type=='attack'
+            return element.type=='attack'
         })
         return list.length==0?this.moveList:list;
+    }
+
+    kill(){
+        this.killed=true;
     }
 
     setPosition(pos){

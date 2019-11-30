@@ -1,9 +1,11 @@
 import AbstractPiece from "./AbstractPiece.js"
 
-class King extends AbstractPiece{
+export default class King extends AbstractPiece{
     constructor(position, color, game){
         super(position, color, game);
-        this.game.addSelectAblePieceCallback(function(gameState){return createSelectablePiece(gameState)});
+        this.game.addSelectAblePieceCallback((gameState)=>{
+            if(gameState.turn==this.color)
+            return this.createSelectablePiece()});
     }
 
     toString(){
@@ -11,6 +13,9 @@ class King extends AbstractPiece{
     }
 
     hasMove(){
+        if(this.killed){
+            return false;
+        }
         if(this.moveList.length > 0){
             return true;
         }
@@ -24,7 +29,6 @@ class King extends AbstractPiece{
             if(element!=undefined){
                 moveFlag=true;
                 this.moveList.push(element);
-                this.game.addSelectAblePiece(element);
             }
         });
         return moveFlag;

@@ -1,5 +1,4 @@
 
-
 export default class Piece{
     constructor(color, pos, game){
         this.color = color;
@@ -22,4 +21,3 @@ export default class Piece{
         this.color = this.color=='white'?'black':'white';
     }
 }
-
