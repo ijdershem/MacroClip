@@ -7,9 +7,9 @@ let tiles = gs.board;
 $(document).ready( function () {
 
     game.onWin(function() {
-        alert("game over");
-        $(".overlay").css("display", "flex");
-        $(".winScreen").css("display", "none");
+        gs.winner == 'white'?
+            $("h4.description").replaceWith("<h4 class='won'>White wins! Play again?<h4>") : 
+            $("h4.description").replaceWith("<h4 class='won'>Black wins! Play again?<h4>");
     });
 
     $('.tile').click(function(event) {
@@ -17,6 +17,7 @@ $(document).ready( function () {
         let index = this.id.toString();
         let i = index[0];
         let j = index[1];
+
         game.processInput(parseInt(j), parseInt(i));
         tiles = game.getBoard();
         refreshBoard();
@@ -32,7 +33,9 @@ $(document).ready( function () {
         game.resetGame();
         tiles = game.getBoard();
         refreshBoard();
+        $(".winScreen p").remove();
         $("h4.description").replaceWith("<h4 class='description'>White's turn!<h4>");
+        $(".won").remove();
     });
 
     for (let i=0; i<8; i++) {
@@ -73,4 +76,6 @@ function refreshBoard() {
             }
         }
     }
+
+    $("#score").replaceWith('<h2 id="score">W: '+gs.whitePieces+' | B: '+gs.blackPieces+'</h3>');
 }

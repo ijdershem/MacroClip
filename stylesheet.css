@@ -83,6 +83,10 @@ body {
     color: #b84444;
 }
 
+#main-container {
+    width: 100%;
+}
+
 #menu div {
     width: 40px;
     height: 10px;
@@ -99,11 +103,11 @@ body {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    padding: 10px 20% 0 20%
+    padding: 10px 20% 0 20%;
 }
 
 .game-icon { 
-    border-radius: 5px;
+    border-radius:2vh;
     font-family: 'Staatliches';
     font-size: 30px;
     color: #ffffff;
@@ -115,10 +119,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 9px rgb(151, 54, 54);
+    transition: transform .1s, box-shadow .1s;
 }
 
 .game-icon:hover{
     background-color: #b84444;
+}
+
+.game-icon:active {
+    background-color: #a53838;
+    transform: translateY(6px);
+    box-shadow: 0 3px rgb(151, 54, 54);
 }
 
 .game-link { 

@@ -145,6 +145,7 @@ button {
     border-radius: 15px;
     box-shadow: 0 .8vh #81661a;
     font-size: 2vh;
+    transition: box-shadow .1s, transform .1s;
   }
   
   button:hover {background-color: #6b5015}
@@ -167,6 +168,7 @@ button {
     height: 8vh;
     background-color: #3f310d;
     font-size: 3vh;
+    transition: transform .1s;
   }
   
   a.back:hover {

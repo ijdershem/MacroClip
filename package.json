@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "browser-sync": "^2.26.7",
-    "firebase": "^7.4.0",
+    "firebase": "^7.5.0",
     "jQuery": "^1.7.4",
     "jquery": "^3.4.1"
   },

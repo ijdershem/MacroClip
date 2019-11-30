@@ -135,6 +135,12 @@ h4.description {
     font-size: 1.5vh;
 }
 
+.won {
+    color: #d8d8d8;
+    align-self: center;
+    font-size: 1.5vh;
+}
+
 #score {
     color: #4b4b4b;
     text-align: right;
@@ -158,6 +164,7 @@ button {
     border: none;
     border-radius: 15px;
     box-shadow: 0 .8vh #a5a5a5;
+    transition: box-shadow .1s, transform .1s;
 }
   
 button:hover {background-color: #c9c9c9}
@@ -180,18 +187,19 @@ a.back {
     height: 8vh;
     background-color: #e7e7e7;
     font-size: 3vh;
+    transition: transform .1s;
 }
   
 a.back:hover {
     background-color: #c9c9c9;
 }
-  
+
 a.back:active {
     transform: translateY(.4vh);
 }
 
 .piece {
-    margin: .2vh 0vh 0vh .2vh;
+    margin: .4vh 0vh 0vh .1vh;
     align-self: center;
     height: 90%;
     width: 90%;
