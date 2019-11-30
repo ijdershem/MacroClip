@@ -9,6 +9,10 @@ body {
     flex-direction: row;
 }
 
+#main-container {
+    width: 100%;
+}
+
 #title-bar {
     display: flex;
     flex-direction: row;
@@ -95,30 +99,52 @@ body {
     background-color: #b84444;
 }
 /* Flex grid layout */
-#game-catalog {
+#icon-catalog {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     padding: 10px 20% 0 20%
 }
 
-.game-icon { 
-    border-radius: 5px;
+.icon-piece { 
     font-family: 'Staatliches';
-    font-size: 30px;
     color: #ffffff;
     margin-top: 13px;
     margin-right: 13px;
-    width: 300px;
+    width: 175px;
     height: 200px;
-    background-color: #cf4848;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.game-icon:hover{
-    background-color: #b84444;
+.icon {
+    background-color: #cf4848;
+    width: 100%;
+    height: 80%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.buy {
+    width: 100%;
+    border-radius: 5px;
+    height: 20%;
+    background-color: #c0c0c0;
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 5px;
+    border-color: #ffffff;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buy:hover{
+    background-color: #b3b3b3;
 }
 
 .game-link { 
@@ -212,14 +238,18 @@ body {
     display: flex;
     justify-content: center;
     align-content: center;
-    margin-top: 10px;
-    margin-left: 10px;
     height: 50px;
     width: 50px;
     border-radius: 50%;
     background-color: #cf4848; 
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 5px auto auto 5px;
 }
 
 #home-btn:hover {
     background-color: #b84444;
 }
+
+

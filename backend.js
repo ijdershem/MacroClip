@@ -119,6 +119,9 @@ export default class BackEnd {
         let docId = await this.getUserDocId(currentUserUID);
 
         let userRef = this.db.collection('users').doc(docId);
+        let userName = await userRef.get().then(function(doc){
+            return doc.data().username;
+        })
         let userStats = await userRef.get().then(function(doc){
             return doc.data().stats;
         });
@@ -130,6 +133,7 @@ export default class BackEnd {
         return userRef.update({
             [gameField]: updatedScores,
         }).then(function(){
+            this.updateTopScores(game, userName, score)
             console.log("Document successfully updated!");
         }).catch(function(error){
             console.error("Error updating document: ", error);
@@ -334,6 +338,17 @@ export default class BackEnd {
 
         await this.db.collection('top_scores').doc(game).set(topScores);
 
+    }
+
+    async getAvatarCollection(){
+        let icons = {};
+        await this.db.collection('images').get().then(async function(querySnapshot){
+            querySnapshot.forEach(async function(doc) {
+                let data = await doc.data();
+                icons[doc.id.toString()] = data.url;
+            });
+        });
+        return icons;
     }
 }
 

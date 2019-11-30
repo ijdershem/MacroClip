@@ -60,10 +60,32 @@ async function toggleSideBar() { //Add animation for side-bar display
 
 async function populateSideBar() {
    let userData = await getUserData();
+   let sideBar = document.getElementById('side-bar');
+   let currentUser = document.createElement('h1');
+   
+   let nav = document.createElement('div');
+   nav.setAttribute('id', "side-bar-div");
+   let storeBtn = document.createElement('h2');
+   storeBtn.textContent = "Store";
+   nav.appendChild(storeBtn);
+   storeBtn.addEventListener('click', function(){
+       window.location.href = "./Store/store.html"
+   });
+
    if(userData) {
-        let sideBar = document.getElementById('side-bar');
-        let currentUser = document.createElement('h1');
         currentUser.textContent = userData.username;
+        let balance = document.createElement('h2');
+        let amount = document.createElement('h2');
+        balance.textContent = "Balance: "
+        amount.textContent = userData.balance + " cr";
+        amount.style.color = "#000000";
+        let topScores = document.createElement('div');
+        sideBar.appendChild(currentUser);
+        sideBar.appendChild(nav);
+        sideBar.appendChild(balance);
+        sideBar.appendChild(amount);
+   } else {
+        currentUser.textContent = "Sign in or Create an Account";
         sideBar.appendChild(currentUser);
    }
 }

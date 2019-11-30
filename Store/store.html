@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Miniclip: Store</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="store_stylesheet.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="home-container">
+            <div id="main-container"> <!--Original home page elements inside this container-->
+                <div id="title-bar">
+                    <a href='../index.html'>
+                        <div id="home-btn">
+                            <img alt='Home icon to return to home page' src='../images/home.svg' style='width: 70%'>
+                        </div>
+                    </a>
+                    <text id="title">MarketPlace</text>
+                    <div id="account-mgmt">
+                        <a href="sign_in.html"><text></text></a>
+                    </div>
+                    <!-- Might want to add a div for current account info -->
+                </div>
+                <div id="icon-catalog">
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+        <!-- Might not be the most recent cdn for firebase storage -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-storage.js"></script>
+        <script src='store_script.js' type='module'></script>
+        <script src="../backend.js" type='module'></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    </body>
+</html>
