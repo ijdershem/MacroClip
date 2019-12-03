@@ -18,9 +18,9 @@ if (!firebase.apps.length) {
 firebase.analytics();
 
 // var db = firebase.firestore();
-const database = new BackEnd();
+const backend = new BackEnd();
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(async function(user) {
     let logindiv = document.getElementById("login-div");
     if (user) {
         // User is signed in.
@@ -31,11 +31,19 @@ firebase.auth().onAuthStateChanged(function(user) {
         let user = firebase.auth().currentUser;
 
         if(user != null) {
-            userDisplay.children[0].textContent = user.email; //Want this to be display name - implement fields to set displayname in signup
+            let userDoc = await backend.getUserDataByUID(user.uid);
+            let userName = userDoc.username;
+            //console.log(userName);
+            userDisplay.children[0].textContent = userName; //Want this to be display name - implement fields to set displayname in signup
         }
 
         userDisplay.style.display = "flex"; 
-        document.getElementById('sign-out-btn').addEventListener('click', signout)
+        await displayUserAccount();
+        let signOutBtn = document.createElement("button");
+        signOutBtn.setAttribute("id", "sign-out-btn");
+        signOutBtn.addEventListener('click', signout);
+        signOutBtn.textContent = "Sign Out";
+        userDisplay.appendChild(signOutBtn);
     } else {
         // No user is signed in.
         //TODO: show log in div and hide div displaying users account
@@ -116,7 +124,7 @@ async function createAccount() {
 
     try {
         let newUser = await firebase.auth().createUserWithEmailAndPassword(userEmail, userPass);
-        await database.writeNewUser(userName, newUser.user.uid, userEmail);
+        await backend.writeNewUser(userName, newUser.user.uid, userEmail);
     } catch(error) {
         // Handle Errors here.
         let errorCode = error.code;
@@ -132,6 +140,63 @@ function signout() {
       }).catch(function(error) {
         // An error happened.
       });
+}
+
+async function displayUserAccount() {
+    let userUid = await backend.getCurrentUserUID();
+    let userDoc = await backend.getUserDataByUID(userUid);
+    let userAvatar = await backend.getUserAvatar(userDoc);
+
+    let userDiv = document.getElementById("user-div");
+    let avatarDiv = document.createElement("div");
+    let avatarImg = document.createElement("img");
+
+    avatarDiv.setAttribute("class", "avatar-div");
+    avatarImg.setAttribute("alt", "Avatar for user");
+
+    if(userAvatar.length > 0) {
+        avatarImg.setAttribute("src", userAvatar);
+        avatarDiv.appendChild(avatarImg);
+        userDiv.appendChild(avatarDiv);
+    } //else display default image (need to get one of these)
+    let userGameScores = await buildUserStatsCard();
+    userDiv.appendChild(userGameScores);
+    //console.log(userDiv);
+}
+
+async function buildUserStatsCard() {
+    let statsDiv = document.createElement("div");
+    statsDiv.setAttribute("id", "stats-div");
+    let userDoc = await backend.getUserDataByUID(await backend.getCurrentUserUID());
+    let userStats = userDoc.stats;
+
+    for (let game in userStats) { //properly retrieving score data, need to convert into cards 
+        console.log(game);
+        if(userStats.hasOwnProperty(game)){
+            let scoreCard = document.createElement("div");
+            scoreCard.setAttribute("class", "score-card");
+            let gameScores = userStats[game];
+            let gameName = document.createElement("p");
+            let displayScoresBtn = document.createElement("div");
+            displayScoresBtn.setAttribute("class", "display-scores");
+
+            gameName.textContent = game;
+            scoreCard.appendChild(gameName);
+            scoreCard.appendChild(displayScoresBtn);
+
+            let scores = document.createElement("div");
+            scores.setAttribute("class", "scores");
+            for(let i = 0; i < gameScores.length; i++) {
+                let score = document.createElement("text");
+                score.textContent = (i + 1) + ": " + gameScores[i];
+                scores.appendChild(score);
+                console.log(gameScores[i]);
+            }
+            scoreCard.appendChild(scores);
+            statsDiv.appendChild(scoreCard);
+        }
+    }
+    return statsDiv;
 }
 
 $(function(){

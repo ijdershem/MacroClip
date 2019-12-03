@@ -24,7 +24,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         acctManage.children[0].textContent = "My Account";
         currentUser = user;
     } else {
-        let acctManage = document.getElementById('acccount-mgmt');
+        let acctManage = document.getElementById('account-mgmt');
         acctManage.children[0].textContent = "Sign Up or Log In";
         currentUser = null;
     }
