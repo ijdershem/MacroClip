@@ -4,7 +4,7 @@
   "description": "",
   "main": "Checkers.js",
   "scripts": {
-    "console": "node -r esm run-in-console.js"
+    "console": "node -r esm run-ain-console.js"
   },
   "author": "",
   "license": "ISC",
