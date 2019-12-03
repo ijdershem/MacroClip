@@ -73,11 +73,13 @@ async function loadStore() {
             icon.setAttribute('class', 'icon');
             buy_btn.setAttribute("class", "buy");
             icon_img.setAttribute("src", url);
+            icon_img.setAttribute("id", icon_name + "_image");
             icon_img.setAttribute('alt', 'Avatar image for ' + icon_name);
             icon_img.style.height = "100%";
             icon_img.style.width = "100%";
 
             buy_btn.appendChild(buy_text);
+            buy_btn.addEventListener('click', purchaseIcon);
             icon.appendChild(icon_img);
 
             icon_piece.appendChild(icon);
@@ -87,8 +89,36 @@ async function loadStore() {
         }
 
     }
-    
+}
 
+async function purchaseIcon() {
+    let icon_name = event.target.parentNode.id;
+    let img_id = icon_name + "_image";
+    let icon_url = document.getElementById(img_id).getAttribute("src");
+    icon_name = icon_name.substring(0, icon_name.indexOf(".")); //strip svg from icon name for purposes of storing in user account (created error where "." delimiter would create unwanted nested field)
+    console.log(icon_name);
+    let currentUserUid = await database.getCurrentUserUID();
+    let currentUser = await database.getUserDataByUID(currentUserUid);
+    let userOwnsIcon = await checkUserOwnsIcon(currentUser.purchased_icons, icon_name);
+
+    if(!userOwnsIcon) {
+        //purchase icon and add to user account
+        await database.purchaseAvatar(currentUserUid, icon_name, icon_url);
+    } else {
+        window.alert("You already own this avatar!");
+    }
+}
+
+async function checkUserOwnsIcon(purchased_icons, icon_name) {
+    console.log(purchased_icons);
+    console.log(icon_name);
+    for(let icon in purchased_icons) {
+        if(icon_name == icon) {
+            console.log("User already owns icon");
+            return true;
+        } 
+    }
+    return false;
 }
 
 $(function(){

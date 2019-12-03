@@ -71,7 +71,7 @@ body {
     position: absolute;
     right: 0;
     margin-right: 10px;
-    font-size: 20pt;
+    font-size: 30px;
 }
 
 #account-mgmt a {
@@ -158,6 +158,12 @@ body {
     font-size: 20pt;
 }
 
+.display-scores { 
+    height: 20px;
+    width: 20px;
+    background-color:#cf4848;
+}
+
 #user-div {
     display: flex;
     flex-direction: column;
@@ -166,6 +172,7 @@ body {
     font-family: 'Staatliches';
     color: #383737;
     margin: 100px auto;
+    margin-top: 10px;
     width: 20%;
     min-width: 275px;
     font-size: 20pt;
@@ -234,4 +241,31 @@ body {
 
 #home-btn:hover {
     background-color: #b84444;
+}
+
+.avatar-div {
+    height: 200px;
+    width: 200px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color:  #cf4848;
+    border-width: 10px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.avatar-div img {
+    width: 100%;
+    margin-top: auto;
+}
+
+.scores {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 20pt;
+}
+
+.score-card text {
+    font-size: 20pt;
 }

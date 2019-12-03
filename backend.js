@@ -85,6 +85,8 @@ export default class BackEnd {
                 checkers: [0,0,0,0,0],
             },
             friends: {},
+            purchased_icons:{},
+            current_icon: "", 
         }
         this.db.collection("users").add(newUser).then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
@@ -134,10 +136,16 @@ export default class BackEnd {
             [gameField]: updatedScores,
         }).then(function(){
             this.updateTopScores(game, userName, score)
-            console.log("Document successfully updated!");
+            //console.log("Document successfully updated!");
         }).catch(function(error){
             console.error("Error updating document: ", error);
         });
+    }
+
+    //takes in user doc and returns link to current chosen avatar if one exists
+    async getUserAvatar(user) {
+        //console.log(user.current_icon);
+        return user.current_icon;
     }
     
     /**
@@ -349,6 +357,21 @@ export default class BackEnd {
             });
         });
         return icons;
+    }
+
+    async purchaseAvatar(currentUserUid, icon_name, icon_url) {
+        let docId = await this.getUserDocId(currentUserUid);
+        let userRef = await this.db.collection('users').doc(docId);
+        let icon_field = "purchased_icons." + icon_name;
+        console.log(icon_field);
+        //Implement check to verify user balance and subtract if purchase is possible
+        return userRef.update({
+            [icon_field]: icon_url,
+        }).then(function(){
+            window.alert("Icon successfully purchased");
+        }).catch(function(error) {
+            window.alert("Something went wrong purchasing this icon");
+        })
     }
 }
 
