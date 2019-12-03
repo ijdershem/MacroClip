@@ -176,13 +176,16 @@ async function buildUserStatsCard() {
             let scoreCard = document.createElement("div");
             scoreCard.setAttribute("class", "score-card");
             let gameScores = userStats[game];
-            let gameName = document.createElement("p");
+            let cardTitleBar = document.createElement("div");
+            cardTitleBar.setAttribute("class", "score-title");
+            let gameName = document.createElement("text");
             let displayScoresBtn = document.createElement("div");
             displayScoresBtn.setAttribute("class", "display-scores");
 
             gameName.textContent = game;
-            scoreCard.appendChild(gameName);
-            scoreCard.appendChild(displayScoresBtn);
+            cardTitleBar.appendChild(gameName);
+            cardTitleBar.appendChild(displayScoresBtn);
+            scoreCard.appendChild(cardTitleBar);
 
             let scores = document.createElement("div");
             scores.setAttribute("class", "scores");

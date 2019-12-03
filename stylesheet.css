@@ -178,6 +178,12 @@ body {
     font-size: 20pt;
 }
 
+.score-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #login-div input {
     height: 40px;
     width: 100%;
