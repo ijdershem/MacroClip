@@ -47,14 +47,14 @@ function loadHome() {
  */
 async function toggleSideBar() { //Add animation for side-bar display
     let sideBar = document.getElementById("side-bar");
-    if(sideBar.style.display === "none") {
-        await populateSideBar();
-        sideBar.style.display = "flex";
+    if(sideBar.style.width != "400px") {
+        setTimeout(function() {populateSideBar();}, 100);
+        sideBar.style.width = '400px';
     } else {
         while (sideBar.firstChild) {
           sideBar.removeChild(sideBar.firstChild);
         }
-        sideBar.style.display = "none";
+        sideBar.style.width = '0';
     }
 }
 
@@ -101,5 +101,5 @@ async function getUserData() { //may want to encapsulate in a class
 
 $(function(){
     loadHome();
-    document.getElementById('side-bar').style.display = 'none';
+    document.getElementById('side-bar').style.width = '0';
 });

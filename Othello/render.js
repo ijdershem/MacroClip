@@ -12,6 +12,13 @@ $(document).ready( function () {
             $("h4.description").replaceWith("<h4 class='won'>Black wins! Play again?<h4>");
     });
 
+    game.onMove(function() {
+        refreshBoard();
+        setTimeout(function() {
+            console.log("hello");
+        }, 2000);
+    });
+
     $('.tile').click(function(event) {
         let gs = game.gameState;
         let index = this.id.toString();
