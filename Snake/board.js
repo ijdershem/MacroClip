@@ -1,49 +1,81 @@
-// import Snake from "./snake";
-import Tile from "./tile.js";
+
+import Snake from "./snake.js";
+// import Tile from "./tile.js";
+// import GameState from "./gameState.js";
 
 export default class Board {
-    // Board size, x and y coordinates for snake start
-    constructor(s,x,y) {
-        this.size = s;
-        this.sqs = s * s;
-        this.snake = [[x,y]];
-        // 2D array in row major order
-        this.bo = [];
-        this.dir = '';
-        this.ate = 0;
+    constructor() {
+        // Vars setting up board
+        this.size = 25;
+        this.startx = 1;
+        this.starty = 1;
+        
+        // Snake array
+        this.snake = new Snake({x:1,y:1});
+        // console.log('head on board:');
+        // console.log(this.snake.getHead());
 
-        this.winArr = [];
+        // Vars for moving
+        this.dir = '';
+
+        // Vars for eating first food
+        // True if player has eaten any food this game
+        this.eaten = false;
+        // Counter to increase snake from 1 to 5 when first food is eaten
+        this.fFood = 0;
+        
+        // Score vars
+        this.score = 0;
+        this.foodScore = 300;
+        this.moveScore = 5;
+
+        // Callback arrays for move and lose events
+        this.moveArr = [];
         this.loseArr = [];
 
-        this.newBoard();
-        this.giveSnake(x,y);
+        // Add food at a random place
+        this.food = {x:0,y:0};
         this.addFood();
+        // console.log('food is at ' + this.food.x + ', ' + this.food.y);
+
+        // console.log(this.toString());
+        // console.log(this.getHead()[0].x);
     }
 
-    // METHODS RELATED TO THE BOARD
+    // GETTERS
 
     getSize() {
         return this.size;
     }
 
-    // METHODS RELATED TO SETTING UP A NEW BOARD
-
-    // Create a new board
-    newBoard() {
-        for(var i=0;i<this.size;i++) {
-            var row = [];
-            for(var j=0;j<this.size;j++) {
-                row.push(new Tile());
-            }
-            this.bo.push(row);
-        }
+    getScore() {
+        return this.score;
     }
 
-    // Create a new snake array
-    newSnake(x,y) {
-        var newS = [[x,y]];
-        this.giveSnake(newS[0]);
-        return newS;
+    getHead() {
+        return this.snake.getHead();
+    }
+
+    getLength() {
+        return this.snake.length;
+    }
+
+    getSnake() {
+        return this.snake.getSnake();
+    }
+
+    getFood() {
+        return this.food;
+    }
+
+    reset() {
+        this.snake = new Snake({x:this.startx,y:this.starty});
+        this.food = null;
+        this.addFood();
+        this.score = 0;
+        this.eaten = false;
+        this.fFood = 0;
+        this.dir = '';
     }
 
     // METHODS RELATED TO MOVE
@@ -51,60 +83,100 @@ export default class Board {
     // Makes a move each time it is time to
     move() {
         // Check if the player has made the first move
-        // console.log('move called');
         if (this.dir == '') {
-            // console.log('no dir');
+            console.log('player has not made a move');
             return;
+        
+        // Check if a move can be made and initiate move or lose
         } else {
-            // console.log('move being made, dir is ' + this.dir + ' and the head is at ' + this.getHead()[0] + ', ' + this.getHead()[1]);
-
-            // Add a new head and set the tile's snake property to true
-            let newH = this.addDir(this.getHead());
-            // console.log('new head is at ' + newH[0] + ', ' + newH[1]);
-            this.snake.unshift(newH);
-            // console.log('new head added, snake is now ' + this.snake.toString());
-
-            // Check if the new head tile is on food
-            if (this.getHeadTile().hasSnake()) {
-                return false;
-            } else {
-                this.giveSnake(newH[0],newH[1]);
-                if (this.getHeadTile().hasFood()) {
-                    // console.log('snake head is on food');
-                    this.getHeadTile().remFood();
-                    this.addFood();
-                    return true;
-                } else {
-                    // Take off tail and set the tile's snake property to false
-                    // console.log('snake head is NOT on food');
-                    let tail = this.snake.pop();
-                    this.takeSnake(tail[0],tail[1]);
-                    // console.log('snake is now ' + this.snake.toString());
-                    return true;
+            console.log('making a move!');
+            // Check if the move results in a loss
+            if (this.checkLose()) {
+                console.log('player lost');
+                // Call lose callbacks
+                for(let i=0;i<this.loseArr.length;i++) {
+                    this.loseArr[i]();
                 }
+
+            // Move is legal; make it
+            } else {
+                console.log('move is legal');
+                this.snake.addHead(this.addDir());
+
+                // Check if the new head is on food
+                if (this.snake.checkColl(this.food)) {
+
+                    // Add a new food and add food points to the score
+                    this.addFood();
+                    this.score += this.foodScore;
+
+                    // Check if this is the first food that has been eaten
+                    if (!this.eaten) {
+                        this.fFood = 3;
+                        this.eaten = true;
+                    }
+
+                // Pop tail off if there is no food, unless the first food counter is > 0
+                } else {
+                    if (this.fFood == 0) {
+                        this.snake.popTail();
+                    } else {
+                        this.fFood--;
+                    }
+                }
+
+                // Add move score 
+                this.score += this.moveScore;
 
             }
 
         }
+        
+        // Call move callbacks
+        for(let i=0;i<this.moveArr.length;i++) {
+            this.moveArr[i]();
+        }
 
     }
 
+    // Checks if a move results in a loss
+    checkLose() {
+        console.log('checking lose');
+        // Find where new head would be
+        let h = this.addDir();
+        console.log('new head is at ' + h.x + ', ' + h.y);
+        // Check if new head is off the board or collides with itself
+        if (Math.max(h.x,h.y) >= this.size) {
+            console.log('snake is out of bounds');
+            return true;
+        } else if (Math.min(h.x,h.y) < 0) {
+            return true;
+        } else if (this.snake.checkColl(h)) {
+            console.log('snake ran into itself');
+            return true;
+        }
+
+        return false;
+    }
+
     // Adds the direction to coordinates to find where the new coordinate is
-    addDir(cor) {
-        // console.log('adding dir to the head')
+    addDir() {
+        let cor = {x:this.getHead().x,y:this.getHead().y};
+        console.log('adding dir to the head, x is ' + cor.x + ' y is ' + cor.y);
         if (this.dir == 'up') {
-            cor[0]--;
-            // console.log('dir is up, cor is now ' + cor.toString());
+            cor.y--;
+            console.log('dir is up, y is now ' + cor.y);
         } else if (this.dir == 'down') {
-            cor[0]++;
-            // console.log('dir is down, cor is now ' + cor.toString());
+            cor.y++;
+            console.log('dir is down, y is now ' + cor.y);
         } else if (this.dir == 'right') {
-            cor[1]++;
-            // console.log('dir is right, cor is now ' + cor.toString());
+            cor.x++;
+            console.log('dir is right, x is now ' + cor.x);
         } else if (this.dir == 'left') {
-            cor[1]--;
-            // console.log('dir is left, cor is now ' + cor.toString());
+            cor.x--;
+            console.log('dir is left, x is now ' + cor.x);
         } else {
+            console.log('problem with addDir');
             return;
         }
 
@@ -112,98 +184,65 @@ export default class Board {
     }
 
     // METHODS FOR CALLBACK WHEN GAME EVENTS HAPPEN
-    
-    onWin(callback) {
-        this.winArr.push(callback);
+
+    onLose(callback) {
+        this.loseArr.push(callback);
     }
 
-    onLose() {
-        this.loseArr.push(callback);
+    onMove(callback) {
+        this.moveArr.push(callback);
     }
 
     // METHODS RELATED TO THE FOOD
 
     addFood() {
-        var xCo = Math.floor(Math.random() * this.bo.length);
-        var yCo = Math.floor(Math.random() * this.bo.length);
-        if (this.bo[xCo][yCo].hasFood() || this.bo[xCo][yCo].hasSnake()) {
+        let xCo = Math.floor(Math.random() * this.size);
+        let yCo = Math.floor(Math.random() * this.size);
+        let cor = {x:xCo,y:yCo};
+
+        if ((this.food == cor) || (this.snake.checkColl({x:xCo,y:yCo}))) {
             if (this.addFood()) {
                 return true;
             }
         } else {
-            this.bo[xCo][yCo].addFood();
+            this.food = cor;
             return true;
         }
 
+        console.log('problem with add food');
         return false;
-    }
-
-    // METHODS RELATED TO THE SNAKE
-
-    // Returns the coordinates of the head of the snake in a [x,y] array
-    getHead() {
-        // console.log(this.snake.toString());
-        return [this.snake[0][0],this.snake[0][1]];
-    }
-
-    // Returns the tile of the head of the snake
-    getHeadTile() {
-        return this.findTile(this.getHead()[0],this.getHead()[1]);
-    }
-
-    // Returns an array of the snake's body coordinates
-    getBody() {
-        return this.snake;
-    }
-
-    // METHODS USED TO CHANGE TILE PROPERTIES
-
-    // Returns the tile at the given coordinates; cor is [x,y]
-    findTile(x,y) {
-        // console.log('board:');
-        // console.log(this.bo[1][1].toString());
-        // console.log(this.bo[y].toString());
-        // console.log('find tile called');
-        return this.bo[y][x];
-    }
-
-    getTileId(x,y) {
-        // console.log('finding tile');
-        let t = this.findTile(x,y);
-        // console.log('found tile: ' + t);
-        return t.getId();
-    }
-
-    // Changes .hasSnake at the tile to 'true'; cor is [x,y]
-    giveSnake(x,y) {
-        this.bo[y][x].addSnake();
-    }
-
-    // Changes .hasSnake at the tile to 'false'; cor is [x,y]
-    takeSnake(x,y) {
-        this.bo[y][x].remSnake();
     }
 
     // METHODS USED TO CHANGE DIRECTIONS
 
     // Changes this.dir
     setDir(d) {
+        if ((this.dir == 'down' || this.dir == 'up') && (d == 'down' || d == 'up')) {
+            return;
+        } else if ((this.dir == 'left' || this.dir == 'right') && (d == 'left' || d == 'right')) {
+            return;
+        }
         this.dir = d;
-        // console.log('dir changed to ' + this.dir);
     }
 
     // METHODS USED TO TEST BOARD
 
     // Print the board and its properties
     toString() {
-        var str = '';
-        for(var i=0;i<this.bo.length;i++) {
-            var row = '';
-            for(var j=0;j<this.bo[i].length;j++) {
-                row += this.bo[i][j].toString();
+        let str = '';
+        for(let i=0;i<this.size;i++) {
+            for(let j=0;j<this.size;j++) {
+                // console.log('****NEW CALL****');
+                // console.log('i is ' + i + ', j is ' + j);
+                if (this.snake.checkColl({x:j,y:i})) {
+                    str += ' s ';
+                } else if ((this.food.x == j) && (this.food.y == i)) {
+                    str += ' f ';
+                } else {
+                    str += '   ';
+                }
             }
-            row += '\n';
-            str += row;
+            str += '\n';
         }
 
         return str;

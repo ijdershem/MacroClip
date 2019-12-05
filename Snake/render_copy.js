@@ -1,6 +1,27 @@
 
 import Board from "./board.js";
-// import Snake from "./snake.js";
+// import Tile from "./tile.js";
+
+
+export const renderBoard = function(bo) {
+    let $board = $("#board");
+
+    let table = '<table id="boTab">';
+
+    for(let i=0;i<bo.getSize();i++) {
+        table += '<tr>';
+        for(let j=0;j<bo.getSize();j++) {
+            table += '<td class="' + bo.getTileId(i,j) + '"></td>';
+        }
+        table += '</tr>';
+    }
+
+    table += '</table>';
+
+    // table += renderLoseModal();
+
+    $board.append(table);
+}
 
 export const renderHeader = function() {
     const $head = $("#header");
@@ -27,68 +48,14 @@ export const renderLength = function(l) {
 }
 
 export const renderLoseModal = function() {
-    let modal = '<div id="modCont" class="modal-content">';
-    modal += '<p class="loseP">You Lost!</p>';
-    modal += '<p id="loseScore" class="loseP">Your score is: 0</p>';
-    modal += '<p id="loseLength" class="loseP">Your snake has a length of 1</p>';
+    let modal = '<div id="loseMod" class="modal">';
+    modal += '<div class="modal-content">';
+    modal += '<p>You Lost!</p>';
     modal += '<button type="button" id="newGMod">New Game</button>';
-    modal += '</div>';
+    modal += '</div></div>';
 
     $("#loseMod").append(modal);
     // return modal;
-}
-
-export const renderLoseStats = function(bo) {
-    let modal = '<p class="loseP">You Lost!</p>';
-    modal += '<p id="loseScore" class="loseP">Your score is: ' + bo.getScore() + '</p>';
-    modal += '<p id="loseLength" class="loseP">Your snake has a length of ' + bo.getSnake().length + '</p>';
-    modal += '<button type="button" id="newGMod">New Game</button>';
-
-    $("#modCont").html('');
-    $("#modCont").html(modal);
-}
-
-export const renderCanvas = function() {
-    let canvas = '<div id="canvasDiv" width="100%">';
-    // canvas += '<canvas id="myCanvas" width="1600" height="800">';
-    canvas += '<canvas id="myCanvas">';
-
-    canvas += '</canvas>';
-    canvas += '</div>';
-
-    $('#board').append(canvas);
-}
-
-export const drawCanvas = function(bo) {
-    let s = bo.getSize();
-    let sn = bo.getSnake();
-    let f = bo.getFood();
-    let canvas = document.getElementById("myCanvas");
-    let w = canvas.width;
-    let h = canvas.height;
-    let bW = w/s;
-    let bH = h/s;
-
-    let ctx = canvas.getContext("2d");
-
-    ctx.clearRect(0,0,w,h);
-
-    ctx.fillStyle = "green";
-    ctx.strokeStyle = "darkgreen";
-    ctx.lineWidth = "3";
-    for(let i=0;i<sn.length;i++) {
-        let sx = sn[i].x;
-        let sy = sn[i].y;
-
-        ctx.fillRect(bW * sx,bH * sy,bW,bH);
-        ctx.strokeRect(bW * sx,bH * sy,bW,bH);
-    }
-
-    ctx.fillStyle = "red";
-    ctx.strokeStyle = "darkred";
-    ctx.lineWidth = "3";
-    ctx.fillRect(bW*f.x,bH*f.y,bW,bH);
-    ctx.strokeRect(bW*f.x,bH*f.y,bW,bH);
 }
 
 export const loadBoardIntoDOM = function() {
@@ -100,51 +67,49 @@ export const loadBoardIntoDOM = function() {
     $root.append('<div id="loseMod" class="modal"></div>');
     // $root.append('<img src="SnakeJPGs/Head.jpg" alt="Snake">');
 
-    let bo = new Board();
-
-    renderCanvas();
-    let canv = document.getElementById('myCanvas');
-    canv.width = document.getElementById('canvasDiv').clientWidth;
-    canv.height = document.getElementById('canvasDiv').clientHeight;
-
-    drawCanvas(bo);
+    let bo = new Board(25,1,1);
 
     bo.onMove(gameState => {
         renderScore(bo.getScore());
         renderLength(bo.getLength());
-        drawCanvas(bo);
-    });
+    })
     
 
     renderHeader();
     renderDesc();
+    renderBoard(bo);
     renderLoseModal();
 
     renderScore(bo.getScore());
     renderLength(bo.getLength());
 
-    let moveInt;
+    var moveInt;
 
     function startMove() {
         moveInt = setInterval(function() {
             bo.move();
+            $("#board").html('');
+            renderBoard(bo);
         },150);
     }
 
     startMove();
 
     bo.onLose(gameState => {
+        // $root.append('<p>You Lost!</p>');
+        console.log('clear interval');
         clearInterval(moveInt);
-        renderLoseStats(bo);
+        console.log('calling onlose');
         $(".modal").css("display","block");
     });
 
     $root.on("click", "#newGMod",null,function() {
         $(".modal").css("display","none");
         bo.reset();
+        $("#board").html('');
+        renderBoard(bo);
         renderScore(bo.getScore());
         renderLength(bo.getLength());
-        drawCanvas(bo);
         startMove();
     });
 

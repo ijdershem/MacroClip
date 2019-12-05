@@ -1,29 +1,262 @@
-td {
-    width: 25px;
-    height: 25px;
-    border: 1px solid black;
-}
+    body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(126, 162, 123);
+    }
 
-.n {
-    background-color: gray;
-}
+    div.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
 
-.s {
-    background-color: green;
-}
-
-.f {
-    background-color: brown;
-}
-
-h1 {
-    text-align: center;
-}
-
-p {
-    text-align: center;
-}
-
-table {
+    div.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     align-self: center;
-}
+    height: 8vh;
+    width: 97vh;
+    margin-top: 1vh;
+    margin-right: 3vh;
+    margin-left: 3vh;
+    display: flex;
+    flex-direction: row;
+    border-radius: 2vh;
+    box-shadow: 0 .8vh rgb(162, 89, 0);
+    }
+
+    div.back {
+    background-color: transparent;
+    height: 8vh;
+    width: 8vh;
+    }
+
+    div.headerFill {
+    height: 8vh;
+    width: 24.6vh;
+    background-color: rgb(106, 58, 0);
+    }
+
+    div.title {
+    width: 32.6vh;
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(106, 58, 0);
+
+    }
+
+    div.score {
+    width: 32.6vh;
+    height: 8vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(106, 58, 0);
+    border-radius: 0 2vh 2vh 0;
+    justify-content: center;
+    }
+
+    div.description {
+    display: flex;
+    flex-direction: row;
+    width: 50vh;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(194, 186, 147);
+    margin: 3vw 2vw;
+    border-radius: 1vw;;
+    }
+
+    div.board {
+    width: 60vh;
+    height: 60vh;
+    border-style: solid;
+    border-color: rgb(106, 58, 0);
+    border-radius: 1%;
+    border-width: 1vh;
+    padding: 0px;
+    margin: 0px;
+    background-color: gray;
+    background-position: center; 
+    box-shadow: 0 .8vh rgb(162, 89, 0);
+    }
+
+    div.modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        top: 50%;
+        width: 30vh;
+        height: 30vh;
+        transform: translate(-50%,-50%);
+        overflow: auto;
+        background-color: darkseagreen;
+        border-style: solid;
+        border-color: rgb(106, 58, 0);
+        border-radius: 1%;
+        border-width: .5vh;
+        align-items: center;
+        box-shadow: 0 .4vh rgb(162, 89, 0);
+    }
+
+    div.modal-content {}
+
+    div.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 12.5%;
+    padding: 0px;
+    margin: 0px;
+    background: transparent;
+    }
+
+    div.tile {
+    font-family: 'Staatliches';
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 12.5%;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    }
+
+    h2.title {
+    color: #ffead0;
+    margin: 5%;
+    font-size: 3.5vh;
+    }
+
+    h4.description {
+    color: #ffffff;
+    align-self: center;
+    font-size: 1.5vh;
+    }
+
+    #score {
+    color: #ffead0;
+    text-align: right;
+    margin: 4vh;
+    font-size: 3.5vh;
+    }
+
+
+    button {
+    display: inline-block;
+    padding: 1.5vh 2.5vh;
+    margin: 3vh;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 100%;
+    outline: none;
+    color: #ffead0;
+    background-color: rgb(106, 58, 0);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 .8vh rgb(162, 89, 0);
+    font-size: 2vh;
+    }
+
+    button:hover {background-color: #6b5015}
+
+    button:active {
+    background-color: #6b5015;
+    box-shadow: 0 5px #81661a;
+    transform: translateY(.4vh);
+    }
+
+    a.back {
+    border-radius: 2vh 0 0 2vh;
+    text-decoration: none;
+    color: #ffead0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 8vh;
+    height: 8vh;
+    background-color: rgb(106, 58, 0);
+    font-size: 3vh;
+    }
+
+    a.back:hover {
+    background-color: #6b5015;
+    }
+
+    a.back:active {
+    transform: translateY(.4vh);
+    }
+
+    .loseP {
+        text-align: center;
+    }
+
+    
+    td {
+        padding: 0px;
+        margin: 0px;
+        width: 4%;
+        height: 4%;
+    }
+    
+
+    .n {
+        background-color: gray;
+    }
+
+    .s {
+        
+        background-color: green;
+        border: rgb(0, 62, 0);
+    }
+
+    .f {
+        background-color: brown;
+        border: black;
+        border-width: 1px;
+    }
+
+    #boTab {
+        align-self: center;
+        width: 100%;
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse;
+    }
+
+    #myCanvas {
+        width: 60vh;
+        height: 60vh;
+    }
+
+    .snakeTab {
+        width: 100%;
+        height: 100%;
+
+    }
+
+    table, td {
+        border: 2px gray;
+    }
+
+    div.modal-content {
+        align-items: center;
+        width: 100%;
+    }
+
+    button {
+        display: flex;
+        justify-content: center;
+    }
