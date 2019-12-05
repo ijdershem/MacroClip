@@ -104,8 +104,8 @@ export default class Othello{
         this.callBasicCallbacks(this.onmoveCallback);  
         this.findPlayerMoves();
         
-        if(this.AI!=null)
-            this.AI.makeMove(this.gameState);
+        //if(this.AI!=null)
+        //    this.AI.makeMove(this.gameState);
 
         if(this.playerMoves.length==0){
             this.gameState.turn = this.gameState.turn=='white'?'black':'white';
@@ -114,10 +114,18 @@ export default class Othello{
 
             if(this.playerMoves.length==0)
                 this.onGameOver();
-            else if(this.AI!=null)
-                this.AI.makeMove(this.gameState);
+        //    else if(this.AI!=null)
+        //        this.AI.makeMove(this.gameState);
             
         }
+    }
+
+    getAIMove(){
+        this.AI.makeMove(this.gameState);
+    }
+
+    playerHasMoves(){
+        return this.playerMoves!=0;
     }
 
     /**
@@ -228,6 +236,9 @@ export default class Othello{
     }
 
     callBasicCallbacks(arr){
+        //console.log(this.gameState.turn);
+        //let copy =  JSON.parse(JSON.stringify(this.gameState));
+
         arr.forEach(callback =>{
             callback(this.gameState);
         });
