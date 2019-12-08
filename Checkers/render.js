@@ -1,11 +1,10 @@
 import Checkers from "./Engine/Checkers.js";
 
-let game = new Checkers(true);
+let game = new Checkers(false);
 let gs = game.gameState;
 let tiles = game.getBoard();
 
 $(document).ready( function () {
-
     for (let i=0; i<8; i++) {
         for (let j=0; j<8; j++) {
             if (i%2 != 0) {
@@ -33,9 +32,12 @@ $('.tile').click(function(event) {
     let i = index[0];
     let j = index[1];
 
-    if (game.isSelectable(i,j)) {
-        
+    game.processInput(j, i);
+
+    if (game.isSelectable(j,i)) {
+        console.log("yep")
     }
+
     tiles = game.getBoard();
     refreshBoard();
 });
@@ -43,7 +45,6 @@ $('.tile').click(function(event) {
 function refreshBoard() {
     tiles = game.getBoard();
     gs = game.gameState;
-    console.log(tiles);
     for (let i=0; i<tiles.length; i++) {
         for (let j=0; j<tiles.length; j++) {
             let did = "#"+i.toString()+j.toString();
@@ -75,4 +76,10 @@ function refreshBoard() {
     }
 
     $("#score").replaceWith('<h2 id="score">W: '+gs.whitePieces+' | B: '+gs.blackPieces+'</h3>');
+
+    for (let i=0; i<game.selectAblePiece.length;i++) {
+        let pid = '#p'+game.selectAblePiece[i].Y+game.selectAblePiece[i].X;
+        $(pid).css('background-color','yellow');
+        $(pid).css('box-shadow', '0 .5vh #b09f1c');
+    }
 }
