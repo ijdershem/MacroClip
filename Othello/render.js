@@ -7,16 +7,24 @@ let tiles = gs.board;
 $(document).ready( function () {
 
     game.onWin(function() {
-        gs.winner == 'white'?
-            $("h4.description").replaceWith("<h4 class='won'>White wins! Play again?<h4>") : 
+        if (gs.winner == 'white') {
+            $("h4.description").replaceWith("<h4 class='won'>White wins! Play again?<h4>");
+        } else {
             $("h4.description").replaceWith("<h4 class='won'>Black wins! Play again?<h4>");
+        }  
     });
 
     game.onMove(function() {
-        refreshBoard();
-        setTimeout(function() {
-            console.log("hello");
-        }, 2000);
+        console.log(gs.turn);
+        if (gs.turn == 'black') {
+            $('.tile').css("pointer-events","none");
+            refreshBoard();
+            setTimeout(function() {
+                game.getAIMove();
+                refreshBoard();
+                $('.tile').css('pointer-events','auto');
+            }, 1000);
+        }   
     });
 
     $('.tile').click(function(event) {
@@ -29,11 +37,6 @@ $(document).ready( function () {
         tiles = game.getBoard();
         refreshBoard();
         //console.log(game.toString());
-        if (gs.turn == "white") {
-            $("h4.description").replaceWith("<h4 class='description'>White's turn!<h4>");
-        } else {
-            $("h4.description").replaceWith("<h4 class='description'>Black's turn!<h4>");
-        }
     });
 
     $('button').click(function() {
@@ -42,7 +45,7 @@ $(document).ready( function () {
         refreshBoard();
         $(".winScreen p").remove();
         $("h4.description").replaceWith("<h4 class='description'>White's turn!<h4>");
-        $(".won").remove();
+        $("h4.won").replaceWith("<h4 class='description'>White's turn!<h4>");
     });
 
     for (let i=0; i<8; i++) {
@@ -68,10 +71,11 @@ $(document).ready( function () {
 
 function refreshBoard() {
     tiles = game.getBoard();
+    gs = game.gameState;
     for (let i=0; i<tiles.length; i++) {
         for (let j=0; j<tiles.length; j++) {
             let did = "#"+i.toString()+j.toString();
-            let pid = "#p"+i.toString()+j.toString();
+            let pid = "p"+i.toString()+j.toString();
             $(did).empty();
 
             if(tiles[i][j].toString() == "W") {
@@ -81,7 +85,18 @@ function refreshBoard() {
             } else {
                 $(did).empty();
             }
+            // $('#'+pid.toString()).css('height','80%');
+            // $('#'+pid.toString()).css('width','80%');
         }
+    }
+
+    // $('.piece').css('width', '80%');
+    // $('.piece').css('height', '80%');
+
+    if (gs.turn == "white") {
+        $("h4.description").replaceWith("<h4 class='description'>White's turn!<h4>");
+    } else {
+        $("h4.description").replaceWith("<h4 class='description'>Black's turn!<h4>");
     }
 
     $("#score").replaceWith('<h2 id="score">W: '+gs.whitePieces+' | B: '+gs.blackPieces+'</h3>');
