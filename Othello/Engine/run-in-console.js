@@ -4,13 +4,13 @@ import Othello from "./Othello";
 keypress(process.stdin);
 
 
-let game = new Othello(true);
+let game = new Othello(false);
 console.log(game.toString());
 
 game.onMove(gameState => {
     console.log(`White: ${gameState.whitePieces}  Black: ${gameState.blackPieces}`);
     console.log(game.toString());
-    setTimeout(function(){console.log(gameState.board)},1000);
+    //setTimeout(function(){console.log(gameState.board)},1000);
     // console.log(game.gameState);
 });
 
