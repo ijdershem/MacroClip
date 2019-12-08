@@ -58,6 +58,77 @@ async function toggleSideBar() { //Add animation for side-bar display
     }
 }
 
+async function loadLeaderboard(game) {
+    // let topScores = database.getTopScores(game);
+    
+    let topScores = {
+        1: {
+            username: 'player1',
+            score: 666,
+        },
+        2: {
+            username: 'urmom',
+            score: 420,
+        },
+        3: {
+            username: 'bobbymillz',
+            score: 345,
+        },
+        4: {
+            username: 'e40',
+            score: 100,
+        },
+        5: {
+            username: 'claychell',
+            score: 69,
+        },
+    }
+    
+
+    let sideBar = document.getElementById('side-bar');
+
+    let leaderboard = document.createElement('div');
+    leaderboard.setAttribute('id', 'leaderboard-div');
+
+    let lbTitle = document.createElement('h2');
+    lbTitle.setAttribute('id', 'leaderbord-title');
+    lbTitle.textContent = game + ' Leaderboard';
+    leaderboard.appendChild(lbTitle);
+
+    let lbTable = document.createElement('table');
+    lbTable.setAttribute('id', 'leaderboard-table');
+    leaderboard.appendChild(lbTable);
+
+    let headerRow = document.createElement('tr');
+    let rankHeader = document.createElement('th');
+    rankHeader.textContent = 'Rank';
+    let userHeader = document.createElement('th');
+    userHeader.textContent = 'Username';
+    let scoreHeader = document.createElement('th');
+    scoreHeader.textContent = 'Score';
+    headerRow.appendChild(rankHeader);
+    headerRow.appendChild(userHeader);
+    headerRow.appendChild(scoreHeader);
+    lbTable.appendChild(headerRow);
+
+    for(let i=1;i<=5;i++) {
+        let row = document.createElement('tr');
+        let rank = document.createElement('td');
+        rank.textContent = i;
+        let user = document.createElement('td');
+        user.textContent = topScores[i].username;
+        let score = document.createElement('td');
+        score.textContent = topScores[i].score;
+        row.appendChild(rank);
+        row.appendChild(user);
+        row.appendChild(score);
+        lbTable.appendChild(row);
+    }
+
+    sideBar.appendChild(leaderboard);
+}
+
+
 async function populateSideBar() {
    let userData = await getUserData();
    let sideBar = document.getElementById('side-bar');
@@ -88,6 +159,8 @@ async function populateSideBar() {
         currentUser.textContent = "Sign in or Create an Account";
         sideBar.appendChild(currentUser);
    }
+
+   loadLeaderboard('Game');
 }
 
 
