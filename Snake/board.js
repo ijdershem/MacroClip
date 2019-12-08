@@ -84,15 +84,12 @@ export default class Board {
     move() {
         // Check if the player has made the first move
         if (this.dir == '') {
-            console.log('player has not made a move');
             return;
         
         // Check if a move can be made and initiate move or lose
         } else {
-            console.log('making a move!');
             // Check if the move results in a loss
             if (this.checkLose()) {
-                console.log('player lost');
                 // Call lose callbacks
                 for(let i=0;i<this.loseArr.length;i++) {
                     this.loseArr[i]();
@@ -100,7 +97,6 @@ export default class Board {
 
             // Move is legal; make it
             } else {
-                console.log('move is legal');
                 this.snake.addHead(this.addDir());
 
                 // Check if the new head is on food
@@ -141,18 +137,14 @@ export default class Board {
 
     // Checks if a move results in a loss
     checkLose() {
-        console.log('checking lose');
         // Find where new head would be
         let h = this.addDir();
-        console.log('new head is at ' + h.x + ', ' + h.y);
         // Check if new head is off the board or collides with itself
         if (Math.max(h.x,h.y) >= this.size) {
-            console.log('snake is out of bounds');
             return true;
         } else if (Math.min(h.x,h.y) < 0) {
             return true;
         } else if (this.snake.checkColl(h)) {
-            console.log('snake ran into itself');
             return true;
         }
 
@@ -165,18 +157,13 @@ export default class Board {
         console.log('adding dir to the head, x is ' + cor.x + ' y is ' + cor.y);
         if (this.dir == 'up') {
             cor.y--;
-            console.log('dir is up, y is now ' + cor.y);
         } else if (this.dir == 'down') {
             cor.y++;
-            console.log('dir is down, y is now ' + cor.y);
         } else if (this.dir == 'right') {
             cor.x++;
-            console.log('dir is right, x is now ' + cor.x);
         } else if (this.dir == 'left') {
             cor.x--;
-            console.log('dir is left, x is now ' + cor.x);
         } else {
-            console.log('problem with addDir');
             return;
         }
 
@@ -209,7 +196,6 @@ export default class Board {
             return true;
         }
 
-        console.log('problem with add food');
         return false;
     }
 
@@ -232,8 +218,6 @@ export default class Board {
         let str = '';
         for(let i=0;i<this.size;i++) {
             for(let j=0;j<this.size;j++) {
-                // console.log('****NEW CALL****');
-                // console.log('i is ' + i + ', j is ' + j);
                 if (this.snake.checkColl({x:j,y:i})) {
                     str += ' s ';
                 } else if ((this.food.x == j) && (this.food.y == i)) {
