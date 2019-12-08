@@ -70,8 +70,7 @@ export default class TicTacToe{
                 this.gameState.winner='tie';
                 this.callBasicCallbacks(this.onOverArr);
             }
-
-            this.makeAIMove();
+            //this.makeAIMove();
         }
     }
 
