@@ -2,7 +2,7 @@
   "name": "engine",
   "version": "1.0.0",
   "description": "",
-  "main": "Checkers.js",
+  "main": "game.js",
   "scripts": {
     "console": "node -r esm run-in-console.js"
   },

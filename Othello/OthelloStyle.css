@@ -171,7 +171,7 @@ button:hover {background-color: #c9c9c9}
   
 button:active {
     background-color: #c9c9c9;
-    box-shadow: 0 5px #a5a5a5;
+    box-shadow: 0 .4vh #a5a5a5;
     transform: translateY(.4vh);
 }
 
@@ -199,18 +199,21 @@ a.back:active {
 }
 
 .piece {
-    margin: .4vh 0vh 0vh .1vh;
+    margin: .1vh 0vh 0vh .1vh;
     align-self: center;
-    height: 90%;
-    width: 90%;
-    border-radius: 45%;
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
     border-style: solid white;
+    /* transition: height .1s, width .1s; */
 }
 
 .white {
     background-color: white;
+    box-shadow: 0 .5vh rgb(175, 175, 175);
 }
 
 .black {
-    background-color: black;
+    background-color: rgb(32, 32, 32);
+    box-shadow: 0 .5vh rgb(94, 94, 94);
 }

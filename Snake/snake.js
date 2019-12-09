@@ -1,83 +1,58 @@
-/*
-import Tile from "./tile";
 
 export default class Snake {
-    constructor(x,y) {
-        // First tile of the snake's body
-        this.head = [x,y];
-        // Snake's body; array of arrays of coordinates
-        this.body = [this.head];
-        // Direction that the snake is to move; changed by user
-        this.dir = '';
-        // Array of coordinates that snake body is removed from each move
-        this.rem = [];
-        // Array of coordinates that snake body is added to each move
-        this.add = [];
+    constructor(c) {
+        this.snake = [c];
+        console.log('head in snake: ');
+        console.log(this.snake[0]);
     }
 
-    addDir(arr) {
-        if (this.dir = 'up') {
-            var add = [0.1];
-        } else if (this.dir = 'down') {
-            var add = [0,-1];
-        } else if (this.dir = 'right') {
-            var add = [-1,0];
-        } else {
-            var add = [1,0];
+    // Adds a new head to the snake at index 0 and returns it
+    addHead(c) {
+        return this.snake.unshift(c);
+    }
+
+    // Pops last item in snake array (the tail) and returns it
+    popTail() {
+        return this.snake.pop();
+    }
+
+    // checkColl(c) {
+    //     let b = this.snake.includes(c);
+    //     console.log('checkColl, result: ' + b);
+    //     console.log('c is ' + c.x + ', ' + c.y);
+    //     console.log('head is ' + this.snake[0].x + ', ' + this.snake[0].y);
+
+    //     return b;
+    //     // return this.snake.includes(c);
+    // }
+
+    checkColl(c) {
+        let cx = c.x;
+        let cy = c.y;
+
+        console.log('check coll, snake is at ' + cx + ', ' + cy);
+
+        for(let i=0;i<this.snake.length;i++) {
+            if ((cx == this.snake[i].x) && (cy == this.snake[i].y)) {
+                console.log('collision at ' + this.snake[i].x + ', ' + this.snake[i].y);
+                return true;
+            }
         }
 
-        arr[0] += add[0];
-        arr[1] += add[1];
-
-        return arr;
+        return false;
     }
 
-    // Increase length from 1 to 5 when first food is eaten
-    firstFood() {
-        if (this.dir = 'up') {
-            var add = [0.1];
-        } else if (this.dir = 'down') {
-            var add = [0,-1];
-        } else if (this.dir = 'right') {
-            var add = [-1,0];
-        } else {
-            var add = [1,0];
-        }
+    // GETTERS
 
-        for(var i=1;i<5;i++) {
-            var newBod = getHead();
-            newBod[0] += add[0] * i;
-            newBod[1] += add[1] * i;
-            this.body.push(newBod);
-        }
+    getSnake() {
+        return this.snake;
     }
 
-    // Change the direction
-    setDir(d) {
-        this.dir = d;
-    }
-
-    // Move function called every so often, moves tail in front of head
-    move() {
-        this.rem = [];
-        this.add = [];
-
-        var tail = this.body.pop();
-        this.rem.push(tail);
-        var newH = addDir(getHead());
-        this.body.unshift(newH);
-        this.add.push(newH);
-    }
-
-    // Get body of the snake
-    getBody() {
-        return this.body;
+    getLength() {
+        return this.snake.length;
     }
 
     getHead() {
-        return [this.head[0],this.head[1]];
+        return this.snake[0];
     }
-
 }
-
-*/

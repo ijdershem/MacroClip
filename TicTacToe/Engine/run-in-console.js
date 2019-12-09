@@ -1,63 +1,55 @@
 import keypress from 'keypress';
-import Othello from "./Othello";
+import TicTacToe from "./game";
 
 keypress(process.stdin);
 
 
-let game = new Othello(false);
+let game = new TicTacToe(true,'o');
 console.log(game.toString());
 
 game.onMove(gameState => {
-    console.log(`White: ${gameState.whitePieces}  Black: ${gameState.blackPieces}`);
+    //console.log(`White: ${gameState.whitePieces}  Black: ${gameState.blackPieces}`);
     console.log(game.toString());
     //setTimeout(function(){console.log(gameState.board)},1000);
     // console.log(game.gameState);
 });
 
-game.onWin(gameState => {
+game.onOver(gameState => {
     console.log('You won with a gameState of...', gameState)
+    console.log(game.getWinningPieces());
 });
 
+let runGameToWin=function(){
+    game.processInput(0,0)
+    game.processInput(1,0)
+    game.processInput(0,1)
+    game.processInput(2,0)
+    game.processInput(0,2)
 
-let runGameToPlayerUnableToMove = () =>{
-    game.processInput(4,2);//w
-    game.processInput(3,2);//b
-    game.processInput(2,4);//w
-    game.processInput(5,2);//b
-    game.processInput(5,1);//w
-    game.processInput(5,0);//b
-    game.processInput(6,1);//w
-    game.processInput(7,1);//b
-    game.processInput(0,2);//w
-    game.processInput(5,3);//b
-    game.processInput(6,0);//w
-    game.processInput(7,0);//b
-    game.processInput(2,2);//w
-    game.processInput(4,1);//b
-    game.processInput(4,0);//w
-    game.processInput(3,0);//b
-    game.processInput(3,1);//b
-    game.processInput(2,0);//w
-    game.processInput(1,0);//b
-    game.processInput(2,1);//b
 }
-
-let runGameToAllOneColor =()=>{
-    game.processInput(4,2);
-    game.processInput(3,2);
-    game.processInput(2,4);
-    game.processInput(3,5);
-    game.processInput(2,2);
-    game.processInput(1,4);
-    game.processInput(0,4);
-    game.processInput(1,3);
-    game.processInput(3,6);
-    game.processInput(5,4);
-    game.processInput(6,4);
-    game.processInput(3,1);
-    game.processInput(4,0);
+let runGameToPlayerUnableToMove=function(){
+    game.processInput(0,0)
+    game.processInput(0,1)
+    game.processInput(1,0)
+    game.processInput(2,0)
+    game.processInput(2,1)
+    game.processInput(2,0)
+    game.processInput(1,1)
+    game.processInput(2,2)
+    game.processInput(1,2)
+    game.processInput(0,2)
 }
-
+let twoWinningRows=function(){
+    game.processInput(0,0)
+    game.processInput(0,1)
+    game.processInput(2,2)
+    game.processInput(1,0)
+    game.processInput(0,2)
+    game.processInput(1,2)
+    game.processInput(2,0)
+    game.processInput(2,1)
+    game.processInput(1,1)
+}
 
 let firstKey = null;
 
@@ -106,10 +98,13 @@ process.stdin.on('keypress', function (ch, key) {
                 firstKey=0;
                 break;
             case 'a':
-                runGameToAllOneColor();
+                runGameToWin();
                 break;
             case 's':
                 runGameToPlayerUnableToMove();
+                break;
+            case 'd':
+                twoWinningRows();
                 break;
         }
     }else{
