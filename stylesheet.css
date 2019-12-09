@@ -270,3 +270,7 @@ body {
 .score-card text {
     font-size: 20pt;
 }
+
+.leaderboard-content {
+    display: none;
+}

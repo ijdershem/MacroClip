@@ -1,5 +1,6 @@
 import BackEnd from './backend.js';
 const database = new BackEnd();
+const games = new Array('2048','checkers','chess','othello','snake');
 
 var firebaseConfig = {
     apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",
@@ -32,11 +33,44 @@ firebase.auth().onAuthStateChanged(function(user) {
     
 });
 
-function loadHome() {
+async function showLeaderboard(game) {
+    console.log('showing ' + game);
+
+    let lbID = 'leaderboard-content-' + game;
+
+    let tabCont = document.getElementsByClassName('leaderboard-content');
+    for(let i=0;i<tabCont.length;i++) {
+        tabCont[i].style.display = "none";
+    }
+    
+    let lbContent = document.getElementById(lbID);
+    lbContent.style.display = "block";
+}
+
+async function loadHome() {
     console.log('Loading home page...');
     let menubtn = document.getElementById("menu");
     menubtn.addEventListener("click", toggleSideBar);
     //Add listener to document ready to get userdata
+
+
+    console.log('loading leaderboard');
+    await loadLeaderboard();
+    console.log('leaderboard loaded');
+
+    // My attempt at event listeners
+
+    /*
+    for(let i=0;i<games.length;i++) {
+        console.log('starting for ' + games[i]);
+        let id = "#tab-" + games[i];
+        // let leadTab = document.getElementById("tab-checkers");
+        console.log(id);
+        $(id).on("click",id,games[i],showLeaderboard);
+        // leadTab.addEventListener("click",showLeaderboard(games[i]));
+    }
+    showLeaderboard(games[0]);
+    */
 }
 
 /**
@@ -58,9 +92,28 @@ async function toggleSideBar() { //Add animation for side-bar display
     }
 }
 
-async function loadLeaderboard(game) {
-    // let topScores = database.getTopScores(game);
-    
+async function loadLeaderboard() {
+
+    let tabDiv = document.getElementById('leaderboard-tabs');
+    let leadDiv = document.getElementById('leaderboard-container');
+
+    for(let i=0;i<games.length;i++) {
+        let tabBtn = document.createElement('button');
+        tabBtn.setAttribute('id','tab-' + games[i]);
+        tabBtn.setAttribute('class','leaderboard-game-tab');
+        let upcase = games[i].charAt(0).toUpperCase() + games[i].substring(1);
+        tabBtn.textContent = upcase;
+        tabDiv.appendChild(tabBtn);
+        let lb = await loadGameLeaderboard(games[i]);
+    }
+
+    let show = await showLeaderboard(games[0]);
+}
+
+async function loadGameLeaderboard(game) {
+    let topScores = await database.getTopScores(game);
+    let upcase = game.charAt(0).toUpperCase() + game.substring(1);
+    /*
     let topScores = {
         1: {
             username: 'player1',
@@ -83,16 +136,20 @@ async function loadLeaderboard(game) {
             score: 69,
         },
     }
+    */
     
 
-    let sideBar = document.getElementById('side-bar');
+    // let sideBar = document.getElementById('side-bar');
+    // let gameLink = document.getElementById(game + '-leaderboard');
+    let leadDiv = document.getElementById('leaderboard-container');
 
     let leaderboard = document.createElement('div');
-    leaderboard.setAttribute('id', 'leaderboard-div');
+    leaderboard.setAttribute('id', 'leaderboard-content-' + game);
+    leaderboard.setAttribute('class','leaderboard-content');
 
     let lbTitle = document.createElement('h2');
     lbTitle.setAttribute('id', 'leaderbord-title');
-    lbTitle.textContent = game + ' Leaderboard';
+    lbTitle.textContent = upcase + ' Leaderboard';
     leaderboard.appendChild(lbTitle);
 
     let lbTable = document.createElement('table');
@@ -125,7 +182,7 @@ async function loadLeaderboard(game) {
         lbTable.appendChild(row);
     }
 
-    sideBar.appendChild(leaderboard);
+    leadDiv.appendChild(leaderboard);
 }
 
 
@@ -159,8 +216,6 @@ async function populateSideBar() {
         currentUser.textContent = "Sign in or Create an Account";
         sideBar.appendChild(currentUser);
    }
-
-   loadLeaderboard('Game');
 }
 
 
