@@ -13,10 +13,13 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    position: relative;
+    position: fixed;
     align-items: center;
     font-family: 'Staatliches';
     font-size: 40pt;
+    width: 80vw;
+    background-color: white;
+    box-shadow: 0px 0px 15px rgb(0, 0, 0);
 }
 
 #menu {
@@ -41,6 +44,9 @@ body {
     background-color: #cf4848;
     display: flex;
     transition: width .1s;
+    z-index: 1;
+    position: fixed;
+    box-shadow: 5px 0px 15px rgb(0, 0, 0);
 }
 
 #side-bar-div {
@@ -61,7 +67,7 @@ body {
 
 #side-bar h2 {
     font-family: 'Staatliches';
-    margin-left: 5px;
+    margin-left: 1vh;
     margin-bottom: 0;
     margin-top: 0;
     color: #ffffff;
@@ -85,6 +91,7 @@ body {
 }
 
 #main-container {
+    display: flex;
     width: 100%;
 }
 
@@ -104,7 +111,9 @@ body {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    padding: 10px 20% 0 20%;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    margin: 15vh 20vw 0 0;
 }
 
 .game-icon { 
@@ -244,6 +253,30 @@ body {
     background-color: #b84444;
 }
 
+#user-account {
+    font-size: 200%;
+    padding: 1vh;
+}
+
+#user-account-page-link {
+    font-size: 120%;;
+    text-decoration: none;
+    color: black;
+    transition: padding-left .1s;
+}
+
+#user-account-page-link:hover {
+    color: rgb(255, 255, 255);
+    padding-left: 3vh;
+}
+
+.account-div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    top: 50px;
+}
+
 .avatar-div {
     height: 200px;
     width: 200px;
@@ -273,4 +306,62 @@ body {
 
 .leaderboard-content {
     display: none;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+
+#leaderboard-container {
+    font-family: 'Staatliches';
+    display: flex;
+    flex-direction: column;
+    right: 0px;
+    background-color:#cf4848;
+    width: 20vw;
+    position: fixed;
+    z-index: 1;
+    height: 100vh;
+    align-items: right;
+    justify-content: right;
+}
+
+#leaderboard-container th {
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+
+#leaderboard-container tr {
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+
+#leaderboard-container td {
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+
+.sub-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.collapse {
+    position: absolute;
+    display: flex;
+    align-self: right;
+    font-size: 200%;
+    padding: 3vh;
+    align-items: right;
+    justify-content: right;
+    right: 1px;
+    z-index: 2;
+}
+
+.collapse:hover {
+    color: white;
 }

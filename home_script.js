@@ -21,12 +21,8 @@ firebase.analytics();
 let currentUser;
 firebase.auth().onAuthStateChanged(function(user) {
     if(user) {
-        let acctManage = document.getElementById('account-mgmt');
-        acctManage.children[0].textContent = "My Account";
         currentUser = user;
     } else {
-        let acctManage = document.getElementById('account-mgmt');
-        acctManage.children[0].textContent = "Sign Up or Log In";
         currentUser = null;
     }
 
@@ -44,7 +40,7 @@ async function showLeaderboard(game) {
     }
     
     let lbContent = document.getElementById(lbID);
-    lbContent.style.display = "block";
+    lbContent.style.display = "flex";
 }
 
 async function loadHome() {
@@ -189,7 +185,23 @@ async function loadGameLeaderboard(game) {
 async function populateSideBar() {
    let userData = await getUserData();
    let sideBar = document.getElementById('side-bar');
-   let currentUser = document.createElement('h1');
+   let accountDiv = document.createElement('div');
+   accountDiv.setAttribute('class', 'account-div');
+   let currentUser = document.createElement('h2');
+   currentUser.setAttribute('id', 'user-account');
+   let accountLink = document.createElement('a');
+   accountLink.setAttribute('id','user-account-page-link');
+   accountLink.setAttribute('href','sign_in.html');
+   accountLink.textContent = ">> My Account";
+   let collapse = document.createElement('div');
+   collapse.setAttribute('class', 'collapse');
+   $(collapse).append('<i class="fa fa-arrow-left"></i>');
+   accountDiv.append(currentUser);
+   accountDiv.append(accountLink);
+   accountDiv.append(collapse);
+   $(collapse).click(function() {
+        toggleSideBar();
+   });
    
    let nav = document.createElement('div');
    nav.setAttribute('id', "side-bar-div");
@@ -208,13 +220,14 @@ async function populateSideBar() {
         amount.textContent = userData.balance + " cr";
         amount.style.color = "#000000";
         let topScores = document.createElement('div');
-        sideBar.appendChild(currentUser);
+        sideBar.appendChild(accountDiv);
         sideBar.appendChild(nav);
         sideBar.appendChild(balance);
         sideBar.appendChild(amount);
    } else {
-        currentUser.textContent = "Sign in or Create an Account";
-        sideBar.appendChild(currentUser);
+        accountLink.textContent = ">> Sign in/Create account";
+        currentUser.textContent = "?";
+        sideBar.appendChild(accountDiv);
    }
 }
 
