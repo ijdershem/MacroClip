@@ -126,7 +126,7 @@ export default class Mancala{
                 if(i==0){
                     str=str.concat(`[${this.gameState.board[0][j]}]`)
                 }else if(i==1){
-                    str=str.concat(`[ ]`);
+                    str=str.concat(`[-]`);
                 }else{
                     str=str.concat(`[${this.gameState.board[1][j]}]`)
                 }
