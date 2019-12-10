@@ -196,19 +196,33 @@ async function populateSideBar() {
    let collapse = document.createElement('div');
    collapse.setAttribute('class', 'collapse');
    $(collapse).append('<i class="fa fa-arrow-left"></i>');
-   accountDiv.append(currentUser);
-   accountDiv.append(accountLink);
+   let userLinks = document.createElement('div');
+   userLinks.setAttribute('id','userLinks');
+   userLinks.append(currentUser);
+   userLinks.append(accountLink);
+   accountDiv.append(userLinks);
    accountDiv.append(collapse);
    $(collapse).click(function() {
         toggleSideBar();
    });
+   $(userLinks).click(function () {
+       console.log('made it');
+       window.location.href = "/sign_in.html";
+   })
    
    let nav = document.createElement('div');
    nav.setAttribute('id', "side-bar-div");
+   let storeBtnContainer = document.createElement('div');
+   storeBtnContainer.setAttribute('id','storeBtnContainer');
    let storeBtn = document.createElement('h2');
    storeBtn.textContent = "Store";
-   nav.appendChild(storeBtn);
-   storeBtn.addEventListener('click', function(){
+   let storeBtnArrows = document.createElement('h2');
+   storeBtnArrows.setAttribute('class','arrows');
+   storeBtnArrows.textContent = '>>';
+   storeBtnContainer.append(storeBtn);
+   storeBtnContainer.append(storeBtnArrows);
+   nav.appendChild(storeBtnContainer);
+   storeBtnContainer.addEventListener('click', function(){
        window.location.href = "./Store/store.html"
    });
 

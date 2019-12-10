@@ -50,13 +50,8 @@ body {
 }
 
 #side-bar-div {
-    background-color: #883030;
     width: 100%;
     margin-bottom: 10px;
-}
-
-#side-bar-div h2:hover {
-    color: #999898;
 }
 
 #side-bar h1 {
@@ -65,11 +60,27 @@ body {
     margin-top: 5px;
 }
 
+#storeBtnContainer {
+    display: flex;
+}
+
+.arrows {
+    transition: padding-left .1s;
+}
+
+#storeBtnContainer:hover .arrows {
+    padding-left: 3vh;
+}
+
+#storeBtnContainer:hover {
+    background-color: #b33c3c;
+}
+
 #side-bar h2 {
     font-family: 'Staatliches';
     margin-left: 1vh;
-    margin-bottom: 0;
-    margin-top: 0;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
     color: #ffffff;
     font-weight: 2;
 }
@@ -261,13 +272,8 @@ body {
 #user-account-page-link {
     font-size: 120%;;
     text-decoration: none;
-    color: black;
+    color: white;
     transition: padding-left .1s;
-}
-
-#user-account-page-link:hover {
-    color: rgb(255, 255, 255);
-    padding-left: 3vh;
 }
 
 .account-div {
@@ -275,6 +281,22 @@ body {
     align-items: center;
     width: 100%;
     top: 50px;
+}
+
+#userLinks {
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+#userLinks:hover {
+    background-color: #b33c3c;
+}
+
+#userLinks:hover > #user-account-page-link {
+    background-color: #b33c3c;
+    padding-left: 3vh;
+    color: white;
 }
 
 .avatar-div {
@@ -360,8 +382,9 @@ body {
     justify-content: right;
     right: 1px;
     z-index: 2;
+    color: white;
 }
 
 .collapse:hover {
-    color: white;
+    color: black;
 }

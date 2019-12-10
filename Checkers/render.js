@@ -23,6 +23,10 @@ $(document).ready( function () {
         }
     }
 
+    game.showMoves(moves => {
+        console.log(moves);
+    });
+
     refreshBoard();
 });
 

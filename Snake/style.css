@@ -1,6 +1,6 @@
     body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(126, 162, 123);
+    background-color: rgb(117, 190, 111);
     }
 
     div.main {
@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: row;
     border-radius: 2vh;
-    box-shadow: 0 .8vh rgb(162, 89, 0);
+    box-shadow: 0 .8vh rgb(124, 22, 22);
     }
 
     div.back {
@@ -36,7 +36,7 @@
     div.headerFill {
     height: 8vh;
     width: 24.6vh;
-    background-color: rgb(106, 58, 0);
+    background-color: rgb(212, 48, 48);
     }
 
     div.title {
@@ -45,7 +45,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(106, 58, 0);
+    background-color: rgb(212, 48, 48);
 
     }
 
@@ -54,7 +54,7 @@
     height: 8vh;
     display: flex;
     flex-direction: column;
-    background-color: rgb(106, 58, 0);
+    background-color: rgb(212, 48, 48);
     border-radius: 0 2vh 2vh 0;
     justify-content: center;
     }
@@ -66,7 +66,7 @@
     align-self: center;
     align-items: center;
     justify-content: center;
-    background-color: rgb(194, 186, 147);
+    background-color: rgb(95, 158, 90);
     margin: 3vw 2vw;
     border-radius: 1vw;;
     }
@@ -75,18 +75,21 @@
     width: 60vh;
     height: 60vh;
     border-style: solid;
-    border-color: rgb(106, 58, 0);
-    border-radius: 1%;
+    border-color: rgb(212, 48, 48);
+    border-radius: 1vh;
     border-width: 1vh;
     padding: 0px;
     margin: 0px;
-    background-color: gray;
+    background-color: rgb(223, 216, 153);
     background-position: center; 
-    box-shadow: 0 .8vh rgb(162, 89, 0);
+    box-shadow: 0 .8vh rgb(124, 22, 22);
     }
 
     div.modal {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         position: fixed;
         z-index: 1;
         left: 50%;
@@ -95,13 +98,12 @@
         height: 30vh;
         transform: translate(-50%,-50%);
         overflow: auto;
-        background-color: darkseagreen;
-        border-style: solid;
-        border-color: rgb(106, 58, 0);
-        border-radius: 1%;
-        border-width: .5vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-style: none;
+        border-radius: 5vh;
         align-items: center;
-        box-shadow: 0 .4vh rgb(162, 89, 0);
+        color: white;
+        padding: 5vh;
     }
 
     div.modal-content {}
@@ -129,21 +131,21 @@
     }
 
     h2.title {
-    color: #ffead0;
+    color: white;
     margin: 5%;
     font-size: 3.5vh;
     }
 
     h4.description {
-    color: #ffffff;
+    color: white;
     align-self: center;
     font-size: 1.5vh;
     }
 
     #score {
-    color: #ffead0;
+    color: white;
     text-align: right;
-    margin: 4vh;
+    margin-right: 2vh;
     font-size: 3.5vh;
     }
 
@@ -160,38 +162,38 @@
     font-weight: bold;
     font-size: 100%;
     outline: none;
-    color: #ffead0;
-    background-color: rgb(106, 58, 0);
+    color: white;
+    background-color: rgb(212, 48, 48);
     border: none;
     border-radius: 15px;
-    box-shadow: 0 .8vh rgb(162, 89, 0);
+    box-shadow: 0 .8vh rgb(124, 22, 22);
     font-size: 2vh;
     }
 
-    button:hover {background-color: #6b5015}
+    button:hover {background-color: rgb(173, 39, 39)}
 
     button:active {
-    background-color: #6b5015;
-    box-shadow: 0 5px #81661a;
+    background-color: rgb(173, 39, 39);
+    box-shadow: 0 5px rgb(124, 22, 22);
     transform: translateY(.4vh);
     }
 
     a.back {
     border-radius: 2vh 0 0 2vh;
     text-decoration: none;
-    color: #ffead0;
+    color: white;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 8vh;
     height: 8vh;
-    background-color: rgb(106, 58, 0);
+    background-color: rgb(212, 48, 48);
     font-size: 3vh;
     }
 
     a.back:hover {
-    background-color: #6b5015;
+    background-color: rgb(173, 39, 39);
     }
 
     a.back:active {
