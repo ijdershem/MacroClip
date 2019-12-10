@@ -1,6 +1,6 @@
 import King from "./Pieces/King.js"
 import Pawn from "./Pieces/Pawn.js"
-import CheckersAI from "./CheckersAI.js";
+// import CheckersAI from "./CheckersAI.js";
 
 export default class Checkers{
     constructor(hasAI){
