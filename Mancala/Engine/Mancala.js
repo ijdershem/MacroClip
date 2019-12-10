@@ -63,11 +63,17 @@ export default class Mancala{
     }
 
     checkForEndGame(turn){
+        let countTop=0;
+        let countBottom=0;
         for(let i = 0; i<6; i++){
-            if(this.gameState.board[turn][i]!=0){
+           countTop+=this.gameState.board[0][i];
+           countBottom+=this.gameState.board[1][i];
+            if(countTop!=0&&countBottom!=0)
                 return;
-            }
         }
+        this.gameState.P0Mancala+=countTop;
+        this.gameState.P1Mancala+=countBottom;
+
         this.gameState.winner=this.gameState.P0Mancala==this.gameState.P1Mancala?'tie':
                                 this.gameState.P0Mancala>this.gameState.P1Mancala?'P0':'P1';
 

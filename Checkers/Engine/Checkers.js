@@ -1,5 +1,6 @@
 import King from "./Pieces/King.js"
 import Pawn from "./Pieces/Pawn.js"
+import CheckersAI from "./CheckersAI.js";
 
 export default class Checkers{
     constructor(hasAI){
@@ -17,12 +18,35 @@ export default class Checkers{
         this.onWinCallback=[];
         this.pieceCallbackArr=[];
         this.playersMoves=[];
+        this.AI=hasAI?new CheckersAI(this):null;
         //game specific setup
         this.selectAblePieceCallbackArr=[];
         this.selectedPiece=undefined;
         this.selectAblePiece = [];
         this.additionalAttacks = false;
 
+        this.resetBoard();
+    }
+
+    makeAIMove(){
+        if(this.AI==null)
+            return;
+        this.AI.makeMove();
+    }
+
+    resetGame(){
+        this.gameState = {
+            turn: 'black',
+            board: [],
+            winner: 'none',
+            whitePieces: 12,
+            blackPieces: 12
+        }
+        this.pieceCallbackArr=[];
+        this.selectAblePieceCallbackArr=[];
+        this.selectedPiece=undefined;
+        this.selectAblePiece = [];
+        this.additionalAttacks = false;
         this.resetBoard();
     }
 
@@ -45,6 +69,9 @@ export default class Checkers{
         }
     }
 
+    /**
+     * Helper Functions
+     */
     processMove(moveData){
         if(moveData.type=='attack'){
             this.takePiece(moveData);
@@ -120,10 +147,10 @@ export default class Checkers{
         if(reduced.length>0){
             this.selectAblePiece=reduced;
         }
-        console.log(this.selectAblePiece);
+        //console.log(this.selectAblePiece);
     }
 
-    endTurn(){//TODO 
+    endTurn(){
         this.runCallbackArr(this.removeShowMovesCallback);
         this.runCallbackArr(this.onmoveCallback);
         this.runCallbackArr(this.pieceCallbackArr);
@@ -136,6 +163,7 @@ export default class Checkers{
             this.gameState.winner=this.gameState.turn=='white'?'black':'white';
             this.runCallbackArr(this.onWinCallback);
         }
+        //this.makeAIMove();
     }
 
     resetBoard(){
@@ -153,6 +181,22 @@ export default class Checkers{
             this.gameState.board.push(row);
         }
         this.findSelectAblePieces();
+    }
+
+    /**
+     * getters and callbacks
+     */
+
+    getPlayerMoves(){
+        return this.playersMoves;
+    }
+
+    getSelectablePieces(){
+        return this.selectAblePiece;
+    }
+
+    getGameState(){
+        return this.gameState;
     }
 
     getBoard(){
