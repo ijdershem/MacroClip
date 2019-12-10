@@ -182,6 +182,7 @@ a.back:active {
     border-radius: 50%;
     border-style: solid white;
     /* transition: height .1s, width .1s; */
+    transition: background-color .1s, box-shadow .1s;
 }
 
 .red {
@@ -192,4 +193,19 @@ a.back:active {
 .black {
     background-color: rgb(32, 32, 32);
     box-shadow: 0 .5vh rgb(94, 94, 94);
+}
+
+.selected {
+    background-color: yellow;
+    box-shadow: 0 .5vh #b09f1c;
+}
+
+.phantom-move {
+    background-color: rgba(255, 255, 0, 0.377);
+    box-shadow: 0 .5vh #b09f1c42;
+}
+
+.phantom-attack {
+    background-color: rgba(21, 255, 0, 0.377);
+    box-shadow: 0 .5vh rgba(12, 148, 0, 0.377);
 }
