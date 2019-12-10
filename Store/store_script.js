@@ -59,26 +59,37 @@ async function loadStore() {
 
     for(let icon_name in images) {
         if(images.hasOwnProperty(icon_name)) {
-            let url = images[icon_name];
+            let avatar = images[icon_name];
             let icon_piece = document.createElement("div");
             let icon = document.createElement("div");
             let icon_img = document.createElement("img");
             let buy_btn = document.createElement("div");
             let buy_text = document.createElement("text");
-            buy_text.textContent = 'buy';
-        
         
             icon_piece.setAttribute("class", "icon-piece");
             icon_piece.setAttribute('id', icon_name);
             icon.setAttribute('class', 'icon');
             buy_btn.setAttribute("class", "buy");
-            icon_img.setAttribute("src", url);
+            icon_img.setAttribute("src", avatar.url);
             icon_img.setAttribute("id", icon_name + "_image");
             icon_img.setAttribute('alt', 'Avatar image for ' + icon_name);
             icon_img.style.height = "100%";
             icon_img.style.width = "100%";
 
             buy_btn.appendChild(buy_text);
+
+            let price = document.createElement("text");
+            price.textContent = avatar.price;
+            if(avatar.price) {
+                price.textContent = avatar.price + " CR";
+                buy_btn.setAttribute("id", avatar.price + "-" + icon_name);
+                buy_text.textContent = 'buy';
+            } else {
+                buy_text.textContent = 'free';
+                buy_btn.setAttribute("id", 0 + "-" + icon_name);
+            }
+            buy_btn.appendChild(price);
+
             buy_btn.addEventListener('click', purchaseIcon);
             icon.appendChild(icon_img);
 
@@ -93,25 +104,26 @@ async function loadStore() {
 
 async function purchaseIcon() {
     let icon_name = event.target.parentNode.id;
+    let price = event.target.id.substring(0, event.target.id.indexOf("-"));
     let img_id = icon_name + "_image";
     let icon_url = document.getElementById(img_id).getAttribute("src");
     icon_name = icon_name.substring(0, icon_name.indexOf(".")); //strip svg from icon name for purposes of storing in user account (created error where "." delimiter would create unwanted nested field)
-    console.log(icon_name);
+    // console.log(icon_name);
     let currentUserUid = await database.getCurrentUserUID();
     let currentUser = await database.getUserDataByUID(currentUserUid);
     let userOwnsIcon = await checkUserOwnsIcon(currentUser.purchased_icons, icon_name);
 
     if(!userOwnsIcon) {
         //purchase icon and add to user account
-        await database.purchaseAvatar(currentUserUid, icon_name, icon_url);
+        await database.purchaseAvatar(currentUserUid, icon_name, icon_url, price);
     } else {
         window.alert("You already own this avatar!");
     }
 }
 
 async function checkUserOwnsIcon(purchased_icons, icon_name) {
-    console.log(purchased_icons);
-    console.log(icon_name);
+    //console.log(purchased_icons);
+    //console.log(icon_name);
     for(let icon in purchased_icons) {
         if(icon_name == icon) {
             console.log("User already owns icon");

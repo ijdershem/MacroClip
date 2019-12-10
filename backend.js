@@ -142,7 +142,12 @@ export default class BackEnd {
         });
     }
 
-    //takes in user doc and returns link to current chosen avatar if one exists
+    /**
+     * Returns the image link for a given users currently selected avatar
+     * @param {object} user  
+     *  user: an object representing the user to retrieve the currently selected avatar for
+     * @return an image referencing the currently selected user icon
+     */
     async getUserAvatar(user) {
         //console.log(user.current_icon);
         return user.current_icon;
@@ -353,25 +358,53 @@ export default class BackEnd {
         await this.db.collection('images').get().then(async function(querySnapshot){
             querySnapshot.forEach(async function(doc) {
                 let data = await doc.data();
-                icons[doc.id.toString()] = data.url;
+                icons[doc.id.toString()] = { url: data.url, price: data.price }
             });
         });
         return icons;
     }
 
-    async purchaseAvatar(currentUserUid, icon_name, icon_url) {
-        let docId = await this.getUserDocId(currentUserUid);
-        let userRef = await this.db.collection('users').doc(docId);
-        let icon_field = "purchased_icons." + icon_name;
-        console.log(icon_field);
-        //Implement check to verify user balance and subtract if purchase is possible
+    async getUserAvatarCollection(user) {
+        return user.purchased_icons;
+    }
+
+    async purchaseAvatar(currentUserUid, icon_name, icon_url, price) {
+        let uid = await this.getCurrentUserUID();
+        let userDoc = await this.getUserDataByUID(uid);
+        let userBalance = userDoc.balance;
+        console.log(userBalance);
+        if(price > userBalance) {
+            window.alert("Sorry! You don't have enough credits to purchase this icon. Keep playing!");
+        } else {
+            let docId = await this.getUserDocId(currentUserUid);
+            let userRef = await this.db.collection('users').doc(docId);
+            let icon_field = "purchased_icons." + icon_name;
+            //console.log(icon_field);
+            //Implement check to verify user balance and subtract if purchase is possible
+            this.updateUserBalance(parseInt("-" + price));
+            return userRef.update({
+                [icon_field]: icon_url,
+            }).then(function(){
+                window.alert("Icon successfully purchased");
+            }).catch(function(error) {
+                window.alert("Something went wrong purchasing this icon");
+            })
+        }
+    }
+
+    async setUserIcon(image_url) {
+        let currentUserUID = await this.getCurrentUserUID();
+        let docId = await this.getUserDocId(currentUserUID);
+
+        let userRef = this.db.collection('users').doc(docId);
+
         return userRef.update({
-            [icon_field]: icon_url,
+            current_icon: image_url,
         }).then(function(){
-            window.alert("Icon successfully purchased");
-        }).catch(function(error) {
-            window.alert("Something went wrong purchasing this icon");
-        })
+            console.log("Document successfully updated!");
+        }).catch(function(error){
+            console.error("Error updating document: ", error);
+        });
     }
 }
 

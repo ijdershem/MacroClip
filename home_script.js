@@ -58,6 +58,10 @@ async function toggleSideBar() { //Add animation for side-bar display
     }
 }
 
+function slideDown() {
+    
+}
+
 async function loadLeaderboard(game) {
     // let topScores = database.getTopScores(game);
     
@@ -148,6 +152,7 @@ async function populateSideBar() {
         let balance = document.createElement('h2');
         let amount = document.createElement('h2');
         balance.textContent = "Balance: "
+        console.log(userData);
         amount.textContent = userData.balance + " cr";
         amount.style.color = "#000000";
         let topScores = document.createElement('div');
