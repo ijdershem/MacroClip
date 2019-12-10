@@ -6,6 +6,8 @@ let tiles = game.getBoard();
 let selectedPiece;
 
 $(document).ready( function () {
+
+    // Initialize board
     for (let i=0; i<8; i++) {
         for (let j=0; j<8; j++) {
             if (i%2 != 0) {
@@ -25,21 +27,36 @@ $(document).ready( function () {
     }
 
     game.showMoves(function(moves) {moves.forEach(element => {
+        
+        let did = "#"+element.y.toString()+element.x.toString();
         if (element.type == "move") {
-            let did = "#"+element.y.toString()+element.x.toString();
-            $(did).append('<div class = "piece phantom-move"></div>');
+            $(did).append('<div id=p'+element.y.toString()+element.x.toString()+' class="piece phantom-move"></div>');
         } else if (element.type == "attack") {
-            let did = "#"+element.y.toString()+element.x.toString();
-            $(did).append('<div class = "piece phantom-attack"></div>');
+            $(did).append('<div id=p'+element.y.toString()+element.x.toString()+' class="piece phantom-attack"></div>');
+        } else if (element.type == "selected") {
+            $(did).empty();
+            $(did).append('<div id=p'+element.y.toString()+element.x.toString()+' class="piece selected"></div>');
         }
     })});
 
     game.removeShowMoves(function(moves) {
         for (let i=0; i<8; i++) {
             for (let j=0; j<8; j++) {
+                let did = "#"+i.toString()+j.toString();
+                let pid = "p"+i.toString()+j.toString();
+                let docElt = document.getElementById(pid);
                 if (tiles[i][j] == null) {
-                    let did = "#"+i.toString()+j.toString();
                     $(did).empty();
+                } else {
+                    if (docElt != null) {
+                        if (docElt.getAttribute('class') != 'piece selected') {
+                            if (tiles[i][j].color == 'white') {
+                                docElt.setAttribute('class', 'piece red');
+                            } else {
+                                docElt.setAttribute('class', 'piece black');
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -74,73 +91,108 @@ $('.tile').click(function(event) {
     let j = parseInt(index[1]);
     let pid = "p"+i.toString()+j.toString();
     let pieceDiv;
+    
+    removeSelected();
 
-    // Check to see if a piece has already been selected, to see if this click is move click or a select click
-    if (selectedPiece != null) {
-
-        // did we click the already selected piece?
-        if (j != parseInt(selectedPiece.position.X) || i != parseInt(selectedPiece.position.Y)) {
-            console.log('didnt click the same piece');
-            if(tiles[i][j] != null) {
-                console.log('we did click a piece though')
-                if (game.isSelectable(j, i)) {
-                    let spid = "p"+selectedPiece.position.Y.toString()+selectedPiece.position.X.toString();
-                    pieceDiv = document.getElementById(spid);
-                    if (selectedPiece.getColor() == 'white') {
-                        pieceDiv.setAttribute('class','piece red');
-                    } else {
-                        pieceDiv.setAttribute('class','piece black');
-                    }
-
-                    selectedPiece = tiles[i][j];
-                    pieceDiv = document.getElementById(pid);
-                    pieceDiv.setAttribute('class', 'piece selected');
-
-
-                } else {
-                    let spid = "p"+selectedPiece.position.Y.toString()+selectedPiece.position.X.toString();
-                    pieceDiv = document.getElementById(spid);
-                    if (selectedPiece.getColor() == 'white') {
-                        pieceDiv.setAttribute('class','piece red');
-                    } else {
-                        pieceDiv.setAttribute('class','piece black');
-                    }
-                    selectedPiece = null;
-                }
-                game.processInput(j, i);
-            } else {
-                if (game.isMove(j, i) > -1) {
-                    game.processInput(j, i);
-                    refreshBoard();
-                    selectedPiece = null;
-                } else {
-                    console.log('made it 2');
-                    let spid = "p"+selectedPiece.position.Y.toString()+selectedPiece.position.X.toString();
-                    pieceDiv = document.getElementById(spid);
-                    if (selectedPiece.getColor() == 'white') {
-                        pieceDiv.setAttribute('class','piece red');
-                    } else {
-                        pieceDiv.setAttribute('class','piece black');
-                    }
-                    
-                    game.processInput(j, i);
-                    selectedPiece = null;
-                }
-            }
+    if (!selectedPiece) {
+        if (game.isSelectable(j, i)) {
+            selectedPiece = true;
         }
 
+        game.processInput(j, i);
     } else {
-        console.log('selecting piece');
-        if (tiles[i][j] != null && game.isSelectable(j, i)) {
-            selectedPiece = tiles[i][j];
-            pieceDiv = document.getElementById(pid);
-            pieceDiv.setAttribute('class', 'piece selected');
-
+        if (game.isMove(j, i) > -1) {
+            selectedPiece = false;
             game.processInput(j, i);
-        } else {
+            refreshBoard();
+        } else if (game.isSelectable(j, i)) {
             game.processInput(j, i);
         }
     }
+
+    // // Check to see if a piece has already been selected, to see if this click is move click or a select click
+    // if (selectedPiece != null) {
+    //     // yes a piece has already been selected
+    //     // did we click the already selected piece?
+    //     if (j != parseInt(selectedPiece.position.X) || i != parseInt(selectedPiece.position.Y)) {
+    //         // no we didn't
+    //         console.log('didnt click the same piece');
+    //         // did we click on another piece?
+    //         if(tiles[i][j] != null) {
+    //             // yes we did
+    //             console.log('we did click a piece though')
+    //             // is that piece selectable?
+    //             if (game.isSelectable(j, i)) {
+    //                 // yes it is
+    //                 let spid = "p"+selectedPiece.position.Y.toString()+selectedPiece.position.X.toString();
+    //                 pieceDiv = document.getElementById(spid);
+    //                 if (selectedPiece.getColor() == 'white') {
+    //                     pieceDiv.setAttribute('class','piece red');
+    //                 } else {
+    //                     pieceDiv.setAttribute('class','piece black');
+    //                 }
+
+    //                 selectedPiece = tiles[i][j];
+    //                 pieceDiv = document.getElementById(pid);
+    //                 pieceDiv.setAttribute('class', 'piece selected');
+
+
+    //             } else {
+    //                 // no that piece is not selectable
+    //                 // let spid = "p"+selectedPiece.position.Y.toString()+selectedPiece.position.X.toString();
+    //                 // pieceDiv = document.getElementById(spid);
+    //                 // if (selectedPiece.getColor() == 'white') {
+    //                 //     pieceDiv.setAttribute('class','piece red');
+    //                 // } else {
+    //                 //     pieceDiv.setAttribute('class','piece black');
+    //                 // }
+    //                 // selectedPiece = null;
+    //             }
+    //             game.processInput(j, i);
+    //         } else {
+    //             // no we didn't select another piece
+    //             // is what you clicked a valid move?
+    //             if (game.isMove(j, i) > -1) {
+    //                 // yes it is
+    //                 game.processInput(j, i);
+    //                 refreshBoard();
+    //                 selectedPiece = null;
+    //             } else {
+    //                 // no it's not a valid move
+    //                 // console.log('non-valid move clicked');
+    //                 // let spid = "p"+selectedPiece.position.Y.toString()+selectedPiece.position.X.toString();
+    //                 // pieceDiv = document.getElementById(spid);
+    //                 // if (selectedPiece.getColor() == 'white') {
+    //                 //     pieceDiv.setAttribute('class','piece red');
+    //                 // } else {
+    //                 //     pieceDiv.setAttribute('class','piece black');
+    //                 // }
+                    
+    //                 game.processInput(j, i);
+    //                 selectedPiece = null;
+    //             }
+    //         }
+    //     }
+    // } else {
+    //     // no, no piece is currently selected
+    //     console.log('selecting piece');
+    //     // is what you clicked a piece that has valid moves?
+    //     if (tiles[i][j] != null && game.isSelectable(j, i)) {
+    //         // yes it is
+    //         console.log("this is a valid piece, selected")
+    //         selectedPiece = tiles[i][j];
+    //         pieceDiv = document.getElementById(pid);
+    //         pieceDiv.setAttribute('class', 'piece selected');
+
+    //         game.processInput(j, i);
+    //     } else {
+    //         console.log(tiles[i][j] != null);
+    //         console.log(game.isSelectable(j,i));
+    //         // no this is not a piece with valid move
+    //         console.log("this is not a valid piece");
+    //         game.processInput(j, i);
+    //     }
+    // }
 });
 
 function refreshBoard() {
@@ -185,4 +237,26 @@ function refreshBoard() {
     //     $(pid).css('background-color','yellow');
     //     $(pid).css('box-shadow', '0 .5vh #b09f1c');
     // }
+}
+
+function removeSelected() {
+    for (let i=0; i<8; i++) {
+        for (let j=0; j<8; j++) {
+            
+            let pid = 'p'+i.toString()+j.toString();
+            let piece = document.getElementById(pid);
+            if (piece != null) {
+                console.log(pid+piece.getAttribute('class'));
+            }
+            
+            if (piece != null && piece.getAttribute('class') == 'piece selected') {
+                console.log('made it')
+                if (tiles[i][j].color == 'white') {
+                    piece.setAttribute('class', 'piece red');
+                } else {
+                    piece.setAttribute('class', 'piece black');
+                }
+            }
+        }
+    }
 }
