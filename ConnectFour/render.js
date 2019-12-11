@@ -28,18 +28,21 @@ $(document).ready( function () {
     });
 
     $('button').click(function() {
+        $('.tile').css('pointer-events', 'auto');
         game.resetGame();
+        gs = game.gameState;
+        tiles = gs.board;
         refreshBoard();
     })
 
     game.onWin(function() {
+        if (gs.winner == 'black') {
+            $("h4.description").replaceWith("<h4 class='won'>Yellow wins! Play again?<h4>");
+        } else {
+            $("h4.description").replaceWith("<h4 class='won'>Red wins! Play again?<h4>");
+        }
+        $('.tile').css('pointer-events', 'none');
         setTimeout(function () {
-            if (gs.winner == 'black') {
-                $("h4.description").replaceWith("<h4 class='won'>Yellow wins! Play again?<h4>");
-            } else {
-                $("h4.description").replaceWith("<h4 class='won'>Red wins! Play again?<h4>");
-            }
-            
             let winningPieces = game.getWinningPieces();
             for (let i=0; i<4; i++) {
                 let element = winningPieces[i];
