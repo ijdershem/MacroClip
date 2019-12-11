@@ -132,14 +132,15 @@ export default class BackEnd {
         let updatedScores = this.updateGameScoreArr(gameScores, score);
         let gameField = "stats." + game;
 
-        return userRef.update({
+        await userRef.update({
             [gameField]: updatedScores,
         }).then(function(){
-            this.updateTopScores(game, userName, score)
-            //console.log("Document successfully updated!");
+            console.log("Document successfully updated!");
         }).catch(function(error){
             console.error("Error updating document: ", error);
         });
+
+        this.updateTopScores(game, userName, score);
     }
 
     /**
@@ -190,6 +191,7 @@ export default class BackEnd {
      *  newScore: the new score to be compared against the top 5 scores
      */
     updateGameScoreArr(scores, newScore) {
+        console.log("Scores before update: " +  scores);
         let newScores = scores;
         for(let i = 0; i < 5; i++) {
             if(newScore >= scores[i]) {
@@ -212,6 +214,7 @@ export default class BackEnd {
                 break;
             }
         }
+        console.log("Scores after update: " +  newScores);
         return newScores;
     }
 

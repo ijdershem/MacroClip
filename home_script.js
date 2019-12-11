@@ -48,8 +48,6 @@ async function loadHome() {
     let menubtn = document.getElementById("menu");
     menubtn.addEventListener("click", toggleSideBar);
     //Add listener to document ready to get userdata
-
-
     console.log('loading leaderboard');
     await loadLeaderboard();
     console.log('leaderboard loaded');
@@ -77,6 +75,7 @@ async function loadHome() {
  */
 async function toggleSideBar() { //Add animation for side-bar display
     let sideBar = document.getElementById("side-bar");
+    database.updateScore(500, 'snake');
     if(sideBar.style.width != "400px") {
         setTimeout(function() {populateSideBar();}, 100);
         sideBar.style.width = '400px';
