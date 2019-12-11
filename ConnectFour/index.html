@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Connect 4</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="ConnectFourStyle.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+
+    <body>
+        <div class='overlay'>
+            <div class='winScreen'>
+                
+            </div>
+        </div>
+        <div class="main">
+            <div class="header">
+                <div class = "back">
+                    <a class = "back" href="../">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                </div>
+                <div class="headerFill"></div>
+                <div class="title">
+                    <h2 class="title">Connect 4</h2> 
+                </div>
+                <div class="score">
+                    <h2 id="score">Your Pieces: 0</h3>
+                </div>
+            </div>
+            <div class="description">
+                    <h4 class="description">Insert something here maybe?</h4>    
+            </div>
+            <div class ="board">
+                <div class="row" id="row0">
+                    <div class="tile" id="00"></div>
+                    <div class="tile" id="01"></div>
+                    <div class="tile" id="02"></div>
+                    <div class="tile" id="03"></div>
+                    <div class="tile" id="04"></div>
+                    <div class="tile" id="05"></div>
+                    <div class="tile" id="06"></div>
+                </div>
+                <div class="row" id="row1">
+                    <div class="tile" id="10"></div>
+                    <div class="tile" id="11"></div>
+                    <div class="tile" id="12"></div>
+                    <div class="tile" id="13"></div>
+                    <div class="tile" id="14"></div>
+                    <div class="tile" id="15"></div>
+                    <div class="tile" id="16"></div>
+                </div>
+                <div class="row" id="row2">
+                    <div class="tile" id="20"></div>
+                    <div class="tile" id="21"></div>
+                    <div class="tile" id="22"></div>
+                    <div class="tile" id="23"></div>
+                    <div class="tile" id="24"></div>
+                    <div class="tile" id="25"></div>
+                    <div class="tile" id="26"></div>
+                </div>
+                <div class="row" id="row3">
+                    <div class="tile" id="30"></div>
+                    <div class="tile" id="31"></div>
+                    <div class="tile" id="32"></div>
+                    <div class="tile" id="33"></div>
+                    <div class="tile" id="34"></div>
+                    <div class="tile" id="35"></div>
+                    <div class="tile" id="36"></div>
+                </div>
+                <div class="row" id="row4">
+                    <div class="tile" id="40"></div>
+                    <div class="tile" id="41"></div>
+                    <div class="tile" id="42"></div>
+                    <div class="tile" id="43"></div>
+                    <div class="tile" id="44"></div>
+                    <div class="tile" id="45"></div>
+                    <div class="tile" id="46"></div>
+                </div>
+                <div class="row" id="row5">
+                    <div class="tile" id="50"></div>
+                    <div class="tile" id="51"></div>
+                    <div class="tile" id="52"></div>
+                    <div class="tile" id="53"></div>
+                    <div class="tile" id="54"></div>
+                    <div class="tile" id="55"></div>
+                    <div class="tile" id="56"></div>
+                </div>
+                <div class="row" id="row6">
+                    <div class="tile" id="60"></div>
+                    <div class="tile" id="61"></div>
+                    <div class="tile" id="62"></div>
+                    <div class="tile" id="63"></div>
+                    <div class="tile" id="64"></div>
+                    <div class="tile" id="65"></div>
+                    <div class="tile" id="66"></div>
+                </div>
+            </div>
+
+            <form class="reset" onsubmit="return false">
+                <button class="resetButton">New Game</a>
+            </form>
+        </div>
+
+        <script src="render.js" type="module"></script>
+    </body>
+</html>

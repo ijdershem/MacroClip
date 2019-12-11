@@ -59,6 +59,8 @@ $(document).ready( function () {
                 }
             }
         }
+
+        removeSelected();
         refreshBoard();
     });
 
@@ -92,7 +94,7 @@ $('.tile').click(function(event) {
     let pid = "p"+i.toString()+j.toString();
     let pieceDiv;
     
-    removeSelected();
+    // removeSelected();
 
     if (!selectedPiece) {
         if (game.isSelectable(j, i)) {
