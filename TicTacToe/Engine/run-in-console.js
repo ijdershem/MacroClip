@@ -10,6 +10,7 @@ console.log(game.toString());
 game.onMove(gameState => {
     //console.log(`White: ${gameState.whitePieces}  Black: ${gameState.blackPieces}`);
     console.log(game.toString());
+    setTimeout(function(){game.makeAIMove()},100);
     //setTimeout(function(){console.log(gameState.board)},1000);
     // console.log(game.gameState);
 });
@@ -106,6 +107,16 @@ process.stdin.on('keypress', function (ch, key) {
             case 'd':
                 twoWinningRows();
                 break;
+            case 'n':
+                console.log('n')
+                game.resetGame();
+                break;
+            case 'm':
+                console.log('m')
+                game.switchAITurn();
+                game.makeAIMove();
+                break;
+
         }
     }else{
         switch(key.name){

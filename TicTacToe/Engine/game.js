@@ -18,7 +18,7 @@ export default class TicTacToe{
 
     resetGame(){
         this.gameState={
-            board:[[null,null,null][null,null,null][null,null,null]],
+            board:[[null,null,null],[null,null,null],[null,null,null]],
             xPieces: 0,
             oPieces: 0,
             turn:'x',
@@ -35,7 +35,7 @@ export default class TicTacToe{
         if(this.AI==null)
             return;
         this.AI.switchTurn()
-        resetGame();
+        this.resetGame();
     }
 
     makeAIMove(){

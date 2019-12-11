@@ -16,6 +16,14 @@ export default class AI{
         if(gs.turn!=this.turn){
             return;
         }
+        if(this.turn=='x'&&gs.xPieces==0){
+            this.moveFound=true;
+            this.move={X:Math.random()>0.5?0:2,Y:Math.random()>0.5?0:2}
+        }
+        if(this.turn=='o'&&gs.xPieces==1&&gs.board[1][1]==null){
+            this.moveFound=true;
+            this.move={X:1,Y:1};
+        }
 
         if(gs.xPieces+gs.oPieces>=3){
             this.findWin(gs);
