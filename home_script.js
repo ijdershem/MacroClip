@@ -75,7 +75,6 @@ async function loadHome() {
  */
 async function toggleSideBar() { //Add animation for side-bar display
     let sideBar = document.getElementById("side-bar");
-    database.updateScore(500, 'snake');
     if(sideBar.style.width != "400px") {
         setTimeout(function() {populateSideBar();}, 100);
         sideBar.style.width = '400px';
