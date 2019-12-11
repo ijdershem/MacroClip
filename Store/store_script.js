@@ -1,6 +1,6 @@
 import BackEnd from '../backend.js';
 
-const tags = ['male','female','blonde','black','mask'];
+const tags = ['creator','female','male','neutral','professional', 'superhero', 'worker'];
 
 var firebaseConfig = {
     apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",
@@ -129,6 +129,63 @@ async function loadStore() {
     // Updates for the search bar
     let searchBar = document.getElementById("avatar-search");
     searchBar.addEventListener('input',debounce);
+}
+
+async function loadSearchedImages() {
+    let queriedImages = await database.getAvatarsByTag('male');
+    let catalog = document.getElementById('icon-catalog');
+
+    let currItems = document.getElementsByClassName("icon-piece");
+    for(let i=0;i<currItems.length;i++) {
+        currItems[i].parentNode.removeChild(currItems[i]);
+    }
+    
+    //console.log(queriedImages);
+    for(let image in queriedImages) {
+        if(queriedImages.hasOwnProperty(image)) {
+            queriedImages[image].get().then(function(doc) {
+                let imageInfo = doc.data();
+                let avatar = imageInfo;
+                let icon_piece = document.createElement("div");
+                let icon = document.createElement("div");
+                let icon_img = document.createElement("img");
+                let buy_btn = document.createElement("div");
+                let buy_text = document.createElement("text");
+            
+                icon_piece.setAttribute("class", "icon-piece");
+                icon_piece.setAttribute('id', image.id);
+                icon.setAttribute('class', 'icon');
+                buy_btn.setAttribute("class", "buy");
+                icon_img.setAttribute("src", avatar.url);
+                icon_img.setAttribute("id", image.id + "_image");
+                icon_img.setAttribute('alt', 'Avatar image for ' + image.id);
+                icon_img.style.height = "100%";
+                icon_img.style.width = "100%";
+    
+                buy_btn.appendChild(buy_text);
+    
+                let price = document.createElement("text");
+                price.textContent = avatar.price;
+                if(avatar.price) {
+                    price.textContent = avatar.price + " CR";
+                    buy_btn.setAttribute("id", avatar.price + "-" + image.id);
+                    buy_text.textContent = 'buy';
+                } else {
+                    buy_text.textContent = 'free';
+                    buy_btn.setAttribute("id", 0 + "-" + image.id);
+                }
+                buy_btn.appendChild(price);
+    
+                buy_btn.addEventListener('click', purchaseIcon);
+                icon.appendChild(icon_img);
+    
+                icon_piece.appendChild(icon);
+                icon_piece.appendChild(buy_btn);
+    
+                catalog.appendChild(icon_piece);
+            });
+        }
+    }
 }
 
 async function debounce(e) {

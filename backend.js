@@ -409,5 +409,20 @@ export default class BackEnd {
             console.error("Error updating document: ", error);
         });
     }
+
+    async getAvatarsByTag(searchedTag) {
+        let taggedImages = await this.db.collection('avatar_tags').doc('tags').get();
+        let tags = taggedImages.data();
+        for(let tag in tags) {
+            if(tags.hasOwnProperty(tag)) {
+                if(searchedTag == tag) {
+                    let matchedImages = tags[tag];
+                    //console.log(matchedImages);
+                    return matchedImages;
+                }
+            }
+        }
+
+    }
 }
 
