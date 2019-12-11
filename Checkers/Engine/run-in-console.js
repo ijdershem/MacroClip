@@ -1,17 +1,26 @@
 import Checkers from "./Checkers.js"
 import keypress from 'keypress';
 
-let game = new Checkers();
+let game = new Checkers(true);
 keypress(process.stdin);
 console.log(game.toString());
 
+let display = function(x,y,z){
+    console.log(x+" "+y+" "+z);
+}
+
 game.showMoves(moves =>{
-    console.log(moves);
+    moves.forEach(element => {
+        display(element.x,element.y,element.type);
+    });
+    //console.log(moves);
 })
 
 game.onMove(gameState => {
     console.log(`White: ${gameState.whitePieces}  Black: ${gameState.blackPieces}`);
+    
     console.log(game.toString());
+    setTimeout(function(){game.makeAIMove();},100);
     // console.log(game.gameState);
 });
 

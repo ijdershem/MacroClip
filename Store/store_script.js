@@ -36,20 +36,43 @@ function buyItem() { //using to get image uris right now
 //     console.log("Getting image uris");
 //     let images = await storage.listAll();
 //     //console.log(images.items);
+//     let existingImages = [];
+//     database.db.collection('images')
+//         .onSnapshot((querySnapshot) => {
+//         querySnapshot.forEach((doc) => {
+//             //console.log(doc.data());
+//             //console.log(doc.id);
+//             existingImages.push(doc.id);
+//             console.log(existingImages)
+//         })
+//     });
+
+//     // for(let i = 0;  i < existingImages.length; i++) {
+//     //     console.log("Image already uploaded: " + existingImages[i]);
+//     // }
+
+//     let count = 0;
 //     for (let image of images.items) {
 //         image.getMetadata().then(async function(metadata){
-//             console.log(metadata);
+//             //console.log(metadata);
 //             let imgName = metadata.name;
 //             let uri = await image.getDownloadURL();
 //             let newImg = {
 //                 url: uri,
 //             }
-//             database.db.collection('images').doc(imgName.toString()).set(newImg);
+//             if(!existingImages.includes(imgName)) {
+//                 count++;
+//                 console.log("Already linked" + imgName);
+//                 database.db.collection('images').doc(imgName.toString()).set(newImg);
+//             } 
+//             //database.db.collection('images').doc(imgName.toString()).set(newImg);
+//             console.log(imgName);
 //         }).catch(function(error){
 //             console.log(error);
 //         });
 
 //     }
+//     console.log("Matched " + count + " images");
 // }
 
 async function loadStore() {

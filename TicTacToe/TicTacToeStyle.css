@@ -201,21 +201,28 @@ a.back:active {
 }
 
 .piece {
-    margin: .1vh 0vh 0vh .1vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0vh 0vh 0vh 0vh;
     align-self: center;
-    height: 80%;
-    width: 80%;
-    border-radius: 50%;
-    border-style: solid white;
-    /* transition: height .1s, width .1s; */
+    height: 100%;
+    width: 100%;
+    font-size: 10vh;
+    transition: transform .5s, color .5s;
 }
 
-.white {
-    background-color: white;
-    box-shadow: 0 .5vh rgb(175, 175, 175);
+.white h1 {
+    color: rgb(250, 60, 60);
+    align-self: center;
 }
 
-.black {
-    background-color: rgb(32, 32, 32);
-    box-shadow: 0 .5vh rgb(94, 94, 94);
+.black h1 {
+    color: rgb(53, 175, 53);
+    align-self: center;
+}
+
+.winningPiece {
+    color: rgb(226, 206, 95);
+    transform: rotate(360deg);
 }

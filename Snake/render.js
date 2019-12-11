@@ -2,24 +2,24 @@
 import Board from "./board.js";
 // import Snake from "./snake.js";
 
-export const renderHeader = function() {
-    const $head = $("#header");
+// export const renderHeader = function() {
+//     const $head = $("#header");
 
-    $head.append('<div class="back"><a class="back" href="/index.html"><i class="fa fa-arrow-left"></i></a></div>');
-    $head.append('<div class="headerFill"></div>');
-    $head.append('<div class="title"><h2 class="title">Snake</h2></div>');
-    $head.append('<div id="scoreDiv" class="score"></div>');
-}
+//     $head.append('<div class="back"><a class="back" href="/index.html"><i class="fa fa-arrow-left"></i></a></div>');
+//     $head.append('<div class="headerFill"></div>');
+//     $head.append('<div class="title"><h2 class="title">Snake</h2></div>');
+//     $head.append('<div id="scoreDiv" class="score"></div>');
+// }
 
 export const renderDesc = function() {
     const $desc = $('#desc');
 
-    $desc.append('<p>Use the arrow keys to move the snake</p>');
+    $desc.append('<h4>Use the arrow keys to move the snake</h4>');
 
 }
 
 export const renderScore = function(s) {
-    $("#scoreDiv").html('<h2 id="score">Score: ' + s + '</h2>');
+    $("#score").html('<h2 id="score">Score: ' + s + '</h2>');
 }
 
 export const renderLength = function(l) {
@@ -94,8 +94,6 @@ export const drawCanvas = function(bo) {
 export const loadBoardIntoDOM = function() {
     const $root = $('#root');
 
-    $root.append('<div id="header" class="header"></div>');
-    $root.append('<div id="desc" class="description"></div>');
     $root.append('<div id="board" class="board"></div>');
     $root.append('<div id="loseMod" class="modal"></div>');
     // $root.append('<img src="SnakeJPGs/Head.jpg" alt="Snake">');
@@ -114,10 +112,7 @@ export const loadBoardIntoDOM = function() {
         renderLength(bo.getLength());
         drawCanvas(bo);
     });
-    
 
-    renderHeader();
-    renderDesc();
     renderLoseModal();
 
     renderScore(bo.getScore());

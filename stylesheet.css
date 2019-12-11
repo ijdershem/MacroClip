@@ -13,10 +13,13 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    position: relative;
+    position: fixed;
     align-items: center;
     font-family: 'Staatliches';
     font-size: 40pt;
+    width: 80vw;
+    background-color: white;
+    box-shadow: 0px 0px 15px rgb(0, 0, 0);
 }
 
 #menu {
@@ -41,16 +44,14 @@ body {
     background-color: #cf4848;
     display: flex;
     transition: width .1s;
+    z-index: 1;
+    position: fixed;
+    box-shadow: 5px 0px 15px rgb(0, 0, 0);
 }
 
 #side-bar-div {
-    background-color: #883030;
     width: 100%;
     margin-bottom: 10px;
-}
-
-#side-bar-div h2:hover {
-    color: #999898;
 }
 
 #side-bar h1 {
@@ -59,11 +60,27 @@ body {
     margin-top: 5px;
 }
 
+#storeBtnContainer {
+    display: flex;
+}
+
+.arrows {
+    transition: padding-left .1s;
+}
+
+#storeBtnContainer:hover .arrows {
+    padding-left: 3vh;
+}
+
+#storeBtnContainer:hover {
+    background-color: #b33c3c;
+}
+
 #side-bar h2 {
     font-family: 'Staatliches';
-    margin-left: 5px;
-    margin-bottom: 0;
-    margin-top: 0;
+    margin-left: 1vh;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
     color: #ffffff;
     font-weight: 2;
 }
@@ -85,6 +102,7 @@ body {
 }
 
 #main-container {
+    display: flex;
     width: 100%;
 }
 
@@ -104,7 +122,9 @@ body {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    padding: 10px 20% 0 20%;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    margin: 15vh 20vw 10vh 0;
 }
 
 .game-icon { 
@@ -270,6 +290,41 @@ body {
     background-color: #b84444;
 }
 
+#user-account {
+    font-size: 200%;
+    padding: 1vh;
+}
+
+#user-account-page-link {
+    font-size: 120%;;
+    text-decoration: none;
+    color: white;
+    transition: padding-left .1s;
+}
+
+.account-div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    top: 50px;
+}
+
+#userLinks {
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+#userLinks:hover {
+    background-color: #b33c3c;
+}
+
+#userLinks:hover > #user-account-page-link {
+    background-color: #b33c3c;
+    padding-left: 3vh;
+    color: white;
+}
+
 .avatar-div {
     height: 200px;
     width: 200px;
@@ -400,4 +455,67 @@ border: 50% 0 50% 0;
     
 ::-webkit-scrollbar-thumb:hover {
 background:#b84444; 
+}
+
+.leaderboard-content {
+    display: none;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+
+#leaderboard-container {
+    font-family: 'Staatliches';
+    display: flex;
+    flex-direction: column;
+    right: 0px;
+    background-color:#cf4848;
+    width: 20vw;
+    position: fixed;
+    z-index: 1;
+    height: 100vh;
+    align-items: right;
+    justify-content: right;
+}
+
+#leaderboard-container th {
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+
+#leaderboard-container tr {
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+
+#leaderboard-container td {
+    justify-content: right;
+    align-items: right;
+    align-self: right;
+}
+
+.sub-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.collapse {
+    position: absolute;
+    display: flex;
+    align-self: right;
+    font-size: 200%;
+    padding: 3vh;
+    align-items: right;
+    justify-content: right;
+    right: 1px;
+    z-index: 2;
+    color: white;
+}
+
+.collapse:hover {
+    color: black;
 }

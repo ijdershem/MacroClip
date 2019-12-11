@@ -6,45 +6,57 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="stylesheet.css"/>
         <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <div id="home-container">
             <div id="side-bar"></div>
             <div id="main-container"> <!--Original home page elements inside this container-->
-                <div id="title-bar">
-                    <div id="menu">
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                <div class='sub-div'>
+                    <div id="title-bar">
+                            <div id="menu">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <text id="title">Macroclip</text>
+                            <div id="account-mgmt">
+                                <a href="sign_in.html"><text></text></a>
+                            </div>
+                            <!-- Might want to add a div for current account info -->
+                        </div>
+                    <div id="game-catalog">
+                        <div class="game-icon">
+                            <a class="game-link" href="./SlidingPuzzle"><p>Sliding Puzzle</p></a>
+                        </div>
+                        <div class="game-icon">
+                            <a class="game-link" href="./Mancala"><p>Mancala</p></a>
+                        </div>
+                        <div class="game-icon">
+                            <a class="game-link" href="./Connect 4"><p>Connect 4</p></a>
+                        </div>
+                        <div class="game-icon">
+                            <a class="game-link" href="./Othello"><p>Othello</p></a>
+                        </div>
+                        <div class="game-icon">
+                            <a class="game-link" href="./Checkers"><p>Checkers</p></a>
+                        </div>
+                        <div class="game-icon">
+                            <a class="game-link" href="./Snake"><p>Snake</p></a>
+                        </div>
+                        <div class="game-icon">
+                            <a class="game-link" href="./2048"><p>2048</p></a>
+                        </div>
+                        <div class="game-icon">
+                            <a class="game-link" href="./TicTacToe"><p>TicTacToe</p></a>
+                        </div>
+                        <div class="game-icon">
+                            <text>...</text>
+                        </div>
                     </div>
-                    <text id="title">Macroclip</text>
-                    <div id="account-mgmt">
-                        <a href="sign_in.html"><text></text></a>
-                    </div>
-                    <!-- Might want to add a div for current account info -->
                 </div>
-                <div id="game-catalog">
-                    <div class="game-icon">
-                        <a class="game-link" href="./Chess"><p>Chess</p></a>
-                    </div>
-                    <div class="game-icon">
-                        <a class="game-link" href="./Othello"><p>Othello</p></a>
-                    </div>
-                    <div class="game-icon">
-                        <a class="game-link" href="./Checkers"><p>Checkers</p></a>
-                    </div>
-                    <div class="game-icon">
-                        <a class="game-link" href="./Snake"><p>Snake</p></a>
-                    </div>
-                    <div class="game-icon">
-                        <a class="game-link" href="./2048"><p>2048</p></a>
-                    </div>
-                    <div class="game-icon">
-                        <a class="game-link" href="./TicTacToe"><p>TicTacToe</p></a>
-                    </div>
-                    <div class="game-icon">
-                        <text>...</text>
-                    </div>
+                <div id="leaderboard-container">
+                    <div id="leaderboard-tabs" class="tabs"></div>
                 </div>
             </div>
         </div>

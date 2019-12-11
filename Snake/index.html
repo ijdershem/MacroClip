@@ -7,12 +7,42 @@
         <title>Snake</title>
 
         <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
     <body>
-        <div id="root" class="main"></div>
+            <div class="main">
+                <div class="header">
+                    <div class = "back">
+                        <a class = "back" href="../">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                    </div>
+                    <div class="headerFill"></div>
+                    <div class="title">
+                        <h2 class="title">Snake</h2> 
+                    </div>
+                    <div class="score">
+                        <h2 id="score">Score: 0</h3>
+                    </div>
+                </div>
+                <div class="description">
+                        <h4 class="description">Use the arrow keys to start and move!</h4>    
+                </div>
+            </div>
+
+            <div id="root" class="main"></div>
+
+            <!-- <form class="reset" onsubmit="return false">
+                <button class="resetButton">New Game</a>
+            </form> -->
+            
+        </div>
         
         <script src="render.js" type="module"></script>
-        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
     </body>
 </html>
