@@ -1,5 +1,7 @@
 import BackEnd from '../backend.js';
 
+const tags = ['male','female','blonde','black','mask'];
+
 var firebaseConfig = {
     apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",
     authDomain: "final-1c393.firebaseapp.com",
@@ -123,6 +125,68 @@ async function loadStore() {
         }
 
     }
+
+    // Updates for the search bar
+    let searchBar = document.getElementById("avatar-search");
+    searchBar.addEventListener('input',debounce);
+}
+
+async function debounce(e) {
+    event.preventDefault();
+    // put debounce logic here
+    autoComplete(e);
+}
+
+async function autoComplete(e) {
+    console.log(e);
+
+    let mainDiv = document.getElementById("autocomplete-container");
+    let text = e.target.value;
+
+    let acList = document.getElementById("autocomplete-list");
+    acList.innerHTML = '';
+
+    // Clear any autocomplete items
+    let currItems = document.getElementsByClassName("autocomplete-item");
+    for(let i=0;i<currItems.length;i++) {
+        currItems[i].parentNode.removeChild(currItems[i]);
+    }
+
+    let match = false;
+    for(let i=0;i<tags.length;i++) {
+        for(let j=0;j<text.length;j++) {
+            if (text.charAt(j).toLowerCase() != tags[i].charAt(j)) {
+                // console.log(text + ' and ' + tags[i] + ' do not match');
+                break;
+            } else {
+                if (j == text.length-1) {
+                    console.log('match found');
+                    let acItem = document.createElement('div');
+                    acItem.setAttribute('class','autocomplete-item');
+                    acItem.innerHTML = '<strong>' + tags[i].substr(0,text.length) + '</strong>';
+                    acItem.innerHTML += tags[i].substr(text.length);
+                    acList.appendChild(acItem);
+                    match = true;
+                }
+            }
+        }
+    }
+
+    if (!match && text.length > 0) {
+        let nrItem = document.createElement('div');
+        nrItem.setAttribute('class','autcomplete-item');
+        nrItem.innerHTML = 'No results found, try <strong>' + tags[Math.floor(Math.random() * tags.length)] + '</strong>';
+        acList.appendChild(nrItem);        
+    }
+
+    // if (matches.length == 0 && text.length > 0) {
+    //     matches.push('No results found');
+    // }
+
+
+
+
+    // log.textContent = matches.toString();
 }
 
 async function purchaseIcon() {

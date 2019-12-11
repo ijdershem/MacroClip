@@ -1,6 +1,9 @@
 
 import Board from "./board.js";
 // import Snake from "./snake.js";
+import BackEnd from '../backend.js';
+const database = new BackEnd();
+
 
 // export const renderHeader = function() {
 //     const $head = $("#header");
@@ -132,6 +135,7 @@ export const loadBoardIntoDOM = function() {
         clearInterval(moveInt);
         renderLoseStats(bo);
         $(".modal").css("display","block");
+        database.updateScore(bo.getScore(),'snake');
     });
 
     $root.on("click", "#newGMod",null,function() {
