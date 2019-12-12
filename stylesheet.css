@@ -337,10 +337,21 @@ body {
     border-style: solid;
     border-radius: 5px;
     border-color:  #cf4848;
-    border-width: 10px;
+    border-width: 0;
     display: flex;
     margin-bottom: 10px;
     padding-top: 5px;
+    background-color: #cf4848;
+    box-shadow: 0 1vh #993333;
+}
+
+.avatar-div:hover {
+    background-color: #aa3939;
+}
+
+.avatar-div:active {
+    transform: translateY(.8vh);
+    box-shadow: 0 .2vh #993333;
 }
 
 .avatar-div img {
