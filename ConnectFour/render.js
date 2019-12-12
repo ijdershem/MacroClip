@@ -72,6 +72,7 @@ $(document).ready( function () {
     })
 
     game.onWin(function() {
+        gameStarted = false;
         if (gs.winner == 'black') {
             $("h4.description").replaceWith("<h4 class='won'>Yellow wins! Play again?<h4>");
             database.updateUserBalance(47-gs.redTiles+gs.blackTiles);
