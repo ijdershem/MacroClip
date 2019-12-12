@@ -24,9 +24,11 @@ $(document).ready( function () {
       $(".winScreen").css("display", "none");
       $("form").append
       database.updateScore(gs.score,'2048');
+      database.updateUserBalance(Math.ceil(gs.score/10));
     });
     game.onWin(function() {
       $(".winScreen").css("display", "flex");
+      database.updateUserBalance(Math.ceil(gs.score/10));
     });
 
     let root = $("#root");

@@ -136,6 +136,7 @@ export const loadBoardIntoDOM = function() {
         renderLoseStats(bo);
         $(".modal").css("display","flex");
         database.updateScore(bo.getScore(),'snake');
+        database.updateUserBalance(Math.ceil(bo.getScore()/100));
     });
 
     $root.on("click", "#newGMod",null,function() {

@@ -1,9 +1,11 @@
 import Checkers from "./Engine/Checkers.js";
+import BackEnd from '../backend.js';
 
 let game = new Checkers(false);
 let gs = game.gameState;
 let tiles = game.getBoard();
 let selectedPiece;
+let database = new BackEnd();
 
 $(document).ready( function () {
 
@@ -72,6 +74,7 @@ $(document).ready( function () {
             $('h4.description').replaceWith('<h4 class="won">Red wins! Play again?</h4>');
         } else {
             $('h4.description').replaceWith('<h4 class="won">Black wins! Play again?</h4>');
+            database.updateUserBalance(75+gs.blackPieces);
         }
     });
 

@@ -1,10 +1,12 @@
 import TicTacToe from "./Engine/game.js";
+import BackEnd from '../backend.js';
 
 let game;
 let gs;
 let tiles;
 let AI = false;
 let gameStarted = false;
+let database = new BackEnd();
 
 $(document).ready( function () {
 
@@ -49,15 +51,18 @@ $(document).ready( function () {
 
         refreshBoard();
 
-        if(AI) {
-            $('tile').css('pointer-events', 'none');
-            setTimeout(function () {
-                console.log('made it');
-                $('.tile').css('pointer-events', 'auto');
-                game.makeAIMove();
-                refreshBoard();
-            }, 1000);
+        if (gameStarted) {
+            if(AI) {
+                $('tile').css('pointer-events', 'none');
+                setTimeout(function () {
+                    console.log('made it');
+                    $('.tile').css('pointer-events', 'auto');
+                    game.makeAIMove();
+                    refreshBoard();
+                }, 1000);
+            }
         }
+        
     });
 
     $('button').click(function() {
@@ -88,23 +93,34 @@ $(document).ready( function () {
         gameStarted = false;
         $('.tile').css('pointer-events','none');
         setTimeout(function () {
-            $("h4.description").replaceWith("<h4 class='won'>"+gs.winner.toString()+" wins! Play again?<h4>");
-            let winningPieces = game.getWinningPieces();
-            winningPieces.sort();
-            for (let i=0; i<3; i++) {
-                let element = winningPieces[i];
-                let pid = 'p'+element.X.toString()+element.Y.toString();
-                let pdiv = document.getElementById(pid);
-                console.log(pid);
-                pdiv.setAttribute('class','piece winningPiece');
-                if (AI) {
-                    game.toggleAI();
+            if (gs.winner != 'tie') {
+                $("h4.description").replaceWith("<h4 class='won'>"+gs.winner.toString()+" wins! Play again?<h4>");
+                if (gs.winner == 'x') {
+                    database.updateUserBalance(10);
                 }
+
+                let winningPieces = game.getWinningPieces();
+                winningPieces.sort();
+                for (let i=0; i<3; i++) {
+                    let element = winningPieces[i];
+                    let pid = 'p'+element.X.toString()+element.Y.toString();
+                    let pdiv = document.getElementById(pid);
+                    console.log(pid);
+                    pdiv.setAttribute('class','piece winningPiece');
+                }
+            } else {
+                $("h4.description").replaceWith("<h4 class='won'>It's a tie! Play again?<h4>");
+                database.updateUserBalance(5);
             }
+
+            if (AI) {
+                game.toggleAI();
+            }
+            
         }, 250);
     });
 
-    refreshBoard();
+    // refreshBoard();
 });
 
 function refreshBoard() {

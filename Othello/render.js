@@ -1,5 +1,7 @@
 import Othello from "./Engine/Othello.js";
+import BackEnd from '../backend.js';
 
+let database = new BackEnd();
 let game = new Othello(true);
 let gs = game.gameState;
 let tiles = gs.board;
@@ -7,11 +9,14 @@ let tiles = gs.board;
 $(document).ready( function () {
 
     game.onWin(function() {
+        refreshBoard();
         if (gs.winner == 'white') {
             $("h4.description").replaceWith("<h4 class='won'>White wins! Play again?<h4>");
         } else {
             $("h4.description").replaceWith("<h4 class='won'>Black wins! Play again?<h4>");
         }  
+
+        database.updateUserBalance(Math.ceil(gs.whitePieces));
     });
 
     game.onMove(function() {

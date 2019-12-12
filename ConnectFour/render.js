@@ -1,8 +1,10 @@
 import ConnectFour from "./Engine/ConnectFour.js";
+import BackEnd from '../backend.js';
 
 let game;
 let gs;
 let tiles;
+let database = new BackEnd();
 
 $(document).ready( function () {
 
@@ -39,8 +41,10 @@ $(document).ready( function () {
     game.onWin(function() {
         if (gs.winner == 'black') {
             $("h4.description").replaceWith("<h4 class='won'>Yellow wins! Play again?<h4>");
+            database.updateUserBalance(47-gs.redTiles+gs.blackTiles);
         } else {
             $("h4.description").replaceWith("<h4 class='won'>Red wins! Play again?<h4>");
+            database.updateUserBalance(10);
         }
         $('.tile').css('pointer-events', 'none');
         setTimeout(function () {
