@@ -1,6 +1,6 @@
 import BackEnd from './backend.js';
 const database = new BackEnd();
-const games = new Array('snake','2048','checkers','othello');
+const games = new Array('snake','2048',);
 
 var firebaseConfig = {
     apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",

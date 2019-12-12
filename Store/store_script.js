@@ -1,6 +1,6 @@
 import BackEnd from '../backend.js';
 
-const tags = ['creator','female','male','neutral','professional', 'superhero', 'worker'];
+const tags = ['creator','female','male','neutral','professional', 'superhero', 'worker','creature','superwoman'];
 
 var firebaseConfig = {
     apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",

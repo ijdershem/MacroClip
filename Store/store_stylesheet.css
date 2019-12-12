@@ -292,6 +292,24 @@ body {
     border-radius: 5px;
     outline: none;
     height: 25px;
+    width: 80%;
+}
+
+#autocomplete-list {
+    width: 80%;
+    height: 50px;
+}
+
+.autocomplete-item {
+    /* display: block; */
+    /* position: fixed; */
+    /* z-index: 1; */
+    width: 240px;
+    border-bottom: 2px solid #a0a0a0;
+    outline: none;
+    height: 25px;
+    font-family: 'Staatliches';
+    padding-top: 10px;
 }
 
 #clear-avatar-search {
