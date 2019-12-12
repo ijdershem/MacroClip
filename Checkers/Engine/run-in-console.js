@@ -1,7 +1,7 @@
 import Checkers from "./Checkers.js"
 import keypress from 'keypress';
 
-let game = new Checkers(true);
+let game = new Checkers(false);
 keypress(process.stdin);
 console.log(game.toString());
 
@@ -166,6 +166,10 @@ process.stdin.on('keypress', function (ch, key) {
                 break;
             case 's':
                 runGameToPlayerUnableToMove();
+                break;
+            case 'n':
+                console.log('reset')
+                game.resetGame()
                 break;
         }
     }else{

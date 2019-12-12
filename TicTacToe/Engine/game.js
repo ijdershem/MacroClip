@@ -39,6 +39,9 @@ export default class TicTacToe{
     }
 
     makeAIMove(){
+        if(this.AI==null){
+            return;
+        }
         this.AI.makeMove();
     }
 
