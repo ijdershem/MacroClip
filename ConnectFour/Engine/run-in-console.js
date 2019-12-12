@@ -9,6 +9,7 @@ game.onMove(gameState => {
     //console.log(`White: ${gameState.whitePieces}  Black: ${gameState.blackPieces}`);
     console.log("Turn "+gameState.turn)
     console.log(game.toString());
+    setTimeout(function(){game.makeAIMove()},100);
     // console.log(game.gameState);
 });
 
@@ -71,6 +72,9 @@ process.stdin.on('keypress', function (ch, key) {
             break;
         case 's':
             runGameToPlayerUnableToMove();
+            break;
+        case 'n':
+            game.resetGame();
             break;
     }
 });

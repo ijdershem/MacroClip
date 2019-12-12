@@ -32,7 +32,6 @@ export default class ConnectFour{
         if(col<0||col>6||this.gameState.winner!='none'||this.gameState.board[col][5]!==null){
             return;
         }
-        
         let row=0;
         while(this.gameState.board[col][row]!==null)
             row++;
@@ -144,7 +143,8 @@ export default class ConnectFour{
             redTiles:0,
             turn:'black',
             winner:'none'
-        }
+        } 
+        this.winningPieces=[];
         this.generateStartingBoard();
     }
 
