@@ -35,28 +35,51 @@ div.back {
   
 div.headerFill {
     height: 8vh;
-    width: 24.6vh;
+    width: 33.435vh;
     background-color: #e7e7e7;
 }
   
 div.title {
-    width: 32.6vh;
+    width: 16.3vh;
     height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #e7e7e7;
-  
+}
+
+div.AI {
+    display: flex;
+    height: 8vh;
+    width: 20.375vh;
+    background-color: #e7e7e7;
+    font-size: 1.5vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#AI {
+    border-style: solid;
+    border-radius: 1vh;
+    color: #9c9c9c;
+    font-size: 2vh;
+    padding-right: .1vh;
+}
+
+div.AI h2 {
+    color: #4b4b4b;
+    margin: 1vh;
 }
   
 div.score {
-    width: 32.6vh;
+    width: 20.375vh;
     height: 8vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: #e7e7e7;
     border-radius: 0 2vh 2vh 0;
-    justify-content: center;
+    justify-content: row;
+    align-items: center;
 }
 
 div.overlay{
@@ -144,8 +167,8 @@ h4.description {
 #score {
     color: #4b4b4b;
     text-align: right;
-    margin: 4vh;
-    font-size: 3.5vh;
+    margin-left: 2.5vh;
+    font-size: 3vh;
 }
 
 button {

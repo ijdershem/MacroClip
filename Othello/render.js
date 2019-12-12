@@ -2,8 +2,10 @@ import Othello from "./Engine/Othello.js";
 import BackEnd from '../backend.js';
 
 let database = new BackEnd();
-let game = new Othello(true);
+let game = new Othello(false);
 let gs = game.gameState;
+let gameStarted = false;
+let AI = false;
 let tiles = gs.board;
 
 $(document).ready( function () {
@@ -21,15 +23,18 @@ $(document).ready( function () {
 
     game.onMove(function() {
         console.log(gs.turn);
-        if (gs.turn == 'black') {
-            $('.tile').css("pointer-events","none");
-            refreshBoard();
-            setTimeout(function() {
-                game.getAIMove();
+        if (AI) {
+            if (gs.turn == 'black') {
+                console.log('made it');
+                $('.tile').css("pointer-events","none");
                 refreshBoard();
-                $('.tile').css('pointer-events','auto');
-            }, 1000);
-        }   
+                setTimeout(function() {
+                    game.getAIMove();
+                    refreshBoard();
+                    $('.tile').css('pointer-events','auto');
+                }, 1000);
+            }  
+        } 
     });
 
     $('.tile').click(function(event) {
@@ -38,13 +43,44 @@ $(document).ready( function () {
         let i = index[0];
         let j = index[1];
 
+        if (!gameStarted) {
+            gameStarted = false;
+            $('#AI').css('pointer-events','none');
+        }
+
         game.processInput(parseInt(j), parseInt(i));
         tiles = game.getBoard();
         refreshBoard();
         //console.log(game.toString());
+
+        if (AI) {
+            console.log('made it');
+            $('.tile').css("pointer-events","none");
+            refreshBoard();
+            setTimeout(function() {
+                game.getAIMove();
+                refreshBoard();
+                $('.tile').css('pointer-events','auto');
+            }, 1000);
+             
+        } 
+    });
+
+    $('#AI').click(function() {
+        if (AI) {
+            AI = false;
+            $('#AI').css('color', '#9c9c9c');
+        } else {
+            AI = true;
+            $('#AI').css('color', 'rgb(79, 192, 94)');
+        }
+
+        game.toggleAI();
     });
 
     $('button').click(function() {
+        $('#AI').css('pointer-events','auto');
+        gameStarted = false;
         game.resetGame();
         tiles = game.getBoard();
         refreshBoard();
