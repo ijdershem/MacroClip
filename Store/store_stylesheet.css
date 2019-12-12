@@ -269,4 +269,48 @@ body {
     box-shadow: 0 1px rgb(129, 41, 41);
 }
 
+#submit-avatar-search {
+    display: flex;
+    font-family: 'Staatliches';
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #cf4848;
+}
 
+#search-bar {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+
+#avatar-search {
+    border-color: #2b2b2b;
+    border-radius: 5px;
+    outline: none;
+    height: 25px;
+}
+
+#clear-avatar-search {
+    display: flex;
+    font-family: 'Staatliches';
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #cf4848;
+    margin-left: 5px;
+}
+
+#clear-avatar-search:hover {
+    background-color: #b84444;
+}
+
+#submit-avatar-search:hover {
+    background-color: #b84444;
+}

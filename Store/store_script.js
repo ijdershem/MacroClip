@@ -78,10 +78,16 @@ function buyItem() { //using to get image uris right now
 // }
 
 async function loadStore() {
+    
     let items = document.getElementsByClassName('icon-piece');
     let images = await database.getAvatarCollection();
     let catalog = document.getElementById('icon-catalog');
-
+    // if(catalog.hasChildNodes()) {
+    //     let wipedCatalog = document.createElement('div');
+    //     wipedCatalog.setAttribute('id', 'icon-catalog');
+    //     catalog.replaceWith(wipedCatalog);
+    // }
+    
     for(let icon_name in images) {
         if(images.hasOwnProperty(icon_name)) {
             let avatar = images[icon_name];
@@ -125,80 +131,91 @@ async function loadStore() {
         }
 
     }
+    let submitBtn = document.getElementById("submit-avatar-search");
+    let clearBtn = document.getElementById("clear-avatar-search");
+    submitBtn.addEventListener('click', loadSearchedImages);
+    clearBtn.addEventListener('click', clearSearch);
 
-    // Updates for the search bar
-    let searchBar = document.getElementById("avatar-search");
-    searchBar.addEventListener('input',debounce);
+    $('#avatar-search').keyup(debounce(function() {
+        autoComplete();
+    },200));
 }
 
 async function loadSearchedImages() {
-    let queriedImages = await database.getAvatarsByTag('male');
+    let query = document.getElementById("avatar-search").value;
+    let queriedImages = await database.getAvatarsByTag(query);
     let catalog = document.getElementById('icon-catalog');
-
-    let currItems = document.getElementsByClassName("icon-piece");
-    for(let i=0;i<currItems.length;i++) {
-        currItems[i].parentNode.removeChild(currItems[i]);
-    }
-    
-    //console.log(queriedImages);
-    for(let image in queriedImages) {
-        if(queriedImages.hasOwnProperty(image)) {
-            queriedImages[image].get().then(function(doc) {
-                let imageInfo = doc.data();
-                let avatar = imageInfo;
-                let icon_piece = document.createElement("div");
-                let icon = document.createElement("div");
-                let icon_img = document.createElement("img");
-                let buy_btn = document.createElement("div");
-                let buy_text = document.createElement("text");
-            
-                icon_piece.setAttribute("class", "icon-piece");
-                icon_piece.setAttribute('id', image.id);
-                icon.setAttribute('class', 'icon');
-                buy_btn.setAttribute("class", "buy");
-                icon_img.setAttribute("src", avatar.url);
-                icon_img.setAttribute("id", image.id + "_image");
-                icon_img.setAttribute('alt', 'Avatar image for ' + image.id);
-                icon_img.style.height = "100%";
-                icon_img.style.width = "100%";
-    
-                buy_btn.appendChild(buy_text);
-    
-                let price = document.createElement("text");
-                price.textContent = avatar.price;
-                if(avatar.price) {
-                    price.textContent = avatar.price + " CR";
-                    buy_btn.setAttribute("id", avatar.price + "-" + image.id);
-                    buy_text.textContent = 'buy';
-                } else {
-                    buy_text.textContent = 'free';
-                    buy_btn.setAttribute("id", 0 + "-" + image.id);
-                }
-                buy_btn.appendChild(price);
-    
-                buy_btn.addEventListener('click', purchaseIcon);
-                icon.appendChild(icon_img);
-    
-                icon_piece.appendChild(icon);
-                icon_piece.appendChild(buy_btn);
-    
-                catalog.appendChild(icon_piece);
-            });
+    let queriedCatalog = document.createElement("div");
+    queriedCatalog.setAttribute('id', "icon-catalog");
+    if(queriedImages != null) {
+        //console.log(queriedImages);
+        for(let image in queriedImages) {
+            if(queriedImages.hasOwnProperty(image)) {
+                queriedImages[image].get().then(function(doc) {
+                    let imageInfo = doc.data();
+                    let avatar = imageInfo;
+                    let icon_piece = document.createElement("div");
+                    let icon = document.createElement("div");
+                    let icon_img = document.createElement("img");
+                    let buy_btn = document.createElement("div");
+                    let buy_text = document.createElement("text");
+                
+                    icon_piece.setAttribute("class", "icon-piece");
+                    icon_piece.setAttribute('id', image.id);
+                    icon.setAttribute('class', 'icon');
+                    buy_btn.setAttribute("class", "buy");
+                    icon_img.setAttribute("src", avatar.url);
+                    icon_img.setAttribute("id", image.id + "_image");
+                    icon_img.setAttribute('alt', 'Avatar image for ' + image.id);
+                    icon_img.style.height = "100%";
+                    icon_img.style.width = "100%";
+        
+                    buy_btn.appendChild(buy_text);
+        
+                    let price = document.createElement("text");
+                    price.textContent = avatar.price;
+                    if(avatar.price) {
+                        price.textContent = avatar.price + " CR";
+                        buy_btn.setAttribute("id", avatar.price + "-" + image.id);
+                        buy_text.textContent = 'buy';
+                    } else {
+                        buy_text.textContent = 'free';
+                        buy_btn.setAttribute("id", 0 + "-" + image.id);
+                    }
+                    buy_btn.appendChild(price);
+        
+                    buy_btn.addEventListener('click', purchaseIcon);
+                    icon.appendChild(icon_img);
+        
+                    icon_piece.appendChild(icon);
+                    icon_piece.appendChild(buy_btn);
+        
+                    queriedCatalog.appendChild(icon_piece);
+                });
+            }
         }
+        catalog.replaceWith(queriedCatalog);
     }
 }
 
-async function debounce(e) {
-    event.preventDefault();
-    // put debounce logic here
-    autoComplete(e);
+var debounce = function (func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context,args);
+    }
 }
 
-async function autoComplete(e) {
-    console.log(e);
+async function autoComplete() {
 
-    let mainDiv = document.getElementById("autocomplete-container");
-    let text = e.target.value;
+    let text = document.getElementById("avatar-search").value;
 
     let acList = document.getElementById("autocomplete-list");
     acList.innerHTML = '';
@@ -209,7 +226,6 @@ async function autoComplete(e) {
         currItems[i].parentNode.removeChild(currItems[i]);
     }
 
-    let match = false;
     for(let i=0;i<tags.length;i++) {
         for(let j=0;j<text.length;j++) {
             if (text.charAt(j).toLowerCase() != tags[i].charAt(j)) {
@@ -217,33 +233,22 @@ async function autoComplete(e) {
                 break;
             } else {
                 if (j == text.length-1) {
-                    console.log('match found');
                     let acItem = document.createElement('div');
                     acItem.setAttribute('class','autocomplete-item');
                     acItem.innerHTML = '<strong>' + tags[i].substr(0,text.length) + '</strong>';
                     acItem.innerHTML += tags[i].substr(text.length);
                     acList.appendChild(acItem);
-                    match = true;
                 }
             }
         }
     }
 
-    if (!match && text.length > 0) {
+    if (!acList.hasChildNodes() && text.length > 0) {
         let nrItem = document.createElement('div');
-        nrItem.setAttribute('class','autcomplete-item');
+        nrItem.setAttribute('class','autocomplete-item');
         nrItem.innerHTML = 'No results found, try <strong>' + tags[Math.floor(Math.random() * tags.length)] + '</strong>';
         acList.appendChild(nrItem);        
     }
-
-    // if (matches.length == 0 && text.length > 0) {
-    //     matches.push('No results found');
-    // }
-
-
-
-
-    // log.textContent = matches.toString();
 }
 
 async function purchaseIcon() {
@@ -277,8 +282,18 @@ async function checkUserOwnsIcon(purchased_icons, icon_name) {
     return false;
 }
 
+async function clearSearch(){
+    let clearedCatalog = document.createElement('div');
+    clearedCatalog.setAttribute('id', 'icon-catalog');
+    let catalog = document.getElementById("icon-catalog");
+    document.getElementById('avatar-search').value = "";
+    catalog.replaceWith(clearedCatalog);
+    loadStore();
+
+
+}
+
 $(function(){
     loadStore();
 });
-
 
