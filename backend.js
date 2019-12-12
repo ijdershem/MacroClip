@@ -76,7 +76,7 @@ export default class BackEnd {
             username: userName,
             email: userEmail,
             uid: uid,
-            balance: 0,
+            balance: 200,
             stats: {
                 othello: [0,0,0,0,0],
                 chess: [0,0,0,0,0],
@@ -86,7 +86,7 @@ export default class BackEnd {
             },
             friends: {},
             purchased_icons:{},
-            current_icon: "", 
+            current_icon: "https://png.pngtree.com/svg/20170206/86bac7c38b.svg", 
         }
         this.db.collection("users").add(newUser).then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
