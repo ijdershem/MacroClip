@@ -3,6 +3,8 @@ import TicTacToe from "./Engine/game.js";
 let game;
 let gs;
 let tiles;
+let AI = false;
+let gameStarted = false;
 
 $(document).ready( function () {
 
@@ -22,11 +24,22 @@ $(document).ready( function () {
         }
     }
 
-    game = new TicTacToe(false);
+    game = new TicTacToe();
     gs = game.gameState;
     tiles = gs.board;
 
     $('.tile').click(function() {
+        if (!gameStarted) {
+            console.log('new game');
+            if (AI) {
+                game.toggleAI('o');
+            }
+            gs = game.gameState;
+            tiles = gs.board;
+            gameStarted = true;
+            $('#AI').css('pointer-events', 'none');
+        }
+
         let id = this.id;
         let i = parseInt(id[0]);
         let j = parseInt(id[1]);
@@ -35,13 +48,45 @@ $(document).ready( function () {
         console.log(game.toString());
 
         refreshBoard();
+
+        if(AI) {
+            $('tile').css('pointer-events', 'none');
+            setTimeout(function () {
+                console.log('made it');
+                $('.tile').css('pointer-events', 'auto');
+                game.makeAIMove();
+                refreshBoard();
+            }, 1000);
+        }
     });
 
     $('button').click(function() {
+        $('.tile').css('pointer-events','auto');
+        gameStarted = false;
+        $('#AI').css('pointer-events', 'auto');
         game.resetGame();
+        $("h4.won").replaceWith("<h4 class='description'>X's turn!<h4>");
+        refreshBoard();
     })
 
+    $('#AI').click(function() {
+        if (AI) {
+            AI = false;
+            $('#AI').css('color', 'grey');
+        } else {
+            AI = true;
+            $('#AI').css('color', 'rgb(79, 192, 94)');
+        }
+    });
+
+    game.onMove(function() {   
+        console.log(game);
+    });
+
     game.onOver(function() {
+        console.log('game over');
+        gameStarted = false;
+        $('.tile').css('pointer-events','none');
         setTimeout(function () {
             $("h4.description").replaceWith("<h4 class='won'>"+gs.winner.toString()+" wins! Play again?<h4>");
             let winningPieces = game.getWinningPieces();
@@ -52,8 +97,11 @@ $(document).ready( function () {
                 let pdiv = document.getElementById(pid);
                 console.log(pid);
                 pdiv.setAttribute('class','piece winningPiece');
+                if (AI) {
+                    game.toggleAI();
+                }
             }
-        }, 250)
+        }, 250);
     });
 
     refreshBoard();

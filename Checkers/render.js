@@ -68,7 +68,7 @@ $(document).ready( function () {
         gs = game.gameState;
         let winner = gs.winner;
         console.log(winner);
-        if (winner == 'white') {
+        if (gs.winner == 'white') {
             $('h4.description').replaceWith('<h4 class="won">Red wins! Play again?</h4>');
         } else {
             $('h4.description').replaceWith('<h4 class="won">Black wins! Play again?</h4>');
@@ -76,6 +76,8 @@ $(document).ready( function () {
     });
 
     $('button').click(function() {
+        $('h4.won').replaceWith("<h4 class='description'>Red's turn!<h4>");
+        $('h4.won').replaceWith("<h4 class='description'>Black's turn!<h4>");
         game.resetBoard();
         gs = game.gameState;
         tiles = game.getBoard();
@@ -149,10 +151,9 @@ function refreshBoard() {
 
     if (gs.turn == "white") {
         $("h4.description").replaceWith("<h4 class='description'>Red's turn!<h4>");
-        $('h4.won').replaceWith("<h4 class='description'>Red's turn!<h4>");
+        
     } else {
         $("h4.description").replaceWith("<h4 class='description'>Black's turn!<h4>");
-        $('h4.won').replaceWith("<h4 class='description'>Black's turn!<h4>");
     }
 
     $("#score").replaceWith('<h2 id="score">R: '+gs.whitePieces+' | B: '+gs.blackPieces+'</h3>');
@@ -189,9 +190,7 @@ function removeSelected() {
 function resetTurn() {
     if (gs.turn == "white") {
         $("h4.description").replaceWith("<h4 class='description'>Red's turn!<h4>");
-        $('h4.won').replaceWith("<h4 class='description'>Red's turn!<h4>");
     } else {
         $("h4.description").replaceWith("<h4 class='description'>Black's turn!<h4>");
-        $('h4.won').replaceWith("<h4 class='description'>Black's turn!<h4>");
     }
 }

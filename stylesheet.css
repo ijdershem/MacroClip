@@ -284,10 +284,16 @@ body {
     width: 50px;
     border-radius: 50%;
     background-color: #cf4848; 
+    box-shadow: 0 1vh #973434;
 }
 
 #home-btn:hover {
     background-color: #b84444;
+}
+
+#home-btn:active {
+    transform: translateY(.9vh);
+    box-shadow: 0 .1vh #cf4848;
 }
 
 #user-account {
@@ -346,8 +352,12 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: auto;
     font-size: 20pt;
-    /* transition: height .1s; */
+    transition: height .1s;
+    background-color: rgb(233, 233, 233);
+    padding: 1vh 1vh 1vh 2vh;
+    border-radius: 1vh;
 }
 
 .score-card text {
@@ -355,7 +365,7 @@ body {
 }
 
 #sign-out-btn {
-    font-size: 15pt;
+    text-decoration: none;
 }
 
 .score-title text {
@@ -460,6 +470,19 @@ body {
     height: 100vh;
     align-items: right;
     justify-content: right;
+    font-size: 1vw;
+}
+
+#leaderboard-container h2 {
+    font-weight: lighter;
+    color: white;
+    background-color: rgb(177, 52, 52);
+    margin: 0;
+    border-radius: 0;
+    margin: .5vh;
+    padding: .5vh .5vh .5vh 1.5vh;
+    border-radius: 1vh;
+    box-shadow: 0 .7vh rgb(145, 42, 42);
 }
 
 #leaderboard-container th {

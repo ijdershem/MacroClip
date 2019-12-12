@@ -220,6 +220,7 @@ async function dropDownUserScores(e) {
     if(scores.className != "scores") {
         scores = scores.parentNode.parentNode.children[1];
     }
+
     console.log("Changing display property of: ");
     console.log(scores);
     if(scores.style.display == "flex") {

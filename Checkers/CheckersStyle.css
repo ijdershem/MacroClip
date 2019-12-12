@@ -70,6 +70,10 @@ div.description {
     border-radius: 1vw;
 }
 
+h4.won {
+    color: white;
+}
+
 div.board {
     width: 60vh;
     height: 60vh;
@@ -191,7 +195,7 @@ a.back:active {
 .red {
     background-color: rgb(214, 45, 45);
     box-shadow: 0 .5vh rgb(150, 20, 20);
-    color: rgb(150, 20, 20);
+    color: rgb(248, 228, 45);
     font-size: 3vh;
 }
 

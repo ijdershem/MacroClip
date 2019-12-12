@@ -29,6 +29,7 @@ $(document).ready( function () {
 
     $('button').click(function() {
         $('.tile').css('pointer-events', 'auto');
+        $("h4.won").replaceWith("<h4 class='description'>Yellow's turn!<h4>");
         game.resetGame();
         gs = game.gameState;
         tiles = gs.board;
@@ -46,7 +47,7 @@ $(document).ready( function () {
             let winningPieces = game.getWinningPieces();
             for (let i=0; i<4; i++) {
                 let element = winningPieces[i];
-                let by = 6-element.Y;
+                let by = 5-element.Y;
                 let pid = 'p'+by.toString()+element.X.toString();
                 let pdiv = document.getElementById(pid);
                 console.log(pid);
@@ -64,7 +65,7 @@ function refreshBoard() {
 
     for (let i=0; i<tiles.length; i++) {
         for (let j=0; j<tiles.length; j++) {
-            let bi = 6-i
+            let bi = 5-i
             let did = "#"+bi.toString()+j.toString();
             let pid = "p"+bi.toString()+j.toString();
             $(did).empty();
