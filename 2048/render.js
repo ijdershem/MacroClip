@@ -23,7 +23,7 @@ $(document).ready( function () {
       $(".overlay").css("display", "flex");
       $(".winScreen").css("display", "none");
       $("form").append
-      database.updateScore(this.gs.score,'2048');
+      database.updateScore(gs.score,'2048');
     });
     game.onWin(function() {
       $(".winScreen").css("display", "flex");
