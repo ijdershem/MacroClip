@@ -439,7 +439,7 @@ body {
 }
 
 .leaderboard-content {
-    display: none;
+    display: flex;
     flex-direction: column;
     padding: 10px;
     justify-content: right;
@@ -453,6 +453,7 @@ body {
     flex-direction: column;
     right: 0px;
     background-color:#cf4848;
+    overflow-y: scroll;
     width: 20vw;
     position: fixed;
     z-index: 1;

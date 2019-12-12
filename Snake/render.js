@@ -134,7 +134,7 @@ export const loadBoardIntoDOM = function() {
     bo.onLose(gameState => {
         clearInterval(moveInt);
         renderLoseStats(bo);
-        $(".modal").css("display","block");
+        $(".modal").css("display","flex");
         database.updateScore(bo.getScore(),'snake');
     });
 

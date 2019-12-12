@@ -12,8 +12,6 @@ export default class Board {
         
         // Snake array
         this.snake = new Snake({x:1,y:1});
-        // console.log('head on board:');
-        // console.log(this.snake.getHead());
 
         // Vars for moving
         this.dir = '';
@@ -36,10 +34,6 @@ export default class Board {
         // Add food at a random place
         this.food = {x:0,y:0};
         this.addFood();
-        // console.log('food is at ' + this.food.x + ', ' + this.food.y);
-
-        // console.log(this.toString());
-        // console.log(this.getHead()[0].x);
     }
 
     // GETTERS
@@ -154,7 +148,6 @@ export default class Board {
     // Adds the direction to coordinates to find where the new coordinate is
     addDir() {
         let cor = {x:this.getHead().x,y:this.getHead().y};
-        console.log('adding dir to the head, x is ' + cor.x + ' y is ' + cor.y);
         if (this.dir == 'up') {
             cor.y--;
         } else if (this.dir == 'down') {

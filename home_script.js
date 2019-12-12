@@ -1,6 +1,6 @@
 import BackEnd from './backend.js';
 const database = new BackEnd();
-const games = new Array('2048','checkers','chess','othello','snake');
+const games = new Array('snake','2048','checkers','othello');
 
 var firebaseConfig = {
     apiKey: "AIzaSyBm-lSl1g1XvzblxlF1eZJDht_v8yOB0qk",
@@ -49,7 +49,7 @@ async function loadHome() {
     menubtn.addEventListener("click", toggleSideBar);
     //Add listener to document ready to get userdata
     console.log('loading leaderboard');
-    await loadLeaderboard();
+    await loadLeaderboardContent();
     console.log('leaderboard loaded');
 
     // My attempt at event listeners
@@ -86,6 +86,35 @@ async function toggleSideBar() { //Add animation for side-bar display
     }
 }
 
+async function loadLeaderboard2() {
+    let cont = document.getElementById("leaderboard-content-container");
+
+
+}
+
+async function loadLeaderboardTabs() {
+    let tabDiv = document.getElementById('leaderboard-tabs');
+
+    for(let i=0;i<games.length;i++) {
+        let tabBtn = document.createElement('button');
+        tabBtn.setAttribute('id','tab-' + games[i]);
+        tabBtn.setAttribute('class','leaderboard-game-tab');
+        let upcase = games[i].charAt(0).toUpperCase() + games[i].substring(1);
+        tabBtn.textContent = upcase;
+        tabDiv.appendChild(tabBtn);
+    }
+}
+
+async function loadLeaderboardContent() {
+    let gameScores = new Array(games.length);
+    for(let i=0;i<games.length;i++) {
+        gameScores[i] = await database.getTopScores(games[i]);
+    }
+    for(let i=0;i<gameScores.length;i++) {
+        loadGameLeaderboard(i,gameScores[i]);
+    }
+}
+
 async function loadLeaderboard() {
 
     let tabDiv = document.getElementById('leaderboard-tabs');
@@ -104,8 +133,9 @@ async function loadLeaderboard() {
     let show = await showLeaderboard(games[0]);
 }
 
-async function loadGameLeaderboard(game) {
-    let topScores = await database.getTopScores(game);
+async function loadGameLeaderboard(a,topScores) {
+    // let topScores = await database.getTopScores(game);
+    let game = games[a];
     let upcase = game.charAt(0).toUpperCase() + game.substring(1);
     /*
     let topScores = {
@@ -135,7 +165,7 @@ async function loadGameLeaderboard(game) {
 
     // let sideBar = document.getElementById('side-bar');
     // let gameLink = document.getElementById(game + '-leaderboard');
-    let leadDiv = document.getElementById('leaderboard-container');
+    let leadDiv = document.getElementById('leaderboard-content-container');
 
     let leaderboard = document.createElement('div');
     leaderboard.setAttribute('id', 'leaderboard-content-' + game);
@@ -175,6 +205,7 @@ async function loadGameLeaderboard(game) {
         row.appendChild(score);
         lbTable.appendChild(row);
     }
+    console.log('why wont this work');
 
     leadDiv.appendChild(leaderboard);
 }
