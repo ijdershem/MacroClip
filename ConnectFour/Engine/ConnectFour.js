@@ -17,6 +17,11 @@ export default class ConnectFour{
         this.generateStartingBoard();
     }
 
+    toggleAI(){
+        this.AI=this.AI==null?new C4AI(this):null;
+        this.resetGame();
+    }
+
     generateStartingBoard(){
         this.gameState.board=[];
         for(let i=0;i<7;i++){

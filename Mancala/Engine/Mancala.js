@@ -15,6 +15,11 @@ export default class Mancala{
         this.generateStartingBoard();
     }
 
+    toggleAI(){
+        this.AI=this.AI==null?new AI(this):null;
+        this.resetGame();
+    }
+
     makeAIMove(){
         if(this.AI!=null){
             this.AI.makeMove();

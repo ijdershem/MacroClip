@@ -16,6 +16,11 @@ export default class TicTacToe{
         //this.resetGame();
     }
 
+    toggleAI(AITurn){
+        this.AI = this.AI==null?new AI(this,AITurn):null;
+        this.resetGame();
+    }
+
     resetGame(){
         this.gameState={
             board:[[null,null,null],[null,null,null],[null,null,null]],

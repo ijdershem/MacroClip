@@ -2,7 +2,7 @@
 export default class AI{
     constructor(game,turn){
         this.game=game;
-        this.turn=turn;
+        this.turn=turn==undefined?'o':turn;
         this.moveFound=false;
         this.move={X:-1,Y:-1};
     }

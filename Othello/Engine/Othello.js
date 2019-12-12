@@ -21,6 +21,11 @@ export default class Othello{
         this.AI = hasAI?new AI(this):null;
     }
 
+    toggleAI(){
+        this.AI=this.AI==null?new AI(this):null;
+        this.resetGame();
+    }
+
     /**Main input for playing the game. Will process if the move is valid 
      * based on past input and values
      * 

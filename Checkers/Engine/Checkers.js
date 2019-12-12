@@ -28,6 +28,11 @@ export default class Checkers{
         this.resetBoard();
     }
 
+    toggleAI(){
+        this.AI=this.AI==null?new CheckersAI(this):null;
+        this.resetGame();
+    }
+
     makeAIMove(){
         if(this.AI==null)
             return;
