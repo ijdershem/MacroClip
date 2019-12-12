@@ -196,6 +196,11 @@ async function loadSearchedImages() {
         }
         catalog.replaceWith(queriedCatalog);
     }
+    let currItems = document.getElementsByClassName("autocomplete-item");
+    for(let i=0;i<currItems.length;i++) {
+        currItems[i].parentNode.removeChild(currItems[i]);
+    }
+    document.getElementById("avatar-search").value = '';
 }
 
 var debounce = function (func, wait, immediate) {
@@ -211,6 +216,11 @@ var debounce = function (func, wait, immediate) {
         timeout = setTimeout(later, wait);
         if (callNow) func.apply(context,args);
     }
+}
+
+async function fillSearch(e) {
+    document.getElementById("avatar-search").value = e.target.textContent;
+    autoComplete();
 }
 
 async function autoComplete() {
@@ -237,6 +247,7 @@ async function autoComplete() {
                     acItem.setAttribute('class','autocomplete-item');
                     acItem.innerHTML = '<strong>' + tags[i].substr(0,text.length) + '</strong>';
                     acItem.innerHTML += tags[i].substr(text.length);
+                    acItem.addEventListener('click',fillSearch);
                     acList.appendChild(acItem);
                 }
             }
