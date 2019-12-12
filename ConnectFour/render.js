@@ -4,6 +4,8 @@ import BackEnd from '../backend.js';
 let game;
 let gs;
 let tiles;
+let AI = false;
+let gameStarted = false;
 let database = new BackEnd();
 
 $(document).ready( function () {
@@ -23,14 +25,45 @@ $(document).ready( function () {
         let i = parseInt(id[0]);
         let j = parseInt(id[1]);
 
+        if (!gameStarted) {
+            gameStarted = true;
+            $('#AI').css('pointer-events','none');
+        }
+
         game.processInput(j);
         console.log(game.toString());
 
         refreshBoard();
+
+        if (gameStarted) {
+            if (AI) {
+                $('.tile').css('pointer-events','none');
+                
+                setTimeout(function() {
+                    $('.tile').css('pointer-events','auto');
+                    game.makeAIMove();
+                    refreshBoard();
+                }, 1000);
+            }
+        }
+    });
+
+    $('#AI').click(function() {
+        if (AI) {
+            AI = false;
+            $('#AI').css('color', '#a7a041');
+        } else {
+            AI = true;
+            $('#AI').css('color', 'rgb(79, 192, 94)');
+        }
+
+        game.toggleAI();
     });
 
     $('button').click(function() {
         $('.tile').css('pointer-events', 'auto');
+        $('#AI').css('pointer-events', 'auto');
+        gameStarted = false;
         $("h4.won").replaceWith("<h4 class='description'>Yellow's turn!<h4>");
         game.resetGame();
         gs = game.gameState;

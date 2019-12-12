@@ -409,10 +409,17 @@ body {
     border-radius: 50px;
     margin-top: 5px;
     margin-left: 5px;
+    box-shadow: 0 3px black;
+    transition: transform .1s, box-shadow .1s;
 }
 
 #close-avatar-selection:hover {
     background-color: #b84444;
+}
+
+#close-avatar-selection:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px black;
 }
 
 #choose-avatar-title {
@@ -446,11 +453,13 @@ body {
     height: 100px;
     margin-top: 15px;
     padding: 5px 5px 0 5px;
+    transition: margin-top .1s, box-shadow .1s;
 }
 
 .icon-piece:hover {
     background-color: #a53838;
     margin-top: 13px;
+    box-shadow: 0px 2px rgb(129, 129, 129);
 }
 
 #avatar-title-bar {
