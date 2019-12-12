@@ -1,4 +1,4 @@
-import Pawn from "./Pieces/Pawn";
+import Pawn from "./Pieces/Pawn.js";
 
 export default class CheckersAI{
 
